@@ -8,7 +8,7 @@
 #include <tuple>
 #include <vector>
 
-constexpr auto null_idx = -1;
+constexpr auto null_idx = -0xFFF;
 template <typename Iterator>
 std::string Tostr(Iterator begin, Iterator end, const std::string& sep = ", ") {
   std::stringstream ss;
@@ -22,21 +22,29 @@ std::string Tostr(Iterator begin, Iterator end, const std::string& sep = ", ") {
 class ExactCoverProblemSolver {
  private:
   struct HNode {
+#ifndef NDEBUG
     int idx = 0;  //!< for debug
+#endif
     std::string name = "X";
     int llink = null_idx;
     int rlink = null_idx;
 
     std::string str() const {
       std::stringstream ss;
-      ss << "i: " << idx << ", NAME(i): " << name << ", LLINK(i): " << llink
-         << ", RLINK(i): " << rlink;
+      ss
+#ifndef NDEBUG
+          << "i: " << idx << ", "
+#endif
+          << "NAME(i): " << name << ", LLINK(i): " << llink
+          << ", RLINK(i): " << rlink;
       return ss.str();
     }
   };
 
   struct VNode {
+#ifndef NDEBUG
     int idx = 0;  //!< for debug
+#endif
     // TODO: len と top を共用体でまとめる
     int len = 0;
     int top = null_idx;
@@ -45,13 +53,17 @@ class ExactCoverProblemSolver {
 
     std::string str() const {
       std::stringstream ss;
-      if (idx == 0)
-        ss << "x: --, TOP(x): --, ULINK(x): --, DLINK(x): --";
-      else if (len == 0) {
+      if (len == 0) {
+#ifndef NDEBUG
         ss << "x: ";
         ss << std::setw(2) << idx;
-        ss << ", TOP(x): ";
-        ss << std::setw(2) << top;
+        ss << ", ";
+#endif
+        ss << "TOP(x): ";
+        if (top == null_idx)
+          ss << "--";
+        else
+          ss << std::setw(2) << top;
         ss << ", ULINK(x): ";
         if (ulink == null_idx)
           ss << "--";
@@ -63,9 +75,12 @@ class ExactCoverProblemSolver {
         else
           ss << std::setw(2) << dlink;
       } else {
+#ifndef NDEBUG
         ss << "x: ";
         ss << std::setw(2) << idx;
-        ss << ", LEN(x): ";
+        ss << ", ";
+#endif
+        ss << "LEN(x): ";
         ss << std::setw(2) << len;
         ss << ", ULINK(x): ";
         ss << std::setw(2) << ulink;
@@ -91,10 +106,12 @@ class ExactCoverProblemSolver {
     std::cout << "hnode size: " << hnode_list_.size() << std::endl;
     std::cout << "vnode size: " << vnode_list_.size() << std::endl;
 
-    // Debug: set index
+#ifndef NDEBUG
+    // Set index for debug
     for (auto i = 0; i < 1 + num_items; ++i) hnode_list_[i].idx = i;
     for (auto i = 0; i < 1 + num_items + num_options + num_total_items + 1; ++i)
       vnode_list_[i].idx = i;
+#endif
 
     // Initialize hnode
     for (auto i = 0; i < num_items; ++i) {
@@ -136,8 +153,6 @@ class ExactCoverProblemSolver {
       vnode_list_[right_idx].ulink = left_idx + 1;
       vnode_list_[right_idx].top = -item_idx;
     }
-
-    // this->PrintCurrentLink();
   }
   int NumSolutions() const { return num_solutions_; }
   std::string GetPrettySolution(int i) const {
@@ -152,6 +167,12 @@ class ExactCoverProblemSolver {
     }
     ret += "}";
     return ret;
+  }
+  void PrintCurrentLink() const {
+    std::cout << "Print hnode" << std::endl;
+    for (const auto& hnode : hnode_list_) std::cout << hnode.str() << std::endl;
+    std::cout << "Print vnode" << std::endl;
+    for (const auto& vnode : vnode_list_) std::cout << vnode.str() << std::endl;
   }
   void Solve(bool count_mode = false) {
     auto sol = std::vector<int>();
@@ -315,12 +336,7 @@ class ExactCoverProblemSolver {
   int top(int p) const { return vnode(p).top; }
   int ulink(int p) const { return vnode(p).ulink; }
   int dlink(int p) const { return vnode(p).dlink; }
-  void PrintCurrentLink() const {
-    std::cout << "Print hnode" << std::endl;
-    for (const auto& hnode : hnode_list_) std::cout << hnode.str() << std::endl;
-    std::cout << "Print vnode" << std::endl;
-    for (const auto& vnode : vnode_list_) std::cout << vnode.str() << std::endl;
-  }
+
   int MRV() const {
     // Minimum remaining values
     auto i = rlink(0);
@@ -356,6 +372,7 @@ void TryTAOCPExample() {
       {2, 4}, {0, 3, 6}, {1, 2, 5}, {0, 3, 5}, {1, 6}, {3, 4, 6}};
 
   auto solver = ExactCoverProblemSolver(num_items, option_list);
+  solver.PrintCurrentLink();
 
   std::cout << "Find exact cover via daincing links" << std::endl;
   solver.Solve();
