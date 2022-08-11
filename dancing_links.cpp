@@ -125,7 +125,7 @@ class ExactCoverProblemSolver {
     // Initialize vnode
     auto item_idx = 0;
     auto idx = 1 + num_items;
-    for (auto oidx = 0; oidx < option_list.size(); ++oidx) {
+    for (auto oidx = 0; oidx < (int)option_list.size(); ++oidx) {
       const auto& option = option_list[oidx];
       const auto left_idx = idx;
       vnode_list_[left_idx].top = -item_idx++;
@@ -159,11 +159,11 @@ class ExactCoverProblemSolver {
     const auto sep = ", ";
     auto ret = std::string("{");
     const auto& sol = solution_list_[i];
-    for (auto j = 0; j < sol.size(); ++j) {
+    for (auto j = 0; j < (int)sol.size(); ++j) {
       const auto oidx = vnode2idx_.at(sol[j]);
       const auto& option = option_list[oidx];
       ret += "{" + Tostr(option.begin(), option.end(), sep) + "}";
-      if (j + 1 != sol.size()) ret += sep;
+      if (j + 1 != (int)sol.size()) ret += sep;
     }
     ret += "}";
     return ret;
@@ -193,12 +193,12 @@ class ExactCoverProblemSolver {
       goto X8;
     }
 
-  X3:
+  // X3:
     // i = rlink(0);
     i = MRV();
     // std::cout << "X3: Choose i: " << i << std::endl;
 
-  X4:
+  // X4:
     // std::cout << "X4: Cover i: " << i << std::endl;
     cover(i);
     xl = dlink(i);
