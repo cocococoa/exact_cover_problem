@@ -8,3 +8,10 @@ Solve exact cover problems using dancing links
 $ cmake -S . -B build/
 $ cmake --build build/
 ```
+
+## Apps
+
+```sh
+$ ./build/example
+$ ./build/langford
+```
