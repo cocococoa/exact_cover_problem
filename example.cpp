@@ -10,6 +10,7 @@ void TryTAOCPExample() {
 
   std::cout << "Find exact cover via daincing links" << std::endl;
   solver.Solve();
+  std::cout << "Done" << std::endl;
 
   const auto num_solutions = solver.NumSolutions();
   std::cout << "Num solutions: " << num_solutions << std::endl;
