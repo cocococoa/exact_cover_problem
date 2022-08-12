@@ -114,13 +114,21 @@ ExactCoverProblemSolver::ExactCoverProblemSolver(
     vnode_list_[right_idx].top = -item_idx;
   }
 }
-std::string ExactCoverProblemSolver::GetPrettySolution(int i) const {
-  const auto sep = ", ";
-  auto ret = std::string("{");
+std::vector<int> ExactCoverProblemSolver::GetSolution(int i) const {
+  auto ret = std::vector<int>();
   const auto& sol = solution_list_[i];
   for (auto j = 0; j < (int)sol.size(); ++j) {
     const auto oidx = vnode2idx_.at(sol[j]);
-    const auto& option = option_list[oidx];
+    ret.push_back(oidx);
+  }
+  return ret;
+}
+std::string ExactCoverProblemSolver::GetPrettySolution(int i) const {
+  const auto sep = ", ";
+  auto ret = std::string("{");
+  const auto sol = GetSolution(i);
+  for (auto j = 0; j < (int)sol.size(); ++j) {
+    const auto& option = option_list[sol[j]];
     ret += "{" + Tostr(option.begin(), option.end(), sep) + "}";
     if (j + 1 != (int)sol.size()) ret += sep;
   }

@@ -47,6 +47,7 @@ class ExactCoverProblemSolver {
   ExactCoverProblemSolver(int i_num_items,
                           const std::vector<std::vector<int>>& i_option_list);
   int NumSolutions() const { return num_solutions_; }
+  std::vector<int> GetSolution(int i) const;
   std::string GetPrettySolution(int i) const;
   void PrintCurrentLink() const {
     std::cout << "Print hnode" << std::endl;
