@@ -1,4 +1,4 @@
-#include "dancing_links.h"
+#include "solver/dancing_links.h"
 
 #include <algorithm>
 #include <iomanip>

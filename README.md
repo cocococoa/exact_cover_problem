@@ -12,6 +12,6 @@ $ cmake --build build/
 ## Apps
 
 ```sh
-$ ./build/example
-$ ./build/langford
+$ ./build/apps/example
+$ ./build/apps/langford
 ```
