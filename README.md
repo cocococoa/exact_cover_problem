@@ -14,4 +14,5 @@ $ cmake --build build/
 ```sh
 $ ./build/apps/example
 $ ./build/apps/langford
+$ ./build/apps/pentominoes
 ```
