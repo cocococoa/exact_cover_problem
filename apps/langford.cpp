@@ -15,7 +15,7 @@ void langfordPair(int size, bool show_general_result = false,
   }
   auto solver = ExactCoverProblemSolver(num_items, option_list);
 
-  std::cout << "Find exact cover via daincing links" << std::endl;
+  std::cout << "Find exact cover via dancing links" << std::endl;
   solver.SolveMultiThread(show_general_result or show_specific_result);
   std::cout << "Done" << std::endl;
 

@@ -8,7 +8,7 @@ void tryTAOCPExample() {
   auto solver = ExactCoverProblemSolver(num_items, option_list);
   solver.PrintCurrentLink();
 
-  std::cout << "Find exact cover via daincing links" << std::endl;
+  std::cout << "Find exact cover via dancing links" << std::endl;
   solver.Solve();
   std::cout << "Done" << std::endl;
 
