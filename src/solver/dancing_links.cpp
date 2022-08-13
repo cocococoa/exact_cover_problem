@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <numeric>
+#include <thread>
 
 std::string ExactCoverProblemSolver::HNode::str() const {
   std::stringstream ss;
@@ -136,11 +137,55 @@ std::string ExactCoverProblemSolver::GetPrettySolution(int i) const {
   return ret;
 }
 void ExactCoverProblemSolver::Solve(bool count_mode) {
+  SolveImpl(0, 0, false, count_mode);
+}
+int callSolverInMultiThreadHelper(ExactCoverProblemSolver* solver,
+                                  int initial_i, int initial_xl,
+                                  bool count_mode) {
+  solver->SolveImpl(initial_i, initial_xl, count_mode);
+  return 0;
+}
+void ExactCoverProblemSolver::SolveMultiThread(bool count_mode) {
+  // Select i
+  const auto initial_i = 1;
+  cover(initial_i);
+
+  // Create copies of *this
+  const auto num_copies = len(initial_i);
+  std::cout << "Num copies: " << num_copies << std::endl;
+  auto initial_xl_list = std::vector<int>();
+  for (auto xl = dlink(initial_i); xl != initial_i; xl = dlink(xl)) {
+    initial_xl_list.push_back(xl);
+  }
+  auto solver_list = std::vector<ExactCoverProblemSolver>(num_copies, *this);
+
+  // Run solvers
+  auto thread_list = std::vector<std::thread>();
+  for (auto c = 0; c < num_copies; ++c) {
+    thread_list.emplace_back(
+        std::thread(callSolverInMultiThreadHelper, &solver_list[c],
+                    (int)initial_i, (int)initial_xl_list[c], (bool)count_mode));
+  }
+  for (auto&& thread : thread_list) thread.join();
+
+  // Collect Results
+  for (const auto& solver : solver_list) {
+    num_solutions_ += solver.NumSolutions();
+    if (not count_mode) {
+      std::copy(solver.solution_list_.begin(), solver.solution_list_.end(),
+                std::back_inserter(solution_list_));
+    }
+  }
+}
+void ExactCoverProblemSolver::SolveImpl(int initial_i, int initial_xl,
+                                        bool start_from_x5, bool count_mode) {
   auto sol = std::vector<int>();
   sol.reserve(num_items);
-  auto i = 0;
-  auto xl = 0;
+  auto i = initial_i;
+  auto xl = initial_xl;
   auto level = 0;
+  const auto leave_level = start_from_x5 ? 1 : 0;
+  if (start_from_x5) goto X5;
 
 X2:
   // std::cout << "X2: Enter level l: " << level << std::endl;
@@ -213,7 +258,7 @@ X7:
 
 X8:
   // std::cout << "X8: Leave level l: " << level << std::endl;
-  if (level == 0) {
+  if (level == leave_level) {
     return;
   } else {
     level--;

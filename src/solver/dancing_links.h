@@ -16,8 +16,17 @@ std::string Tostr(Iterator begin, Iterator end, const std::string& sep = ", ") {
   }
   return ss.str();
 }
+class ExactCoverProblemSolver;
+
+int callSolverInMultiThreadHelper(ExactCoverProblemSolver* solver,
+                                  int initial_i, int initial_xl,
+                                  bool count_mode);
 
 class ExactCoverProblemSolver {
+ public:
+  friend int callSolverInMultiThreadHelper(ExactCoverProblemSolver*, int, int,
+                                           bool);
+
  private:
   struct HNode {
 #ifndef NDEBUG
@@ -46,6 +55,9 @@ class ExactCoverProblemSolver {
  public:
   ExactCoverProblemSolver(int i_num_items,
                           const std::vector<std::vector<int>>& i_option_list);
+  ExactCoverProblemSolver(const ExactCoverProblemSolver&) = default;
+  ExactCoverProblemSolver(ExactCoverProblemSolver&&) = default;
+
   int NumSolutions() const { return num_solutions_; }
   std::vector<int> GetSolution(int i) const;
   std::string GetPrettySolution(int i) const;
@@ -56,8 +68,11 @@ class ExactCoverProblemSolver {
     for (const auto& vnode : vnode_list_) std::cout << vnode.str() << std::endl;
   }
   void Solve(bool count_mode = false);
+  void SolveMultiThread(bool count_mode = false);
 
  private:
+  void SolveImpl(int initial_i, int initial_xl, bool start_from_x5,
+                 bool count_mode = false);
   void cover(int i);
   void hide(int p);
   void uncover(int i);

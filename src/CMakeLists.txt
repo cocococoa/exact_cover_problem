@@ -1,5 +1,7 @@
+find_package(Threads REQUIRED)
 add_library(dancing_links STATIC ${CMAKE_CURRENT_SOURCE_DIR}/solver/dancing_links.cpp)
+target_link_libraries(dancing_links PRIVATE Threads::Threads)
 target_include_directories(dancing_links PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_compile_features(dancing_links PUBLIC cxx_std_17)
-target_compile_options(dancing_links PUBLIC -O2 -Wall -Wextra)
+target_compile_options(dancing_links PUBLIC -Wall -Wextra)
 target_compile_definitions(dancing_links PUBLIC NDEBUG)
