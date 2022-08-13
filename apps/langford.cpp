@@ -1,6 +1,6 @@
 #include "solver/dancing_links.h"
 
-void LangfordPair(int size, bool show_general_result = false,
+void langfordPair(int size, bool show_general_result = false,
                   bool show_specific_result = false) {
   const int num_items = 2 * size + size;
   auto option_list = std::vector<std::vector<int>>{};
@@ -47,22 +47,22 @@ void LangfordPair(int size, bool show_general_result = false,
 }
 
 int main() {
-  LangfordPair(3, true, true);
+  langfordPair(3, true, true);
   std::cout << "======================================" << std::endl;
-  LangfordPair(4, true, true);
+  langfordPair(4, true, true);
   std::cout << "======================================" << std::endl;
-  LangfordPair(7, false, true);
+  langfordPair(7, false, true);
   std::cout << "======================================" << std::endl;
-  LangfordPair(8, false, true);
+  langfordPair(8, false, true);
   std::cout << "======================================" << std::endl;
-  LangfordPair(11);
+  langfordPair(11);
   std::cout << "======================================" << std::endl;
-  LangfordPair(12);
+  langfordPair(12);
   // 約3分かかる
   std::cout << "======================================" << std::endl;
-  LangfordPair(15);
+  langfordPair(15);
   // 約30分かかる
   std::cout << "======================================" << std::endl;
-  LangfordPair(16);
+  langfordPair(16);
   return 0;
 }
