@@ -172,7 +172,7 @@ void pentminoes() {
   auto solver = ExactCoverProblemSolver(num_items, option_list);
 
   std::cout << "Find exact cover via dancing links" << std::endl;
-  solver.Solve(true);
+  solver.SolveMultiThread(true);
   std::cout << "Done" << std::endl;
 
   const auto num_solutions = solver.NumSolutions();
