@@ -1,16 +1,19 @@
 #include <algorithm>
+#include <fstream>
 #include <iostream>
+#include <map>
+#include <string>
 #include <vector>
 
 #include "solver/dancing_links.h"
 
 struct Board {
-  const int xlen;
-  const int ylen;
+  int xlen;
+  int ylen;
   std::vector<std::vector<char>> board;
   Board(int i_xlen, int i_ylen) : xlen(i_xlen), ylen(i_ylen) {
     board.resize(xlen);
-    for (auto&& b : board) b.resize(ylen);
+    for (auto&& b : board) b.resize(ylen, ' ');
   }
 
   void Set(int x, int y, char c) { board[x][y] = c; }
@@ -24,15 +27,50 @@ struct Board {
     }
   }
 };
+int countDiff(const Board& lhs, const Board& rhs) {
+  auto diff = 0;
+  for (auto x = 0; x < lhs.xlen; ++x)
+    for (auto y = 0; y < lhs.ylen; ++y)
+      if (lhs.Get(x, y) != rhs.Get(x, y)) diff++;
+  return diff;
+}
+bool operator==(const Board& lhs, const Board& rhs) {
+  if (lhs.xlen != rhs.xlen) return false;
+  if (lhs.ylen != rhs.ylen) return false;
+  const auto diff = countDiff(lhs, rhs);
+  return diff == 0;
+}
+std::vector<Board> load() {
+  const auto ipath = std::string("list");
+  auto ifs = std::ifstream(ipath);
+  auto ret = std::vector<Board>();
+  auto board = Board(8, 8);
+  auto y = 7;
+  while (not ifs.eof()) {
+    auto line = std::string();
+    std::getline(ifs, line);
+    if (line[0] == '-') {
+      ret.push_back(board);
+      board = Board(8, 8);
+      y = 7;
+      continue;
+    }
+    for (auto x = 0; x < 8; ++x) {
+      board.Set(x, y, line[x]);
+    }
+    y--;
+  }
+  return ret;
+}
 
 struct Pentomino {
-  const int symmetry;
+  int symmetry;
   std::vector<std::pair<int, int>> shape;
 
   void Translate(const int dx, const int dy) {
-    for (auto&& [x, y] : shape) {
-      x += dx;
-      y += dy;
+    for (auto i = 0; i < (int)shape.size(); ++i) {
+      const auto [x, y] = shape[i];
+      shape[i] = {x + dx, y + dy};
     }
   }
   Pentomino Translated(const int dx, const int dy) const {
@@ -41,22 +79,23 @@ struct Pentomino {
     return ret;
   }
   void Rotate() {
-    for (auto&& [x, y] : shape) {
-      const auto tmp_x = x;
-      const auto tmp_y = y;
-      x = -tmp_y;
-      y = tmp_x;
+    for (auto i = 0; i < (int)shape.size(); ++i) {
+      const auto [x, y] = shape[i];
+      shape[i] = {-y, x};
     }
   }
+  void Rotate(int count) {
+    for (auto i = 0; i < count; ++i) Rotate();
+  }
   void Reflect() {
-    for (auto&& [x, y] : shape) {
-      x *= -1;
-      y *= -1;
+    for (auto i = 0; i < (int)shape.size(); ++i) {
+      const auto [x, y] = shape[i];
+      shape[i] = {-x, y};
     }
   }
   bool InBox(const int min_x, const int max_x, const int min_y,
              const int max_y) const {
-    bool ret = true;
+    auto ret = true;
     for (const auto& [x, y] : shape) {
       if (x < min_x) ret = false;
       if (max_x < x) ret = false;
@@ -66,11 +105,29 @@ struct Pentomino {
     return ret;
   }
 };
+std::map<int, char> construct() {
+  auto ret = std::map<int, char>();
+  ret[0] = 'X';
+  ret[1] = ' ';
+  ret[2] = 'I';
+  ret[3] = 'Z';
+  ret[4] = 'U';
+  ret[5] = 'P';
+  ret[6] = 'T';
+  ret[7] = 'Y';
+  ret[8] = 'V';
+  ret[9] = 'F';
+  ret[10] = 'L';
+  ret[11] = 'N';
+  ret[12] = 'W';
+  return ret;
+}
 
 void pentminoes() {
   const auto num_pentominoes = 13;
   const auto do_reflection = true;
 
+  const auto map = construct();
   const auto x00 = Pentomino{1, {{0, 0}, {1, 0}, {2, 0}, {1, 1}, {1, -1}}};
   const auto x01 = Pentomino{1, {{0, 0}, {1, 0}, {0, 1}, {1, 1}}};
   const auto x02 = Pentomino{2, {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0}}};
@@ -80,7 +137,7 @@ void pentminoes() {
   const auto x06 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {1, 1}, {1, 2}}};
   const auto x07 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {2, 1}}};
   const auto x08  // 解そのものに回転対称性があるため絞る目的でsym=1とする
-      = Pentomino{1, {{0, 0}, {1, 0}, {2, 0}, {2, 1}, {2, 2}}};
+      = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {2, 1}, {2, 2}}};
   const auto x09 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {1, -1}, {2, 1}}};
   const auto x10 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {3, 1}}};
   const auto x11 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {2, 1}, {3, 1}}};
@@ -96,17 +153,22 @@ void pentminoes() {
   auto option_list = std::vector<std::vector<int>>();
   auto shape_list = std::vector<Pentomino>();
   for (auto pidx = 0; pidx < num_pentominoes; ++pidx) {
-    auto p = pent_list[pidx];
-
     for (auto ref = 0; ref < 2; ++ref) {
-      for (auto sym = 0; sym < p.symmetry; ++sym) {
+      std::cout << pidx << ", " << ref << ", " << pent_list[pidx].symmetry
+                << std::endl;
+      for (auto sym = 0; sym < pent_list[pidx].symmetry; ++sym) {
+        auto pentomino = pent_list[pidx];
+        pentomino.Rotate(sym + 1);
+        if (ref == 1) pentomino.Reflect();
+
+        // 平行移動開始
         for (auto dx = -20; dx <= 20; ++dx) {
           for (auto dy = -20; dy <= 20; ++dy) {
             // 正方形は穴のため
             if (pidx == 1)
-              if (not(dx == 3 and dy == 3)) continue;
+              if (not(dx == 4 and dy == 3)) continue;
 
-            const auto tmp = p.Translated(dx, dy);
+            const auto tmp = pentomino.Translated(dx, dy);
             if (tmp.InBox(0, 7, 0, 7)) {
               auto option = std::vector<int>{pidx};
               for (const auto& [x, y] : tmp.shape)
@@ -117,16 +179,16 @@ void pentminoes() {
             }
           }
         }
-
-        p.Rotate();
+        // 平行移動終了
       }
 
       if (do_reflection and
           (
               //  pidx == 3 or
               // 解には線対称性があるため、絞る目的でx03は反転しない
-              pidx == 5 or pidx == 7 or pidx == 9 or pidx == 10 or pidx == 11))
-        p.Reflect();
+              pidx == 3 or pidx == 5 or pidx == 7 or pidx == 9 or pidx == 10 or
+              pidx == 11))
+        ;
       else
         break;
     }
@@ -135,7 +197,7 @@ void pentminoes() {
   auto solver = ExactCoverProblemSolver(num_items, option_list);
 
   std::cout << "Find exact cover via dancing links" << std::endl;
-  solver.SolveMultiThread(true);
+  solver.Solve(true);
   std::cout << "Done" << std::endl;
 
   // FIXME(masaki.ono): do_reflectionがtrueの場合、num_solutions=65となるはず
@@ -145,21 +207,41 @@ void pentminoes() {
   std::cout << "Num solutions: " << num_solutions << std::endl;
 
   // Print solution
-  const auto print = [&](int sol) {
+  const auto get_board = [&](int sol) {
     const auto option_idx_list = solver.GetSolution(sol);
     auto board = Board(8, 8);
     for (auto i = 0; i < num_pentominoes; ++i) {
       const auto oidx = option_idx_list[i];
       const auto shape = shape_list[oidx];
       for (const auto& [x, y] : shape.shape) {
-        board.Set(x, y, 'a' + i);
+        board.Set(x, y, map.at(i));
       }
     }
-    std::cout << "===================" << std::endl;
+    std::cout << "================================" << std::endl;
+    std::cout << "Solution: " << sol << std::endl;
     board.Print();
+    return board;
   };
-  print(0);
-  print(1);
+  auto board_list = std::vector<Board>();
+  for (auto i = 0; i < num_solutions; ++i) {
+    board_list.push_back(get_board(i));
+  }
+  const auto answer = load();
+  for (auto i = 0; i < (int)answer.size(); ++i) {
+    auto min_diff = 64;
+    for (auto j = 0; j < (int)board_list.size(); ++j) {
+      const auto diff = countDiff(answer[i], board_list[j]);
+      if (diff < min_diff) {
+        min_diff = diff;
+      }
+    }
+    std::cout << i << ", " << min_diff << std::endl;
+    // if (itr == board_list.end()) {
+    //   std::cout << "================================" << std::endl;
+    //   std::cout << "Miss: " << i << std::endl;
+    //   answer[i].Print();
+    // }
+  }
 }
 int main() {
   pentminoes();
