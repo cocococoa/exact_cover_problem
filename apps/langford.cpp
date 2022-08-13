@@ -16,7 +16,7 @@ void LangfordPair(int size, bool show_general_result = false,
   auto solver = ExactCoverProblemSolver(num_items, option_list);
 
   std::cout << "Find exact cover via daincing links" << std::endl;
-  solver.SolveMultiThread(not(show_general_result or show_specific_result));
+  solver.SolveMultiThread(show_general_result or show_specific_result);
   std::cout << "Done" << std::endl;
 
   const auto num_solutions = solver.NumSolutions();
@@ -59,10 +59,10 @@ int main() {
   std::cout << "======================================" << std::endl;
   LangfordPair(12);
   // 約3分かかる
-  // std::cout << "======================================" << std::endl;
-  // LangfordPair(15);
+  std::cout << "======================================" << std::endl;
+  LangfordPair(15);
   // 約30分かかる
-  // std::cout << "======================================" << std::endl;
-  // LangfordPair(16);
+  std::cout << "======================================" << std::endl;
+  LangfordPair(16);
   return 0;
 }
