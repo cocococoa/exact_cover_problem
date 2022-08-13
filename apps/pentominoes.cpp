@@ -25,7 +25,7 @@ struct Board {
   }
 };
 
-struct Pentominoes {
+struct Pentomino {
   const int symmetry;
   std::vector<std::pair<int, int>> shape;
 
@@ -35,7 +35,7 @@ struct Pentominoes {
       y += dy;
     }
   }
-  Pentominoes Translated(const int dx, const int dy) const {
+  Pentomino Translated(const int dx, const int dy) const {
     auto ret = *this;
     ret.Translate(dx, dy);
     return ret;
@@ -71,21 +71,21 @@ void pentminoes() {
   const auto num_pentominoes = 13;
   const auto do_reflection = true;
 
-  const auto x00 = Pentominoes{1, {{0, 0}, {1, 0}, {2, 0}, {1, 1}, {1, -1}}};
-  const auto x01 = Pentominoes{1, {{0, 0}, {1, 0}, {0, 1}, {1, 1}}};
-  const auto x02 = Pentominoes{2, {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0}}};
-  const auto x03 = Pentominoes{2, {{0, 0}, {1, 0}, {2, 0}, {0, 1}, {2, -1}}};
-  const auto x04 = Pentominoes{4, {{0, 0}, {1, 0}, {2, 0}, {0, 1}, {2, 1}}};
-  const auto x05 = Pentominoes{4, {{0, 0}, {1, 0}, {2, 0}, {0, 1}, {1, 1}}};
-  const auto x06 = Pentominoes{4, {{0, 0}, {1, 0}, {2, 0}, {1, 1}, {1, 2}}};
-  const auto x07 = Pentominoes{4, {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {2, 1}}};
+  const auto x00 = Pentomino{1, {{0, 0}, {1, 0}, {2, 0}, {1, 1}, {1, -1}}};
+  const auto x01 = Pentomino{1, {{0, 0}, {1, 0}, {0, 1}, {1, 1}}};
+  const auto x02 = Pentomino{2, {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0}}};
+  const auto x03 = Pentomino{2, {{0, 0}, {1, 0}, {2, 0}, {0, 1}, {2, -1}}};
+  const auto x04 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {0, 1}, {2, 1}}};
+  const auto x05 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {0, 1}, {1, 1}}};
+  const auto x06 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {1, 1}, {1, 2}}};
+  const auto x07 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {2, 1}}};
   const auto x08  // 解そのものに回転対称性があるため絞る目的でsym=1とする
-      = Pentominoes{1, {{0, 0}, {1, 0}, {2, 0}, {2, 1}, {2, 2}}};
-  const auto x09 = Pentominoes{4, {{0, 0}, {1, 0}, {2, 0}, {1, -1}, {2, 1}}};
-  const auto x10 = Pentominoes{4, {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {3, 1}}};
-  const auto x11 = Pentominoes{4, {{0, 0}, {1, 0}, {2, 0}, {2, 1}, {3, 1}}};
-  const auto x12 = Pentominoes{4, {{0, 0}, {1, 0}, {1, 1}, {2, 1}, {2, 2}}};
-  const auto pent_list = std::vector<Pentominoes>{
+      = Pentomino{1, {{0, 0}, {1, 0}, {2, 0}, {2, 1}, {2, 2}}};
+  const auto x09 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {1, -1}, {2, 1}}};
+  const auto x10 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {3, 1}}};
+  const auto x11 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {2, 1}, {3, 1}}};
+  const auto x12 = Pentomino{4, {{0, 0}, {1, 0}, {1, 1}, {2, 1}, {2, 2}}};
+  const auto pent_list = std::vector<Pentomino>{
       x00, x01, x02, x03, x04, x05, x06, x07, x08, x09, x10, x11, x12};
 
   // board は 8 x 8
@@ -94,7 +94,7 @@ void pentminoes() {
     return num_pentominoes + x * 8 + y;
   };
   auto option_list = std::vector<std::vector<int>>();
-  auto shape_list = std::vector<Pentominoes>();
+  auto shape_list = std::vector<Pentomino>();
   for (auto pidx = 0; pidx < num_pentominoes; ++pidx) {
     auto p = pent_list[pidx];
 
