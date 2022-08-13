@@ -125,6 +125,7 @@ std::vector<int> ExactCoverProblemSolver::GetSolution(int i) const {
     const auto oidx = vnode2idx_.at(sol[j]);
     ret.push_back(oidx);
   }
+  std::sort(ret.begin(), ret.end());
   return ret;
 }
 std::string ExactCoverProblemSolver::GetPrettySolution(int i) const {
