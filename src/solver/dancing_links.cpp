@@ -136,16 +136,16 @@ std::string ExactCoverProblemSolver::GetPrettySolution(int i) const {
   ret += "}";
   return ret;
 }
-void ExactCoverProblemSolver::Solve(bool count_mode) {
-  SolveImpl(0, 0, false, count_mode);
+void ExactCoverProblemSolver::Solve(bool save_solution) {
+  SolveImpl(0, 0, false, save_solution);
 }
 int callSolverInMultiThreadHelper(ExactCoverProblemSolver* solver,
                                   int initial_i, int initial_xl,
-                                  bool count_mode) {
-  solver->SolveImpl(initial_i, initial_xl, count_mode);
+                                  bool save_solution) {
+  solver->SolveImpl(initial_i, initial_xl, true, save_solution);
   return 0;
 }
-void ExactCoverProblemSolver::SolveMultiThread(bool count_mode) {
+void ExactCoverProblemSolver::SolveMultiThread(bool save_solution) {
   // Select i
   const auto initial_i = 1;
   cover(initial_i);
@@ -162,23 +162,24 @@ void ExactCoverProblemSolver::SolveMultiThread(bool count_mode) {
   // Run solvers
   auto thread_list = std::vector<std::thread>();
   for (auto c = 0; c < num_copies; ++c) {
-    thread_list.emplace_back(
-        std::thread(callSolverInMultiThreadHelper, &solver_list[c],
-                    (int)initial_i, (int)initial_xl_list[c], (bool)count_mode));
+    thread_list.emplace_back(std::thread(callSolverInMultiThreadHelper,
+                                         &solver_list[c], initial_i,
+                                         initial_xl_list[c], save_solution));
   }
   for (auto&& thread : thread_list) thread.join();
 
   // Collect Results
   for (const auto& solver : solver_list) {
     num_solutions_ += solver.NumSolutions();
-    if (not count_mode) {
+    if (save_solution) {
       std::copy(solver.solution_list_.begin(), solver.solution_list_.end(),
                 std::back_inserter(solution_list_));
     }
   }
 }
 void ExactCoverProblemSolver::SolveImpl(int initial_i, int initial_xl,
-                                        bool start_from_x5, bool count_mode) {
+                                        bool start_from_x5,
+                                        bool save_solution) {
   auto sol = std::vector<int>();
   sol.reserve(num_items);
   auto i = initial_i;
@@ -193,7 +194,7 @@ X2:
     // Hence all items have been covered
     // std::cout << "Found solution!" << std::endl;
     num_solutions_++;
-    if (not count_mode) {
+    if (save_solution) {
       solution_list_.emplace_back(std::vector<int>(sol));
     }
     goto X8;

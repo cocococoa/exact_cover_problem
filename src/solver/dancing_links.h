@@ -67,12 +67,12 @@ class ExactCoverProblemSolver {
     std::cout << "Print vnode" << std::endl;
     for (const auto& vnode : vnode_list_) std::cout << vnode.str() << std::endl;
   }
-  void Solve(bool count_mode = false);
-  void SolveMultiThread(bool count_mode = false);
+  void Solve(bool save_solution = false);
+  void SolveMultiThread(bool save_solution = false);
 
  private:
   void SolveImpl(int initial_i, int initial_xl, bool start_from_x5,
-                 bool count_mode = false);
+                 bool save_solution = false);
   void cover(int i);
   void hide(int p);
   void uncover(int i);
