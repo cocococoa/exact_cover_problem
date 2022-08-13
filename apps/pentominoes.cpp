@@ -40,28 +40,6 @@ bool operator==(const Board& lhs, const Board& rhs) {
   const auto diff = countDiff(lhs, rhs);
   return diff == 0;
 }
-std::vector<Board> load() {
-  const auto ipath = std::string("list");
-  auto ifs = std::ifstream(ipath);
-  auto ret = std::vector<Board>();
-  auto board = Board(8, 8);
-  auto y = 7;
-  while (not ifs.eof()) {
-    auto line = std::string();
-    std::getline(ifs, line);
-    if (line[0] == '-') {
-      ret.push_back(board);
-      board = Board(8, 8);
-      y = 7;
-      continue;
-    }
-    for (auto x = 0; x < 8; ++x) {
-      board.Set(x, y, line[x]);
-    }
-    y--;
-  }
-  return ret;
-}
 
 struct Pentomino {
   int symmetry;
@@ -137,7 +115,7 @@ void pentminoes() {
   const auto x06 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {1, 1}, {1, 2}}};
   const auto x07 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {2, 1}}};
   const auto x08  // 解そのものに回転対称性があるため絞る目的でsym=1とする
-      = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {2, 1}, {2, 2}}};
+      = Pentomino{1, {{0, 0}, {1, 0}, {2, 0}, {2, 1}, {2, 2}}};
   const auto x09 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {1, -1}, {2, 1}}};
   const auto x10 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {3, 1}}};
   const auto x11 = Pentomino{4, {{0, 0}, {1, 0}, {2, 0}, {2, 1}, {3, 1}}};
@@ -154,8 +132,6 @@ void pentminoes() {
   auto shape_list = std::vector<Pentomino>();
   for (auto pidx = 0; pidx < num_pentominoes; ++pidx) {
     for (auto ref = 0; ref < 2; ++ref) {
-      std::cout << pidx << ", " << ref << ", " << pent_list[pidx].symmetry
-                << std::endl;
       for (auto sym = 0; sym < pent_list[pidx].symmetry; ++sym) {
         auto pentomino = pent_list[pidx];
         pentomino.Rotate(sym + 1);
@@ -186,8 +162,7 @@ void pentminoes() {
           (
               //  pidx == 3 or
               // 解には線対称性があるため、絞る目的でx03は反転しない
-              pidx == 3 or pidx == 5 or pidx == 7 or pidx == 9 or pidx == 10 or
-              pidx == 11))
+              pidx == 5 or pidx == 7 or pidx == 9 or pidx == 10 or pidx == 11))
         ;
       else
         break;
@@ -200,14 +175,11 @@ void pentminoes() {
   solver.Solve(true);
   std::cout << "Done" << std::endl;
 
-  // FIXME(masaki.ono): do_reflectionがtrueの場合、num_solutions=65となるはず
-  // https://github.com/taylorjg/pentominoes-cs
-  // でも今は64個しか見つかっていない
   const auto num_solutions = solver.NumSolutions();
   std::cout << "Num solutions: " << num_solutions << std::endl;
 
   // Print solution
-  const auto get_board = [&](int sol) {
+  const auto print = [&](int sol) {
     const auto option_idx_list = solver.GetSolution(sol);
     auto board = Board(8, 8);
     for (auto i = 0; i < num_pentominoes; ++i) {
@@ -220,28 +192,9 @@ void pentminoes() {
     std::cout << "================================" << std::endl;
     std::cout << "Solution: " << sol << std::endl;
     board.Print();
-    return board;
   };
-  auto board_list = std::vector<Board>();
-  for (auto i = 0; i < num_solutions; ++i) {
-    board_list.push_back(get_board(i));
-  }
-  const auto answer = load();
-  for (auto i = 0; i < (int)answer.size(); ++i) {
-    auto min_diff = 64;
-    for (auto j = 0; j < (int)board_list.size(); ++j) {
-      const auto diff = countDiff(answer[i], board_list[j]);
-      if (diff < min_diff) {
-        min_diff = diff;
-      }
-    }
-    std::cout << i << ", " << min_diff << std::endl;
-    // if (itr == board_list.end()) {
-    //   std::cout << "================================" << std::endl;
-    //   std::cout << "Miss: " << i << std::endl;
-    //   answer[i].Print();
-    // }
-  }
+  print(0);
+  print(10);
 }
 int main() {
   pentminoes();
