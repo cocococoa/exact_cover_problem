@@ -7,12 +7,11 @@
 
 std::string ExactCoverProblemSolver::HNode::str() const {
   std::stringstream ss;
-  ss
 #ifndef NDEBUG
-      << "i: " << idx << ", "
+  ss << "i: " << idx << ", ";
 #endif
-      << "NAME(i): " << name << ", LLINK(i): " << llink
-      << ", RLINK(i): " << rlink;
+  ss << "NAME(i): " << name << ", LLINK(i): " << llink
+     << ", RLINK(i): " << rlink;
   return ss.str();
 }
 std::string ExactCoverProblemSolver::VNode::str() const {
@@ -23,18 +22,21 @@ std::string ExactCoverProblemSolver::VNode::str() const {
     ss << std::setw(2) << idx;
     ss << ", ";
 #endif
+
     ss << "TOP(x): ";
-    if (top == null_idx)
+    if (top == NullIdx)
       ss << "--";
     else
       ss << std::setw(2) << top;
+
     ss << ", ULINK(x): ";
-    if (ulink == null_idx)
+    if (ulink == NullIdx)
       ss << "--";
     else
       ss << std::setw(2) << ulink;
+
     ss << ", DLINK(x): ";
-    if (dlink == null_idx)
+    if (dlink == NullIdx)
       ss << "--";
     else
       ss << std::setw(2) << dlink;
@@ -44,6 +46,7 @@ std::string ExactCoverProblemSolver::VNode::str() const {
     ss << std::setw(2) << idx;
     ss << ", ";
 #endif
+
     ss << "LEN(x): ";
     ss << std::setw(2) << len;
     ss << ", ULINK(x): ";
@@ -130,7 +133,7 @@ std::string ExactCoverProblemSolver::GetPrettySolution(int i) const {
   const auto sol = GetSolution(i);
   for (auto j = 0; j < (int)sol.size(); ++j) {
     const auto& option = option_list[sol[j]];
-    ret += "{" + Tostr(option.begin(), option.end(), sep) + "}";
+    ret += "{" + tostr(option.begin(), option.end(), sep) + "}";
     if (j + 1 != (int)sol.size()) ret += sep;
   }
   ret += "}";
@@ -147,14 +150,15 @@ int callSolverInMultiThreadHelper(ExactCoverProblemSolver* solver,
 }
 void ExactCoverProblemSolver::SolveMultiThread(bool save_solution) {
   // Select i
+  // TODO(masaki.ono): initial_i の決め方を工夫する
   const auto initial_i = 1;
-  cover(initial_i);
+  Cover(initial_i);
 
   // Create copies of *this
-  const auto num_copies = len(initial_i);
+  const auto num_copies = Len(initial_i);
   std::cout << "Num copies: " << num_copies << std::endl;
   auto initial_xl_list = std::vector<int>();
-  for (auto xl = dlink(initial_i); xl != initial_i; xl = dlink(xl)) {
+  for (auto xl = DLink(initial_i); xl != initial_i; xl = DLink(xl)) {
     initial_xl_list.push_back(xl);
   }
   auto solver_list = std::vector<ExactCoverProblemSolver>(num_copies, *this);
@@ -190,9 +194,8 @@ void ExactCoverProblemSolver::SolveImpl(int initial_i, int initial_xl,
 
 X2:
   // std::cout << "X2: Enter level l: " << level << std::endl;
-  if (rlink(0) == 0) {
+  if (RLink(0) == 0) {
     // Hence all items have been covered
-    // std::cout << "Found solution!" << std::endl;
     num_solutions_++;
     if (save_solution) {
       solution_list_.emplace_back(std::vector<int>(sol));
@@ -201,14 +204,14 @@ X2:
   }
 
   // X3:
-  // i = rlink(0);
+  // i = RLink(0);
   i = MRV();
   // std::cout << "X3: Choose i: " << i << std::endl;
 
   // X4:
   // std::cout << "X4: Cover i: " << i << std::endl;
-  cover(i);
-  xl = dlink(i);
+  Cover(i);
+  xl = DLink(i);
 
 X5:
   // std::cout << "X5: Try xl: " << xl << std::endl;
@@ -219,18 +222,16 @@ X5:
     // This covers the items \neq i in the option that contains xl
     auto p = xl + 1;
     while (p != xl) {
-      const auto j = top(p);
+      const auto j = Top(p);
       if (j <= 0) {
-        p = ulink(p);
+        p = ULink(p);
       } else {
-        cover(j);
+        Cover(j);
         p = p + 1;
       }
     }
     level++;
     sol.emplace_back(xl);
-    // std::cout << "[Push] Current solution: " << Tostr(sol.begin(),
-    // sol.end()) << std::endl;
     goto X2;
   }
 
@@ -240,22 +241,22 @@ X6:
     // This uncovers the items \neq i in the option that contains xl
     auto p = xl - 1;
     while (p != xl) {
-      const auto j = top(p);
+      const auto j = Top(p);
       if (j <= 0) {
-        p = dlink(p);
+        p = DLink(p);
       } else {
-        uncover(j);
+        UnCover(j);
         p = p - 1;
       }
     }
   }
-  i = top(xl);
-  xl = dlink(xl);
+  i = Top(xl);
+  xl = DLink(xl);
   goto X5;
 
 X7:
   // std::cout << "X7: Backtrack" << std::endl;
-  uncover(i);
+  UnCover(i);
 
 X8:
   // std::cout << "X8: Leave level l: " << level << std::endl;
@@ -265,83 +266,77 @@ X8:
     level--;
     xl = sol.back();
     sol.pop_back();
-    // std::cout << "[Pop] Current solution: " << Tostr(sol.begin(),
-    // sol.end()) << std::endl;
     goto X6;
   }
 }
-void ExactCoverProblemSolver::cover(int i) {
-  // std::cout << "Cover: " << i << std::endl;
-  auto p = dlink(i);
+void ExactCoverProblemSolver::Cover(int i) {
+  auto p = DLink(i);
   while (p != i) {
-    hide(p);
-    p = dlink(p);
+    Hide(p);
+    p = DLink(p);
   }
-  const auto l = llink(i);
-  const auto r = rlink(i);
-  hnode(l).rlink = r;
-  hnode(r).llink = l;
+  const auto l = LLink(i);
+  const auto r = RLink(i);
+  Hnode(l).rlink = r;
+  Hnode(r).llink = l;
 }
-void ExactCoverProblemSolver::hide(int p) {
-  // std::cout << "Hide: " << p << std::endl;
+void ExactCoverProblemSolver::Hide(int p) {
   auto q = p + 1;
   while (q != p) {
-    const auto x = top(q);
-    const auto u = ulink(q);
-    const auto d = dlink(q);
+    const auto x = Top(q);
+    const auto u = ULink(q);
+    const auto d = DLink(q);
     if (x <= 0) {
       // q was a spacer
       q = u;
     } else {
-      vnode(u).dlink = d;
-      vnode(d).ulink = u;
-      vnode(x).len -= 1;
+      Vnode(u).dlink = d;
+      Vnode(d).ulink = u;
+      Vnode(x).len -= 1;
       q += 1;
     }
   }
 }
-void ExactCoverProblemSolver::uncover(int i) {
-  // std::cout << "Uncover: " << i << std::endl;
-  const auto l = llink(i);
-  const auto r = rlink(i);
-  hnode(l).rlink = i;
-  hnode(r).llink = i;
-  auto p = ulink(i);
+void ExactCoverProblemSolver::UnCover(int i) {
+  const auto l = LLink(i);
+  const auto r = RLink(i);
+  Hnode(l).rlink = i;
+  Hnode(r).llink = i;
+  auto p = ULink(i);
   while (p != i) {
-    unhide(p);
-    p = ulink(p);
+    UnHide(p);
+    p = ULink(p);
   }
 }
-void ExactCoverProblemSolver::unhide(int p) {
-  // std::cout << "Unhide: " << p << std::endl;
+void ExactCoverProblemSolver::UnHide(int p) {
   auto q = p - 1;
   while (q != p) {
-    const auto x = top(q);
-    const auto u = ulink(q);
-    const auto d = dlink(q);
+    const auto x = Top(q);
+    const auto u = ULink(q);
+    const auto d = DLink(q);
     if (x <= 0) {
       // q was a spacer
       q = d;
     } else {
-      vnode(u).dlink = q;
-      vnode(d).ulink = q;
-      vnode(x).len += 1;
+      Vnode(u).dlink = q;
+      Vnode(d).ulink = q;
+      Vnode(x).len += 1;
       q -= 1;
     }
   }
 }
 int ExactCoverProblemSolver::MRV() const {
   // Minimum remaining values
-  auto i = rlink(0);
+  auto i = RLink(0);
   auto ret = i;
   auto min_len = (int)option_list.size() + 100;
   while (i != 0) {
-    const auto l = len(i);
+    const auto l = Len(i);
     if (l < min_len) {
       min_len = l;
       ret = i;
     }
-    i = rlink(i);
+    i = RLink(i);
   }
   return ret;
 }

@@ -41,7 +41,7 @@ void LangfordPair(int size, bool show_general_result = false,
         array[l] = number;
         array[r] = number;
       }
-      std::cout << Tostr(array.begin(), array.end(), "") << std::endl;
+      std::cout << tostr(array.begin(), array.end(), "") << std::endl;
     }
   }
 }
