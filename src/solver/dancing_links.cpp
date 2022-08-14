@@ -16,44 +16,29 @@ std::string ExactCoverProblemSolver::HNode::str() const {
 }
 std::string ExactCoverProblemSolver::VNode::str() const {
   std::stringstream ss;
-  if (len == 0) {
 #ifndef NDEBUG
-    ss << "x: ";
-    ss << std::setw(2) << idx;
-    ss << ", ";
+  ss << "x: ";
+  ss << std::setw(2) << idx;
+  ss << ", ";
 #endif
+  ss << "LEN OR TOP(x): ";
+  if (len_or_top == NullIdx)
+    ss << "--";
+  else
+    ss << std::setw(2) << len_or_top;
 
-    ss << "TOP(x): ";
-    if (top == NullIdx)
-      ss << "--";
-    else
-      ss << std::setw(2) << top;
-
-    ss << ", ULINK(x): ";
-    if (ulink == NullIdx)
-      ss << "--";
-    else
-      ss << std::setw(2) << ulink;
-
-    ss << ", DLINK(x): ";
-    if (dlink == NullIdx)
-      ss << "--";
-    else
-      ss << std::setw(2) << dlink;
-  } else {
-#ifndef NDEBUG
-    ss << "x: ";
-    ss << std::setw(2) << idx;
-    ss << ", ";
-#endif
-
-    ss << "LEN(x): ";
-    ss << std::setw(2) << len;
-    ss << ", ULINK(x): ";
+  ss << ", ULINK(x): ";
+  if (ulink == NullIdx)
+    ss << "--";
+  else
     ss << std::setw(2) << ulink;
-    ss << ", DLINK(x): ";
+
+  ss << ", DLINK(x): ";
+  if (dlink == NullIdx)
+    ss << "--";
+  else
     ss << std::setw(2) << dlink;
-  }
+
   return ss.str();
 }
 ExactCoverProblemSolver::ExactCoverProblemSolver(
@@ -89,14 +74,15 @@ ExactCoverProblemSolver::ExactCoverProblemSolver(
   // Initialize vnode
   auto item_idx = 0;
   auto idx = 1 + num_items;
+  for (auto j = 0; j < 1 + num_items; ++j) vnode_list_[j].len_or_top = 0;
   for (auto oidx = 0; oidx < (int)option_list.size(); ++oidx) {
     const auto& option = option_list[oidx];
     const auto left_idx = idx;
-    vnode_list_[left_idx].top = -item_idx++;
+    vnode_list_[left_idx].len_or_top = -item_idx++;
     idx++;
     for (const auto item : option) {
       vnode2idx_[idx] = oidx;
-      if (vnode_list_[1 + item].len == 0) {
+      if (vnode_list_[1 + item].len_or_top == 0) {
         vnode_list_[1 + item].dlink = idx;
         vnode_list_[1 + item].ulink = idx;
         vnode_list_[idx].ulink = 1 + item;
@@ -106,16 +92,16 @@ ExactCoverProblemSolver::ExactCoverProblemSolver(
         vnode_list_[ulink].dlink = idx;
         vnode_list_[1 + item].ulink = idx;
       }
-      vnode_list_[1 + item].len++;
+      vnode_list_[1 + item].len_or_top++;
       vnode_list_[idx].dlink = 1 + item;
-      vnode_list_[idx].top = 1 + item;
+      vnode_list_[idx].len_or_top = 1 + item;
 
       idx++;
     }
     const auto right_idx = idx;
     vnode_list_[left_idx].dlink = right_idx - 1;
     vnode_list_[right_idx].ulink = left_idx + 1;
-    vnode_list_[right_idx].top = -item_idx;
+    vnode_list_[right_idx].len_or_top = -item_idx;
   }
 }
 std::vector<int> ExactCoverProblemSolver::GetSolution(int i) const {
@@ -293,7 +279,7 @@ void ExactCoverProblemSolver::Hide(int p) {
     } else {
       Vnode(u).dlink = d;
       Vnode(d).ulink = u;
-      Vnode(x).len -= 1;
+      Vnode(x).len_or_top -= 1;
       q += 1;
     }
   }
@@ -321,7 +307,7 @@ void ExactCoverProblemSolver::UnHide(int p) {
     } else {
       Vnode(u).dlink = q;
       Vnode(d).ulink = q;
-      Vnode(x).len += 1;
+      Vnode(x).len_or_top += 1;
       q -= 1;
     }
   }
