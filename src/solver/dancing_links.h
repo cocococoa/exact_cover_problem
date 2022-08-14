@@ -71,9 +71,7 @@ class ExactCoverProblemSolver {
 #ifndef NDEBUG
     int idx = 0;  //!< for debug
 #endif
-    // TODO: len と top を共用体でまとめる
-    int len = 0;
-    int top = NullIdx;
+    int len_or_top = NullIdx;
     int ulink = NullIdx;
     int dlink = NullIdx;
 
@@ -111,8 +109,8 @@ class ExactCoverProblemSolver {
   int RLink(int i) const { return Hnode(i).rlink; }
   VNode& Vnode(int i) { return vnode_list_[i]; }
   const VNode& Vnode(int i) const { return vnode_list_[i]; }
-  int Len(int i) const { return Vnode(i).len; }
-  int Top(int p) const { return Vnode(p).top; }
+  int Len(int i) const { return Vnode(i).len_or_top; }
+  int Top(int p) const { return Vnode(p).len_or_top; }
   int ULink(int p) const { return Vnode(p).ulink; }
   int DLink(int p) const { return Vnode(p).dlink; }
   int MRV() const;
