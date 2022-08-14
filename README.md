@@ -15,4 +15,34 @@ $ cmake --build build/
 $ ./build/apps/example
 $ ./build/apps/langford
 $ ./build/apps/pentominoes
+hnode size: 78
+vnode size: 14981
+Find exact cover via dancing links
+Num copies: 36
+Done
+Num solutions: 65
+================================
+Solution: 0
+          
+┌┬┬──┬──┐ 
+││└┬┐├┐ │ 
+││┌┘││└─┤ 
+│││┌┴┼─┐│ 
+│├┤│ ├┐└┤ 
+├┘└┼┬┘└┐│ 
+├┐┌┤└─┐├┤ 
+│└┘│┌─┴┘│ 
+└──┴┴───┘ 
+================================
+Solution: 10
+          
+┌──┬───┬┐ 
+├─┐├┐┌─┘│ 
+│┌┤│└┴┐┌┤ 
+││└┼─┐├┘│ 
+││ │ ├┘┌┤ 
+├┴┬┼─┼─┘│ 
+│┌┘└┐└─┐│ 
+│└┐┌┴──┴┤ 
+└─┴┴────┘
 ```

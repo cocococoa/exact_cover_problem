@@ -18,10 +18,49 @@ struct Board {
 
   void Set(int x, int y, char c) { board[x][y] = c; }
   char Get(int x, int y) const { return board[x][y]; }
+  char GetOr(int x, int y, char c) const {
+    if (x < 0 or xlen <= x or y < 0 or ylen <= y) return c;
+    return Get(x, y);
+  }
   void Print() const {
     for (auto y = ylen - 1; y >= 0; --y) {
       for (auto x = 0; x < xlen; ++x) {
         std::cout << Get(x, y);
+      }
+      std::cout << std::endl;
+    }
+  }
+  void PrettyPrint() const {
+    auto map = std::map<std::pair<std::pair<int, int>, std::pair<int, int>>,
+                        std::string>();
+    // 左・右・上・下
+    map[{{0, 0}, {0, 0}}] = " ";  // 0
+    map[{{1, 0}, {0, 0}}] = "?";  // 1
+    map[{{0, 1}, {0, 0}}] = "?";  // 1
+    map[{{0, 0}, {1, 0}}] = "?";  // 1
+    map[{{0, 0}, {0, 1}}] = "?";  // 1
+    map[{{0, 0}, {1, 1}}] = "│";  // 2
+    map[{{1, 1}, {0, 0}}] = "─";  // 2
+    map[{{0, 1}, {1, 0}}] = "└";  // 2
+    map[{{0, 1}, {0, 1}}] = "┌";  // 2
+    map[{{1, 0}, {0, 1}}] = "┐";  // 2
+    map[{{1, 0}, {1, 0}}] = "┘";  // 2
+    map[{{0, 1}, {1, 1}}] = "├";  // 3
+    map[{{1, 1}, {0, 1}}] = "┬";  // 3
+    map[{{1, 0}, {1, 1}}] = "┤";  // 3
+    map[{{1, 1}, {1, 0}}] = "┴";  // 3
+    map[{{1, 1}, {1, 1}}] = "┼";  // 4
+    const auto get_key = [](int l, int r, int u, int d) {
+      return std::make_pair(std::make_pair(l, r), std::make_pair(u, d));
+    };
+    for (auto y = ylen; y >= -1; --y) {
+      for (auto x = -1; x <= xlen; ++x) {
+        const auto ld = GetOr(x, y, '?');
+        const auto lu = GetOr(x, y + 1, '?');
+        const auto rd = GetOr(x + 1, y, '?');
+        const auto ru = GetOr(x + 1, y + 1, '?');
+        const auto key = get_key(ld != lu, rd != ru, lu != ru, ld != rd);
+        std::cout << map.at(key);
       }
       std::cout << std::endl;
     }
@@ -191,7 +230,8 @@ void pentminoes() {
     }
     std::cout << "================================" << std::endl;
     std::cout << "Solution: " << sol << std::endl;
-    board.Print();
+    // board.Print();
+    board.PrettyPrint();
   };
   print(0);
   print(10);
