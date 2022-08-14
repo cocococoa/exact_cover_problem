@@ -1,14 +1,12 @@
 #include <algorithm>
 #include <array>
-#include <chrono>
 #include <fstream>
 #include <iostream>
-#include <map>
 #include <numeric>
 #include <string>
 #include <vector>
 
-#include "solver/dancing_links.h"
+#include "common.h"
 
 constexpr auto LatinSize = 10;
 
@@ -80,7 +78,7 @@ std::vector<Transverse> calcTransverse(const Latin& latin) {
 
 void searchLatin(const std::string& path) {
   const auto latin = loadLatin(path);
-  std::cout << "---------------------------" << std::endl;
+  std::cout << "-------------------------------" << std::endl;
   latin.Print();
   auto transverse_list = calcTransverse(latin);
   std::cout << "Num transverses: " << transverse_list.size() << std::endl;
@@ -97,17 +95,8 @@ void searchLatin(const std::string& path) {
     option_list.emplace_back(option);
   }
 
-  const auto start = std::chrono::high_resolution_clock::now();
   auto solver = ExactCoverProblemSolver(num_items, option_list);
-  std::cout << "Find exact cover via dancing links" << std::endl;
-  solver.SolveMultiThread(true);
-  std::cout << "Done" << std::endl;
-  const auto num_solutions = solver.NumSolutions();
-  std::cout << "Num solutions: " << num_solutions << std::endl;
-  const auto end = std::chrono::high_resolution_clock::now();
-  const auto elapsed_sec =
-      std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
-  std::cout << "Elapsed: " << elapsed_sec.count() << " [seconds]" << std::endl;
+  runSolver(solver, false);
 }
 
 int main() {
@@ -115,6 +104,5 @@ int main() {
   searchLatin("data/latin/1.txt");
   searchLatin("data/latin/2.txt");
   searchLatin("data/latin/3.txt");
-  // 12分くらいかかる
-  searchLatin("data/latin/4.txt");
+  searchLatin("data/latin/4.txt");  // 12分くらいかかる
 }

@@ -1,11 +1,10 @@
 #include <algorithm>
-#include <chrono>
 #include <iostream>
 #include <map>
 #include <string>
 #include <vector>
 
-#include "solver/dancing_links.h"
+#include "common.h"
 
 struct Board {
   int xlen;
@@ -208,17 +207,8 @@ void pentminoes() {
     }
   }
 
-  const auto start = std::chrono::high_resolution_clock::now();
   auto solver = ExactCoverProblemSolver(num_items, option_list);
-  std::cout << "Find exact cover via dancing links" << std::endl;
-  solver.SolveMultiThread(true);
-  std::cout << "Done" << std::endl;
-  const auto num_solutions = solver.NumSolutions();
-  std::cout << "Num solutions: " << num_solutions << std::endl;
-  const auto end = std::chrono::high_resolution_clock::now();
-  const auto elapsed_sec =
-      std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
-  std::cout << "Elapsed: " << elapsed_sec.count() << " [seconds]" << std::endl;
+  runSolver(solver, true);
 
   // Print solution
   const auto print = [&](int sol) {
@@ -231,7 +221,7 @@ void pentminoes() {
         board.Set(x, y, map.at(i));
       }
     }
-    std::cout << "================================" << std::endl;
+    std::cout << "-------------------------------" << std::endl;
     std::cout << "Solution: " << sol << std::endl;
     // board.Print();
     board.PrettyPrint();

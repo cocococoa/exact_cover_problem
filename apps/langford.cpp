@@ -1,6 +1,6 @@
-#include <chrono>
+#include <vector>
 
-#include "solver/dancing_links.h"
+#include "common.h"
 
 void langfordPair(int size, bool show_general_result = false,
                   bool show_specific_result = false) {
@@ -16,19 +16,9 @@ void langfordPair(int size, bool show_general_result = false,
     }
   }
 
-  const auto start = std::chrono::high_resolution_clock::now();
   auto solver = ExactCoverProblemSolver(num_items, option_list);
-  std::cout << "Find exact cover via dancing links" << std::endl;
-  solver.SolveMultiThread(show_general_result or show_specific_result);
-  std::cout << "Done" << std::endl;
-  const auto num_solutions = solver.NumSolutions();
-  std::cout << "Num solutions: " << num_solutions << std::endl;
-  std::cout << "Num solutions without symmetry: " << num_solutions / 2
-            << std::endl;
-  const auto end = std::chrono::high_resolution_clock::now();
-  const auto elapsed_sec =
-      std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
-  std::cout << "Elapsed: " << elapsed_sec.count() << " [seconds]" << std::endl;
+  const auto num_solutions =
+      runSolver(solver, show_general_result or show_specific_result);
 
   if (show_general_result) {
     // General
@@ -54,22 +44,21 @@ void langfordPair(int size, bool show_general_result = false,
 }
 
 int main() {
+  std::cout << "-------------------------------" << std::endl;
   langfordPair(3, true, true);
-  std::cout << "======================================" << std::endl;
+  std::cout << "-------------------------------" << std::endl;
   langfordPair(4, true, true);
-  std::cout << "======================================" << std::endl;
+  std::cout << "-------------------------------" << std::endl;
   langfordPair(7, false, true);
-  std::cout << "======================================" << std::endl;
-  langfordPair(8, false, true);
-  std::cout << "======================================" << std::endl;
+  std::cout << "-------------------------------" << std::endl;
+  langfordPair(8);
+  std::cout << "-------------------------------" << std::endl;
   langfordPair(11);
-  std::cout << "======================================" << std::endl;
+  std::cout << "-------------------------------" << std::endl;
   langfordPair(12);
-  // 約3分かかる
-  std::cout << "======================================" << std::endl;
-  langfordPair(15);
-  // 約30分かかる
-  std::cout << "======================================" << std::endl;
-  langfordPair(16);
+  std::cout << "-------------------------------" << std::endl;
+  langfordPair(15);  // 約3分かかる
+  std::cout << "-------------------------------" << std::endl;
+  langfordPair(16);  // 約30分かかる
   return 0;
 }
