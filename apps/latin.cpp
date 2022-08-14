@@ -84,7 +84,7 @@ void searchLatin(const std::string& path) {
   latin.Print();
   auto transverse_list = calcTransverse(latin);
   std::cout << "Num transverses: " << transverse_list.size() << std::endl;
-  const auto start = std::chrono::high_resolution_clock::now();
+
   const auto num_items = LatinSize * LatinSize;
   auto option_list = std::vector<std::vector<int>>();
   for (const auto& t : transverse_list) {
@@ -96,12 +96,12 @@ void searchLatin(const std::string& path) {
 
     option_list.emplace_back(option);
   }
-  auto solver = ExactCoverProblemSolver(num_items, option_list);
 
+  const auto start = std::chrono::high_resolution_clock::now();
+  auto solver = ExactCoverProblemSolver(num_items, option_list);
   std::cout << "Find exact cover via dancing links" << std::endl;
   solver.SolveMultiThread(true);
   std::cout << "Done" << std::endl;
-
   const auto num_solutions = solver.NumSolutions();
   std::cout << "Num solutions: " << num_solutions << std::endl;
   const auto end = std::chrono::high_resolution_clock::now();

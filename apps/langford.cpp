@@ -1,3 +1,5 @@
+#include <chrono>
+
 #include "solver/dancing_links.h"
 
 void langfordPair(int size, bool show_general_result = false,
@@ -13,16 +15,21 @@ void langfordPair(int size, bool show_general_result = false,
       }
     }
   }
-  auto solver = ExactCoverProblemSolver(num_items, option_list);
 
+  const auto start = std::chrono::high_resolution_clock::now();
+  auto solver = ExactCoverProblemSolver(num_items, option_list);
   std::cout << "Find exact cover via dancing links" << std::endl;
   solver.SolveMultiThread(show_general_result or show_specific_result);
   std::cout << "Done" << std::endl;
-
   const auto num_solutions = solver.NumSolutions();
   std::cout << "Num solutions: " << num_solutions << std::endl;
   std::cout << "Num solutions without symmetry: " << num_solutions / 2
             << std::endl;
+  const auto end = std::chrono::high_resolution_clock::now();
+  const auto elapsed_sec =
+      std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+  std::cout << "Elapsed: " << elapsed_sec.count() << " [seconds]" << std::endl;
+
   if (show_general_result) {
     // General
     for (auto i = 0; i < num_solutions; ++i)
