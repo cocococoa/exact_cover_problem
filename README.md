@@ -14,6 +14,8 @@ $ cmake --build build/
 ```sh
 $ ./build/apps/example
 $ ./build/apps/langford
+$ ./build/apps/latin
+$ ./build/apps/nqueen
 $ ./build/apps/pentominoes
 hnode size: 78
 vnode size: 14981
@@ -21,7 +23,8 @@ Find exact cover via dancing links
 Num copies: 36
 Done
 Num solutions: 65
-================================
+Elapsed: 0.13393 [seconds]
+-------------------------------
 Solution: 0
           
 ┌┬┬──┬──┐ 
@@ -33,7 +36,7 @@ Solution: 0
 ├┐┌┤└─┐├┤ 
 │└┘│┌─┴┘│ 
 └──┴┴───┘ 
-================================
+-------------------------------
 Solution: 10
           
 ┌──┬───┬┐ 
@@ -45,5 +48,4 @@ Solution: 10
 │┌┘└┐└─┐│ 
 │└┐┌┴──┴┤ 
 └─┴┴────┘
-$ ./build/apps/latin
 ```
