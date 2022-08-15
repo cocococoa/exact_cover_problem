@@ -98,7 +98,7 @@ class ExactCoverProblemSolver {
 
  private:
   void SolveImpl(int initial_i, int initial_xl, bool start_from_x5,
-                 bool save_solution = false);
+                 bool save_solution);
   void Cover(int i);
   void Hide(int p);
   void UnCover(int i);
