@@ -50,3 +50,10 @@ Solution: 10
 └─┴┴────┘
 $ ./build/apps/sudoku
 ```
+
+## Performance
+
+CPU: Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz   1.99 GHz
+
+Run result: [log](log)  (Please see `log` file)
+
