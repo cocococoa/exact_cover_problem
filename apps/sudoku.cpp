@@ -27,7 +27,12 @@ struct Board {
       }
       if (y != 0 and y % SubSize == 0) {
         std::cout << std::endl;
-        std::cout << "---   ---   ---";
+        for (auto i = 0; i < SubSize; ++i) {
+          for (auto j = 0; j < SubSize; ++j) {
+            std::cout << "-";
+          }
+          std::cout << "   ";
+        }
       }
       std::cout << std::endl;
     }
@@ -49,7 +54,6 @@ Board loadSudoku(const std::string& path) {
     }
     --y;
   }
-  ret.Print();
   return ret;
 }
 
@@ -119,6 +123,10 @@ class OptionManager {
 
 void sudoku(const std::string& path) {
   const auto sudoku = loadSudoku(path);
+  std::cout << "Problem: \n" << std::endl;
+  sudoku.Print();
+  std::cout << std::endl;
+
   auto manager = OptionManager();
   manager.SetItemTypes(4);
   for (auto x = 0; x < SudokuSize; ++x) {
@@ -149,6 +157,7 @@ void sudoku(const std::string& path) {
   const auto [num_items, option_list] = manager.Compile();
   auto solver = ExactCoverProblemSolver(num_items, option_list);
   runSolver(solver, true);
+
   const auto option_idx_list = solver.GetSolution(0);
   auto solved_sudoku = sudoku;
   for (const auto comiled_option_idx : option_idx_list) {
@@ -158,7 +167,9 @@ void sudoku(const std::string& path) {
     const auto v = raw_option[1] % SudokuSize + 1;
     solved_sudoku.Set(x, y, v);
   }
+  std::cout << "Solution: \n" << std::endl;
   solved_sudoku.Print();
+  std::cout << std::endl;
 }
 
 int main() {
