@@ -53,7 +53,6 @@ $ ./build/apps/sudoku
 
 ## Performance
 
-CPU: Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz   1.99 GHz
-
-Run result: [log](log)  (Please see `log` file)
+* [Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz 1.99 GHz](logs/intel-core-i7-8565U)
+* [AMD Ryzen 7 3700X 8-Core Processor 3.59 GHz](logs/amd-ryzen-7-3700X)
 
