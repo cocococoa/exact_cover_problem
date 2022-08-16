@@ -48,11 +48,11 @@ Find exact cover via dancing links
 Num copies: 2
 Done
 Num solutions: 1
-Elapsed: 0.00076898 [seconds]
+Elapsed: 0.000160294 [seconds]
 {{2, 4}, {0, 3, 5}, {1, 6}}
 
-real	0m0.005s
-user	0m0.005s
+real	0m0.001s
+user	0m0.001s
 sys	0m0.000s
 -----------------------------------------------------------
 # Langford pair
@@ -64,7 +64,7 @@ Find exact cover via dancing links
 Num copies: 3
 Done
 Num solutions: 2
-Elapsed: 0.00018136 [seconds]
+Elapsed: 0.000194754 [seconds]
 {{2, 4, 6}, {0, 3, 7}, {1, 5, 8}}
 {{1, 3, 6}, {2, 5, 7}, {0, 4, 8}}
 231213
@@ -76,7 +76,7 @@ Find exact cover via dancing links
 Num copies: 4
 Done
 Num solutions: 2
-Elapsed: 0.000979033 [seconds]
+Elapsed: 0.000744859 [seconds]
 {{4, 6, 8}, {0, 3, 9}, {1, 5, 10}, {2, 7, 11}}
 {{1, 3, 8}, {4, 7, 9}, {2, 6, 10}, {0, 5, 11}}
 23421314
@@ -88,7 +88,7 @@ Find exact cover via dancing links
 Num copies: 7
 Done
 Num solutions: 52
-Elapsed: 0.000344786 [seconds]
+Elapsed: 0.000409793 [seconds]
 17126425374635
 17125623475364
 16172452634753
@@ -148,7 +148,7 @@ Find exact cover via dancing links
 Num copies: 8
 Done
 Num solutions: 300
-Elapsed: 0.000456685 [seconds]
+Elapsed: 0.000596266 [seconds]
 -------------------------------
 hnode size: 34
 vnode size: 695
@@ -156,7 +156,7 @@ Find exact cover via dancing links
 Num copies: 11
 Done
 Num solutions: 35584
-Elapsed: 0.00871313 [seconds]
+Elapsed: 0.00805099 [seconds]
 -------------------------------
 hnode size: 37
 vnode size: 830
@@ -164,7 +164,7 @@ Find exact cover via dancing links
 Num copies: 12
 Done
 Num solutions: 216288
-Elapsed: 0.0494839 [seconds]
+Elapsed: 0.0441712 [seconds]
 -------------------------------
 hnode size: 46
 vnode size: 1307
@@ -172,7 +172,7 @@ Find exact cover via dancing links
 Num copies: 15
 Done
 Num solutions: 79619280
-Elapsed: 17.6083 [seconds]
+Elapsed: 15.9347 [seconds]
 -------------------------------
 hnode size: 49
 vnode size: 1490
@@ -180,11 +180,11 @@ Find exact cover via dancing links
 Num copies: 16
 Done
 Num solutions: 653443600
-Elapsed: 146.645 [seconds]
+Elapsed: 128.731 [seconds]
 
-real	2m44.316s
-user	37m52.826s
-sys	0m0.000s
+real	2m24.722s
+user	33m30.878s
+sys	0m0.110s
 -----------------------------------------------------------
 # Latin square
 
@@ -206,7 +206,7 @@ Find exact cover via dancing links
 Num copies: 79
 Done
 Num solutions: 1
-Elapsed: 0.137521 [seconds]
+Elapsed: 0.0373044 [seconds]
 -------------------------------
 3145926870
 2819763504
@@ -225,7 +225,7 @@ Find exact cover via dancing links
 Num copies: 75
 Done
 Num solutions: 2
-Elapsed: 0.0341142 [seconds]
+Elapsed: 0.0344064 [seconds]
 -------------------------------
 2718459036
 0287135649
@@ -244,7 +244,7 @@ Find exact cover via dancing links
 Num copies: 92
 Done
 Num solutions: 0
-Elapsed: 0.0649648 [seconds]
+Elapsed: 0.042991 [seconds]
 -------------------------------
 0572164938
 6051298473
@@ -263,7 +263,7 @@ Find exact cover via dancing links
 Num copies: 95
 Done
 Num solutions: 6
-Elapsed: 0.0550616 [seconds]
+Elapsed: 0.044667 [seconds]
 -------------------------------
 7823456019
 8234067195
@@ -282,11 +282,11 @@ Find exact cover via dancing links
 Num copies: 480
 Done
 Num solutions: 12265168
-Elapsed: 206.519 [seconds]
+Elapsed: 171.842 [seconds]
 
-real	3m29.849s
-user	54m16.959s
-sys	0m1.409s
+real	2m55.162s
+user	45m17.853s
+sys	0m0.809s
 -----------------------------------------------------------
 # N Queen
 
@@ -298,7 +298,7 @@ Find exact cover via dancing links
 Num copies: 1
 Done
 Num solutions: 1
-Elapsed: 0.000252362 [seconds]
+Elapsed: 0.000180743 [seconds]
 -------------------------------
 Board size: 2
 hnode size: 11
@@ -307,7 +307,7 @@ Find exact cover via dancing links
 Num copies: 2
 Done
 Num solutions: 0
-Elapsed: 0.000191729 [seconds]
+Elapsed: 0.000129853 [seconds]
 -------------------------------
 Board size: 3
 hnode size: 17
@@ -316,7 +316,7 @@ Find exact cover via dancing links
 Num copies: 3
 Done
 Num solutions: 0
-Elapsed: 0.000332303 [seconds]
+Elapsed: 0.000159464 [seconds]
 -------------------------------
 Board size: 4
 hnode size: 23
@@ -325,7 +325,7 @@ Find exact cover via dancing links
 Num copies: 4
 Done
 Num solutions: 2
-Elapsed: 0.00016028 [seconds]
+Elapsed: 0.000201632 [seconds]
 -------------------------------
 Board size: 5
 hnode size: 29
@@ -334,7 +334,7 @@ Find exact cover via dancing links
 Num copies: 5
 Done
 Num solutions: 10
-Elapsed: 0.000294603 [seconds]
+Elapsed: 0.000253134 [seconds]
 -------------------------------
 Board size: 6
 hnode size: 35
@@ -343,7 +343,7 @@ Find exact cover via dancing links
 Num copies: 6
 Done
 Num solutions: 4
-Elapsed: 0.000298649 [seconds]
+Elapsed: 0.00051532 [seconds]
 -------------------------------
 Board size: 7
 hnode size: 41
@@ -352,7 +352,7 @@ Find exact cover via dancing links
 Num copies: 7
 Done
 Num solutions: 40
-Elapsed: 0.000479097 [seconds]
+Elapsed: 0.000380933 [seconds]
 -------------------------------
 Board size: 8
 hnode size: 47
@@ -361,7 +361,7 @@ Find exact cover via dancing links
 Num copies: 8
 Done
 Num solutions: 92
-Elapsed: 0.000406792 [seconds]
+Elapsed: 0.000553216 [seconds]
 -------------------------------
 Board size: 9
 hnode size: 53
@@ -370,7 +370,7 @@ Find exact cover via dancing links
 Num copies: 9
 Done
 Num solutions: 352
-Elapsed: 0.000707775 [seconds]
+Elapsed: 0.000783703 [seconds]
 -------------------------------
 Board size: 10
 hnode size: 59
@@ -379,7 +379,7 @@ Find exact cover via dancing links
 Num copies: 10
 Done
 Num solutions: 724
-Elapsed: 0.00164241 [seconds]
+Elapsed: 0.00154796 [seconds]
 -------------------------------
 Board size: 11
 hnode size: 65
@@ -388,7 +388,7 @@ Find exact cover via dancing links
 Num copies: 11
 Done
 Num solutions: 2680
-Elapsed: 0.00506552 [seconds]
+Elapsed: 0.00457039 [seconds]
 -------------------------------
 Board size: 12
 hnode size: 71
@@ -397,7 +397,7 @@ Find exact cover via dancing links
 Num copies: 12
 Done
 Num solutions: 14200
-Elapsed: 0.0280097 [seconds]
+Elapsed: 0.0213687 [seconds]
 -------------------------------
 Board size: 13
 hnode size: 77
@@ -406,7 +406,7 @@ Find exact cover via dancing links
 Num copies: 13
 Done
 Num solutions: 73712
-Elapsed: 0.122294 [seconds]
+Elapsed: 0.108568 [seconds]
 -------------------------------
 Board size: 14
 hnode size: 83
@@ -415,7 +415,7 @@ Find exact cover via dancing links
 Num copies: 14
 Done
 Num solutions: 365596
-Elapsed: 0.703856 [seconds]
+Elapsed: 0.622762 [seconds]
 -------------------------------
 Board size: 15
 hnode size: 89
@@ -424,11 +424,11 @@ Find exact cover via dancing links
 Num copies: 15
 Done
 Num solutions: 2279184
-Elapsed: 4.74555 [seconds]
+Elapsed: 4.06429 [seconds]
 
-real	0m5.620s
-user	1m14.797s
-sys	0m0.040s
+real	0m4.829s
+user	1m4.461s
+sys	0m0.000s
 -----------------------------------------------------------
 # Pentominoes
 
@@ -438,7 +438,7 @@ Find exact cover via dancing links
 Num copies: 36
 Done
 Num solutions: 65
-Elapsed: 0.0552437 [seconds]
+Elapsed: 0.054064 [seconds]
 -------------------------------
 Solution: 0
           
@@ -464,9 +464,9 @@ Solution: 10
 │└┐┌┴──┴┤ 
 └─┴┴────┘ 
 
-real	0m0.068s
-user	0m0.239s
-sys	0m0.025s
+real	0m0.069s
+user	0m0.187s
+sys	0m0.013s
 -----------------------------------------------------------
 # Sudoku
 
@@ -491,7 +491,7 @@ Find exact cover via dancing links
 Num copies: 2
 Done
 Num solutions: 1
-Elapsed: 0.000245971 [seconds]
+Elapsed: 0.000343117 [seconds]
 Solution: 
 
 597 | 218 | 364
@@ -527,7 +527,7 @@ Find exact cover via dancing links
 Num copies: 4
 Done
 Num solutions: 1
-Elapsed: 0.000399478 [seconds]
+Elapsed: 0.000648138 [seconds]
 Solution: 
 
 319 | 657 | 842

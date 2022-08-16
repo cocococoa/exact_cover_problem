@@ -71,6 +71,7 @@ class ExactCoverProblemSolver {
 #ifndef NDEBUG
     int idx = 0;  //!< for debug
 #endif
+    int fix_structure_size = 0;
     int len_or_top = NullIdx;
     int ulink = NullIdx;
     int dlink = NullIdx;
