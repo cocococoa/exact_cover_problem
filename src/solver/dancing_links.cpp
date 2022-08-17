@@ -171,87 +171,77 @@ void ExactCoverProblemSolver::SolveImpl(int initial_i, int initial_xl,
                                         bool save_solution) {
   auto sol = std::vector<int>();
   sol.reserve(num_items);
+
+  const auto leave_level = start_from_x5 ? 1 : 0;
+  auto level = 0;
+
   auto i = initial_i;
   auto xl = initial_xl;
-  auto level = 0;
-  const auto leave_level = start_from_x5 ? 1 : 0;
-  if (start_from_x5) goto X5;
-
-X2:
-  // std::cout << "X2: Enter level l: " << level << std::endl;
-  if (RLink(0) == 0) {
-    // Hence all items have been covered
-    num_solutions_++;
-    if (save_solution) {
-      solution_list_.emplace_back(std::vector<int>(sol));
-    }
-    goto X8;
+  if (not start_from_x5) {
+    i = MRV();
+    Cover(i);
+    xl = DLink(i);
   }
 
-  // X3:
-  // i = RLink(0);
-  i = MRV();
-  // std::cout << "X3: Choose i: " << i << std::endl;
-
-  // X4:
-  // std::cout << "X4: Cover i: " << i << std::endl;
-  Cover(i);
-  xl = DLink(i);
-
-X5:
-  // std::cout << "X5: Try xl: " << xl << std::endl;
-  if (xl == i) {
-    // std::cout << "We've tried all options for i: " << i << std::endl;
-    goto X7;
-  } else {
-    // This covers the items \neq i in the option that contains xl
-    auto p = xl + 1;
-    while (p != xl) {
-      const auto j = Top(p);
-      if (j <= 0) {
-        p = ULink(p);
-      } else {
-        Cover(j);
-        p = p + 1;
+  while (true) {
+    while (xl != i) {
+      // X5
+      {
+        auto p = xl + 1;
+        while (p != xl) {
+          const auto j = Top(p);
+          if (j <= 0) {
+            p = ULink(p);
+          } else {
+            Cover(j);
+            p = p + 1;
+          }
+        }
       }
-    }
-    level++;
-    sol.emplace_back(xl);
-    goto X2;
-  }
+      level++;
+      sol.emplace_back(xl);
 
-X6:
-  // std::cout << "X6: Try again: " << xl << std::endl;
-  {
-    // This uncovers the items \neq i in the option that contains xl
-    auto p = xl - 1;
-    while (p != xl) {
-      const auto j = Top(p);
-      if (j <= 0) {
-        p = DLink(p);
-      } else {
-        UnCover(j);
-        p = p - 1;
+      // X2
+      if (RLink(0) == 0) {
+        num_solutions_++;
+        if (save_solution) solution_list_.emplace_back(sol);
+        break;
       }
+
+      // X3
+      // TODO(masaki.ono): i の良い決め方を考える
+      // i = RLink(0);
+      i = MRV();
+
+      // X4
+      Cover(i);
+      xl = DLink(i);
     }
-  }
-  i = Top(xl);
-  xl = DLink(xl);
-  goto X5;
+    // X7
+    if (xl == i) UnCover(i);
 
-X7:
-  // std::cout << "X7: Backtrack" << std::endl;
-  UnCover(i);
-
-X8:
-  // std::cout << "X8: Leave level l: " << level << std::endl;
-  if (level == leave_level) {
-    return;
-  } else {
+    // X8
+    if (level == leave_level) [[unlikely]]
+      break;
     level--;
     xl = sol.back();
     sol.pop_back();
-    goto X6;
+
+    // X6
+    {
+      auto p = xl - 1;
+      while (p != xl) {
+        const auto j = Top(p);
+        if (j <= 0) {
+          p = DLink(p);
+        } else {
+          UnCover(j);
+          p = p - 1;
+        }
+      }
+    }
+    i = Top(xl);
+    xl = DLink(xl);
   }
 }
 void ExactCoverProblemSolver::Cover(int i) {
