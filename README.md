@@ -49,6 +49,7 @@ Solution: 10
 │┌┘└┐└─┐│ 
 │└┐┌┴──┴┤ 
 └─┴┴────┘
+$ ./build/apps/prime_square
 $ ./build/apps/sudoku
 $ ./build/apps/xc_example
 $ ./build/apps/xcc_example
