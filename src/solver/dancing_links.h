@@ -53,7 +53,7 @@ class ExactCoverProblemSolver {
   /**
    * @brief アルゴリズムXのヘッダー
    */
-  struct HNode {
+  struct Header {
 #ifndef NDEBUG
     int idx = 0;  //!< for debug
 #endif
@@ -66,7 +66,7 @@ class ExactCoverProblemSolver {
   /**
    * @brief アルゴリズムXのノード
    */
-  struct VNode {
+  struct Node {
 #ifndef NDEBUG
     int idx = 0;  //!< for debug
 #endif
@@ -103,16 +103,16 @@ class ExactCoverProblemSolver {
   void Hide(int p);
   void UnCover(int i);
   void UnHide(int p);
-  HNode& Hnode(int i) { return hnode_list_[i]; }
-  const HNode& Hnode(int i) const { return hnode_list_[i]; }
-  int LLink(int i) const { return Hnode(i).llink; }
-  int RLink(int i) const { return Hnode(i).rlink; }
-  VNode& Vnode(int i) { return vnode_list_[i]; }
-  const VNode& Vnode(int i) const { return vnode_list_[i]; }
-  int Len(int i) const { return Vnode(i).len_or_top; }
-  int Top(int p) const { return Vnode(p).len_or_top; }
-  int ULink(int p) const { return Vnode(p).ulink; }
-  int DLink(int p) const { return Vnode(p).dlink; }
+  Header& HNode(int i) { return hnode_list_[i]; }
+  const Header& HNode(int i) const { return hnode_list_[i]; }
+  int LLink(int i) const { return HNode(i).llink; }
+  int RLink(int i) const { return HNode(i).rlink; }
+  Node& VNode(int i) { return vnode_list_[i]; }
+  const Node& VNode(int i) const { return vnode_list_[i]; }
+  int Len(int i) const { return VNode(i).len_or_top; }
+  int Top(int p) const { return VNode(p).len_or_top; }
+  int ULink(int p) const { return VNode(p).ulink; }
+  int DLink(int p) const { return VNode(p).dlink; }
   int MRV() const;
 
  private:
@@ -120,8 +120,8 @@ class ExactCoverProblemSolver {
   const int num_items;
   const std::vector<std::vector<int>> option_list;
   std::map<int, int> vnode2idx_;
-  std::vector<HNode> hnode_list_;
-  std::vector<VNode> vnode_list_;
+  std::vector<Header> hnode_list_;
+  std::vector<Node> vnode_list_;
 
   // Output
   std::uint64_t num_solutions_ = 0;

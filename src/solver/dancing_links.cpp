@@ -5,7 +5,7 @@
 #include <numeric>
 #include <thread>
 
-std::string ExactCoverProblemSolver::HNode::str() const {
+std::string ExactCoverProblemSolver::Header::str() const {
   std::stringstream ss;
 #ifndef NDEBUG
   ss << "i: " << idx << ", ";
@@ -13,7 +13,7 @@ std::string ExactCoverProblemSolver::HNode::str() const {
   ss << "LLINK(i): " << llink << ", RLINK(i): " << rlink;
   return ss.str();
 }
-std::string ExactCoverProblemSolver::VNode::str() const {
+std::string ExactCoverProblemSolver::Node::str() const {
   std::stringstream ss;
 #ifndef NDEBUG
   ss << "x: ";
@@ -262,8 +262,8 @@ void ExactCoverProblemSolver::Cover(int i) {
   }
   const auto l = LLink(i);
   const auto r = RLink(i);
-  Hnode(l).rlink = r;
-  Hnode(r).llink = l;
+  HNode(l).rlink = r;
+  HNode(r).llink = l;
 }
 void ExactCoverProblemSolver::Hide(int p) {
   auto q = p + 1;
@@ -275,9 +275,9 @@ void ExactCoverProblemSolver::Hide(int p) {
       // q was a spacer
       q = u;
     } else {
-      Vnode(u).dlink = d;
-      Vnode(d).ulink = u;
-      Vnode(x).len_or_top -= 1;
+      VNode(u).dlink = d;
+      VNode(d).ulink = u;
+      VNode(x).len_or_top -= 1;
       q += 1;
     }
   }
@@ -285,8 +285,8 @@ void ExactCoverProblemSolver::Hide(int p) {
 void ExactCoverProblemSolver::UnCover(int i) {
   const auto l = LLink(i);
   const auto r = RLink(i);
-  Hnode(l).rlink = i;
-  Hnode(r).llink = i;
+  HNode(l).rlink = i;
+  HNode(r).llink = i;
   auto p = ULink(i);
   while (p != i) {
     UnHide(p);
@@ -303,9 +303,9 @@ void ExactCoverProblemSolver::UnHide(int p) {
       // q was a spacer
       q = d;
     } else {
-      Vnode(u).dlink = q;
-      Vnode(d).ulink = q;
-      Vnode(x).len_or_top += 1;
+      VNode(u).dlink = q;
+      VNode(d).ulink = q;
+      VNode(x).len_or_top += 1;
       q -= 1;
     }
   }
