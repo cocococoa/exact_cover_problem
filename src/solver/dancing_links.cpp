@@ -127,12 +127,6 @@ std::string ExactCoverProblemSolver::GetPrettySolution(int i) const {
 void ExactCoverProblemSolver::Solve(bool save_solution) {
   SolveImpl(0, 0, false, save_solution);
 }
-int callSolverInMultiThreadHelper(ExactCoverProblemSolver* solver,
-                                  int initial_i, int initial_xl,
-                                  bool save_solution) {
-  solver->SolveImpl(initial_i, initial_xl, true, save_solution);
-  return 0;
-}
 void ExactCoverProblemSolver::SolveMultiThread(bool save_solution) {
   // Select i
   // TODO(masaki.ono): initial_i の決め方を工夫する
@@ -151,9 +145,12 @@ void ExactCoverProblemSolver::SolveMultiThread(bool save_solution) {
   // Run solvers
   auto thread_list = std::vector<std::thread>();
   for (auto c = 0; c < num_copies; ++c) {
-    thread_list.emplace_back(std::thread(callSolverInMultiThreadHelper,
-                                         &solver_list[c], initial_i,
-                                         initial_xl_list[c], save_solution));
+    thread_list.emplace_back(std::thread(
+        [](ExactCoverProblemSolver* solver, int initial_i, int initial_xl,
+           bool save_solution) {
+          solver->SolveImpl(initial_i, initial_xl, true, save_solution);
+        },
+        &solver_list[c], initial_i, initial_xl_list[c], save_solution));
   }
   for (auto&& thread : thread_list) thread.join();
 

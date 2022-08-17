@@ -25,30 +25,10 @@ std::string tostr(Iterator begin, Iterator end, const std::string& sep = ", ") {
   return ss.str();
 }
 
-// Forward declaration
-class ExactCoverProblemSolver;
-
-/**
- * @brief マルチスレッドで解を探索するのを補助する関数
- * @note std::thread に渡す用の関数
- * @param solver ソルバ
- * @param initial_i アルゴリズムXのiの初期値
- * @param initial_xl アルゴリズムXのxlの初期値
- * @param save_solution 探索時に解を保存するかどうかのオプション
- * @return int 0
- */
-int callSolverInMultiThreadHelper(ExactCoverProblemSolver* solver,
-                                  int initial_i, int initial_xl,
-                                  bool save_solution);
-
 /**
  * @brief 完全被覆問題のソルバ
  */
 class ExactCoverProblemSolver {
- public:
-  friend int callSolverInMultiThreadHelper(ExactCoverProblemSolver*, int, int,
-                                           bool);
-
  private:
   /**
    * @brief アルゴリズムXのヘッダー
