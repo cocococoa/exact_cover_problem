@@ -95,12 +95,14 @@ void findPrimeSquare(int size, bool save_solution) {
       std::cout << std::endl;
     }
   };
-  std::cout << "Solution 0" << std::endl;
-  print_solution(solver.GetSolution(0));
-  std::cout << "Solution 10" << std::endl;
-  print_solution(solver.GetSolution(10));
-  std::cout << "Solution 20" << std::endl;
-  print_solution(solver.GetSolution(20));
+  if (save_solution) {
+    std::cout << "Solution 0" << std::endl;
+    print_solution(solver.GetSolution(0));
+    std::cout << "Solution 10" << std::endl;
+    print_solution(solver.GetSolution(10));
+    std::cout << "Solution 20" << std::endl;
+    print_solution(solver.GetSolution(20));
+  }
 }
 
 int main() {
