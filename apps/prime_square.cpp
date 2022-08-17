@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iostream>
+#include <string>
 #include <vector>
 
 #include "common.h"
@@ -77,7 +78,7 @@ void findPrimeSquare(int size, bool save_solution) {
 
   auto solver = ExactCoverWithColorsSolver(num_primary_items,
                                            num_secondary_items, option_list);
-  runXCCSolver("Prime Square", solver, save_solution);
+  runXCCSolver("prime square " + std::to_string(size), solver, save_solution);
 
   const auto print_solution = [&](const auto& solution) {
     auto square = std::vector<int>(size * size, 0);

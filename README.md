@@ -16,7 +16,6 @@ $ cmake --build build/
 ```sh
 $ ./build/apps/langford
 $ ./build/apps/latin
-$ ./build/apps/nqueen
 $ ./build/apps/pentominoes
 hnode size: 78
 vnode size: 14981
@@ -52,7 +51,9 @@ Solution: 10
 $ ./build/apps/prime_square
 $ ./build/apps/sudoku
 $ ./build/apps/xc_example
+$ ./build/apps/xc_nqueen
 $ ./build/apps/xcc_example
+$ ./build/apps/xcc_nqueen
 ```
 
 ## Performance
