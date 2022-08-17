@@ -46,13 +46,6 @@ ExactCoverProblemSolver::ExactCoverProblemSolver(
   std::cout << "hnode size: " << hnode_list_.size() << std::endl;
   std::cout << "vnode size: " << vnode_list_.size() << std::endl;
 
-#ifndef NDEBUG
-  // Set index for debug
-  for (auto i = 0; i < 1 + num_items; ++i) hnode_list_[i].idx = i;
-  for (auto i = 0; i < 1 + num_items + num_options + num_total_items + 1; ++i)
-    vnode_list_[i].idx = i;
-#endif
-
   // Initialize hnode
   for (auto i = 0; i < num_items; ++i) {
     hnode_list_[i].rlink = i + 1;
