@@ -5,6 +5,8 @@
 #include <numeric>
 #include <thread>
 
+#include "solver/job_queue.h"
+
 #pragma region XC
 std::string ExactCoverProblemSolver::Header::str() const {
   std::stringstream ss;
@@ -437,18 +439,28 @@ void ExactCoverWithColorsSolver::SolveMultiThread(bool save_solution) {
   }
   auto solver_list = std::vector<ExactCoverWithColorsSolver>(num_copies, *this);
 
-  // Run solvers
-  auto thread_list = std::vector<std::thread>();
-  for (auto c = 0; c < num_copies; ++c) {
-    thread_list.emplace_back(std::thread(
-        [](ExactCoverWithColorsSolver* solver, int initial_i, int initial_xl,
-           bool save_solution) {
-          solver->SolveImpl(initial_i, initial_xl, true, save_solution);
-        },
-        &solver_list[c], initial_i, initial_xl_list[c], save_solution));
+  struct InputType {
+    ExactCoverWithColorsSolver* solver;
+    int initial_i;
+    int initial_xl;
+    bool save_solution;
+  };
+  struct OutputType {
+    int ret;
+  };
+  const auto function = [](auto input) {
+    input.solver->SolveImpl(input.initial_i, input.initial_xl, true,
+                            input.save_solution);
+    return OutputType{0};
+  };
+  auto job_queue = JobQueue<InputType, OutputType, decltype(function)>(
+      (int)std::thread::hardware_concurrency(), function);
+  job_queue.Start();
+  for (auto copy = 0; copy < num_copies; ++copy) {
+    job_queue.AddJob(InputType{&solver_list[copy], initial_i,
+                               initial_xl_list[copy], save_solution});
   }
-  for (auto&& thread : thread_list) thread.join();
-
+  job_queue.Join();
   // Collect Results
   for (const auto& solver : solver_list) {
     num_solutions_ += solver.NumSolutions();
