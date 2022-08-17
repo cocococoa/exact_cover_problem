@@ -7,4 +7,7 @@ time ./build/apps/nqueen 2>&1      | tee -a log
 time ./build/apps/pentominoes 2>&1 | tee -a log
 time ./build/apps/sudoku 2>&1      | tee -a log
 
+echo "-----------------------------------------------------------"
+echo "# Summary"
+echo ""
 cat log | grep Elapsed             | tee -a log
