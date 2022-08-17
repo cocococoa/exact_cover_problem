@@ -208,7 +208,7 @@ void pentminoes() {
   }
 
   auto solver = ExactCoverProblemSolver(num_items, option_list);
-  runSolver("pentominoes", solver, true);
+  runXCSolver("pentominoes", solver, true);
 
   // Print solution
   const auto print = [&](int sol) {

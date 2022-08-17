@@ -5,7 +5,7 @@
 
 #include "solver/dancing_links.h"
 
-inline int runSolver(const std::string& name, ExactCoverProblemSolver& solver,
+inline int runXCSolver(const std::string& name, ExactCoverProblemSolver& solver,
                      bool save_solution) {
   const auto start = std::chrono::high_resolution_clock::now();
   solver.SolveMultiThread(save_solution);

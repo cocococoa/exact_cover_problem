@@ -11,7 +11,7 @@ void tryXCExample() {
   auto solver = ExactCoverProblemSolver(num_items, option_list);
   solver.PrintCurrentLink();
 
-  const auto num_solutions = runSolver("XC example", solver, true);
+  const auto num_solutions = runXCSolver("XC example", solver, true);
   for (auto i = 0; i < num_solutions; ++i)
     std::cout << solver.GetPrettySolution(i) << std::endl;
 }

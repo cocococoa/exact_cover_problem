@@ -30,7 +30,7 @@ void nQueen(int size) {
   }
 
   auto solver = ExactCoverProblemSolver(num_items, option_list);
-  runSolver("nqueen " + std::to_string(size), solver, false);
+  runXCSolver("nqueen " + std::to_string(size), solver, false);
 }
 
 int main() {

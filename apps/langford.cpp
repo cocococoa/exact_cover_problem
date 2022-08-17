@@ -20,7 +20,7 @@ void langfordPair(int size, bool show_general_result = false,
 
   auto solver = ExactCoverProblemSolver(num_items, option_list);
   const auto num_solutions =
-      runSolver("langford " + std::to_string(size), solver,
+      runXCSolver("langford " + std::to_string(size), solver,
                 show_general_result or show_specific_result);
 
   if (show_general_result) {

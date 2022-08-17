@@ -95,7 +95,7 @@ void searchLatin(const std::string& path, int index) {
   }
 
   auto solver = ExactCoverProblemSolver(num_items, option_list);
-  runSolver("latin " + std::to_string(index), solver, false);
+  runXCSolver("latin " + std::to_string(index), solver, false);
 }
 
 int main() {

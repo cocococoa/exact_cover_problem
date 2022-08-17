@@ -157,7 +157,7 @@ void sudoku(const std::string& path, int index) {
 
   const auto [num_items, option_list] = manager.Compile();
   auto solver = ExactCoverProblemSolver(num_items, option_list);
-  runSolver("sudoku " + std::to_string(index), solver, true);
+  runXCSolver("sudoku " + std::to_string(index), solver, true);
 
   const auto option_idx_list = solver.GetSolution(0);
   auto solved_sudoku = sudoku;
