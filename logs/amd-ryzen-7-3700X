@@ -46,7 +46,7 @@ LEN OR TOP(x):  7, ULINK(x): 25, DLINK(x):  7
 LEN OR TOP(x): -6, ULINK(x): 27, DLINK(x): --
 Num copies: 2
 Num solutions: 1
-[Elapsed sec]         example: 0.000133911
+[Elapsed sec]         example: 0.000140887
 {{2, 4}, {0, 3, 5}, {1, 6}}
 -----------------------------------------------------------
 # Langford pair
@@ -56,7 +56,7 @@ hnode size: 10
 vnode size: 47
 Num copies: 3
 Num solutions: 2
-[Elapsed sec]      langford 3: 0.000387795
+[Elapsed sec]      langford 3: 0.000150162
 {{2, 4, 6}, {0, 3, 7}, {1, 5, 8}}
 {{1, 3, 6}, {2, 5, 7}, {0, 4, 8}}
 231213
@@ -66,7 +66,7 @@ hnode size: 13
 vnode size: 86
 Num copies: 4
 Num solutions: 2
-[Elapsed sec]      langford 4: 0.000203792
+[Elapsed sec]      langford 4: 0.000173631
 {{4, 6, 8}, {0, 3, 9}, {1, 5, 10}, {2, 7, 11}}
 {{1, 3, 8}, {4, 7, 9}, {2, 6, 10}, {0, 5, 11}}
 23421314
@@ -76,7 +76,7 @@ hnode size: 22
 vnode size: 275
 Num copies: 7
 Num solutions: 52
-[Elapsed sec]      langford 7: 0.000426579
+[Elapsed sec]      langford 7: 0.000395465
 17126425374635
 17125623475364
 16172452634753
@@ -134,31 +134,31 @@ hnode size: 25
 vnode size: 362
 Num copies: 8
 Num solutions: 300
-[Elapsed sec]      langford 8: 0.00052342
+[Elapsed sec]      langford 8: 0.000458078
 -------------------------------
 hnode size: 34
 vnode size: 695
 Num copies: 11
 Num solutions: 35584
-[Elapsed sec]     langford 11: 0.0075979
+[Elapsed sec]     langford 11: 0.00739939
 -------------------------------
 hnode size: 37
 vnode size: 830
 Num copies: 12
 Num solutions: 216288
-[Elapsed sec]     langford 12: 0.0510484
+[Elapsed sec]     langford 12: 0.0410764
 -------------------------------
 hnode size: 46
 vnode size: 1307
 Num copies: 15
 Num solutions: 79619280
-[Elapsed sec]     langford 15: 15.1447
+[Elapsed sec]     langford 15: 14.2152
 -------------------------------
 hnode size: 49
 vnode size: 1490
 Num copies: 16
 Num solutions: 653443600
-[Elapsed sec]     langford 16: 125.539
+[Elapsed sec]     langford 16: 116.925
 -----------------------------------------------------------
 # Latin square
 
@@ -178,7 +178,7 @@ hnode size: 101
 vnode size: 8990
 Num copies: 79
 Num solutions: 1
-[Elapsed sec]         latin 0: 0.0420927
+[Elapsed sec]         latin 0: 0.0390431
 -------------------------------
 3145926870
 2819763504
@@ -195,7 +195,7 @@ hnode size: 101
 vnode size: 8902
 Num copies: 75
 Num solutions: 2
-[Elapsed sec]         latin 1: 0.0357969
+[Elapsed sec]         latin 1: 0.0361714
 -------------------------------
 2718459036
 0287135649
@@ -212,7 +212,7 @@ hnode size: 101
 vnode size: 9166
 Num copies: 92
 Num solutions: 0
-[Elapsed sec]         latin 2: 0.0472674
+[Elapsed sec]         latin 2: 0.0437871
 -------------------------------
 0572164938
 6051298473
@@ -229,7 +229,7 @@ hnode size: 101
 vnode size: 9474
 Num copies: 95
 Num solutions: 6
-[Elapsed sec]         latin 3: 0.0543385
+[Elapsed sec]         latin 3: 0.045506
 -------------------------------
 7823456019
 8234067195
@@ -246,7 +246,7 @@ hnode size: 101
 vnode size: 60646
 Num copies: 480
 Num solutions: 12265168
-[Elapsed sec]         latin 4: 171.795
+[Elapsed sec]         latin 4: 164.269
 -----------------------------------------------------------
 # N Queen
 
@@ -256,112 +256,112 @@ hnode size: 5
 vnode size: 15
 Num copies: 1
 Num solutions: 1
-[Elapsed sec]        nqueen 1: 0.000119484
+[Elapsed sec]        nqueen 1: 0.000101375
 -------------------------------
 Board size: 2
 hnode size: 11
 vnode size: 44
 Num copies: 2
 Num solutions: 0
-[Elapsed sec]        nqueen 2: 0.000129266
+[Elapsed sec]        nqueen 2: 0.000137367
 -------------------------------
 Board size: 3
 hnode size: 17
 vnode size: 83
 Num copies: 3
 Num solutions: 0
-[Elapsed sec]        nqueen 3: 0.000161868
+[Elapsed sec]        nqueen 3: 0.000161022
 -------------------------------
 Board size: 4
 hnode size: 23
 vnode size: 132
 Num copies: 4
 Num solutions: 2
-[Elapsed sec]        nqueen 4: 0.000478176
+[Elapsed sec]        nqueen 4: 0.000208621
 -------------------------------
 Board size: 5
 hnode size: 29
 vnode size: 191
 Num copies: 5
 Num solutions: 10
-[Elapsed sec]        nqueen 5: 0.000295543
+[Elapsed sec]        nqueen 5: 0.000319579
 -------------------------------
 Board size: 6
 hnode size: 35
 vnode size: 260
 Num copies: 6
 Num solutions: 4
-[Elapsed sec]        nqueen 6: 0.000438541
+[Elapsed sec]        nqueen 6: 0.000323385
 -------------------------------
 Board size: 7
 hnode size: 41
 vnode size: 339
 Num copies: 7
 Num solutions: 40
-[Elapsed sec]        nqueen 7: 0.000502937
+[Elapsed sec]        nqueen 7: 0.000420768
 -------------------------------
 Board size: 8
 hnode size: 47
 vnode size: 428
 Num copies: 8
 Num solutions: 92
-[Elapsed sec]        nqueen 8: 0.000825732
+[Elapsed sec]        nqueen 8: 0.00087033
 -------------------------------
 Board size: 9
 hnode size: 53
 vnode size: 527
 Num copies: 9
 Num solutions: 352
-[Elapsed sec]        nqueen 9: 0.000795871
+[Elapsed sec]        nqueen 9: 0.000991057
 -------------------------------
 Board size: 10
 hnode size: 59
 vnode size: 636
 Num copies: 10
 Num solutions: 724
-[Elapsed sec]       nqueen 10: 0.00166667
+[Elapsed sec]       nqueen 10: 0.00182156
 -------------------------------
 Board size: 11
 hnode size: 65
 vnode size: 755
 Num copies: 11
 Num solutions: 2680
-[Elapsed sec]       nqueen 11: 0.00450842
+[Elapsed sec]       nqueen 11: 0.00411368
 -------------------------------
 Board size: 12
 hnode size: 71
 vnode size: 884
 Num copies: 12
 Num solutions: 14200
-[Elapsed sec]       nqueen 12: 0.0215648
+[Elapsed sec]       nqueen 12: 0.0244879
 -------------------------------
 Board size: 13
 hnode size: 77
 vnode size: 1023
 Num copies: 13
 Num solutions: 73712
-[Elapsed sec]       nqueen 13: 0.125406
+[Elapsed sec]       nqueen 13: 0.109106
 -------------------------------
 Board size: 14
 hnode size: 83
 vnode size: 1172
 Num copies: 14
 Num solutions: 365596
-[Elapsed sec]       nqueen 14: 0.648469
+[Elapsed sec]       nqueen 14: 0.537094
 -------------------------------
 Board size: 15
 hnode size: 89
 vnode size: 1331
 Num copies: 15
 Num solutions: 2279184
-[Elapsed sec]       nqueen 15: 3.81035
+[Elapsed sec]       nqueen 15: 3.66207
 -------------------------------
 Board size: 16
 hnode size: 95
 vnode size: 1500
 Num copies: 16
 Num solutions: 14772512
-[Elapsed sec]       nqueen 16: 23.3963
+[Elapsed sec]       nqueen 16: 23.3514
 -----------------------------------------------------------
 # Pentominoes
 
@@ -369,7 +369,7 @@ hnode size: 78
 vnode size: 14981
 Num copies: 36
 Num solutions: 65
-[Elapsed sec]     pentominoes: 0.0527831
+[Elapsed sec]     pentominoes: 0.0532781
 Solution: 0
           
 ┌┬┬──┬──┐ 
@@ -414,7 +414,7 @@ hnode size: 193
 vnode size: 1099
 Num copies: 2
 Num solutions: 1
-[Elapsed sec]        sudoku 0: 0.000350327
+[Elapsed sec]        sudoku 0: 0.000302256
 Solution: 
 
 597 | 218 | 364
@@ -448,7 +448,7 @@ hnode size: 237
 vnode size: 1448
 Num copies: 4
 Num solutions: 1
-[Elapsed sec]        sudoku 1: 0.000818533
+[Elapsed sec]        sudoku 1: 0.000442257
 Solution: 
 
 319 | 657 | 842
@@ -463,36 +463,36 @@ Solution:
 864 | 925 | 137
 921 | 734 | 568
 
-[Elapsed sec]         example: 0.000133911
-[Elapsed sec]      langford 3: 0.000387795
-[Elapsed sec]      langford 4: 0.000203792
-[Elapsed sec]      langford 7: 0.000426579
-[Elapsed sec]      langford 8: 0.00052342
-[Elapsed sec]     langford 11: 0.0075979
-[Elapsed sec]     langford 12: 0.0510484
-[Elapsed sec]     langford 15: 15.1447
-[Elapsed sec]     langford 16: 125.539
-[Elapsed sec]         latin 0: 0.0420927
-[Elapsed sec]         latin 1: 0.0357969
-[Elapsed sec]         latin 2: 0.0472674
-[Elapsed sec]         latin 3: 0.0543385
-[Elapsed sec]         latin 4: 171.795
-[Elapsed sec]        nqueen 1: 0.000119484
-[Elapsed sec]        nqueen 2: 0.000129266
-[Elapsed sec]        nqueen 3: 0.000161868
-[Elapsed sec]        nqueen 4: 0.000478176
-[Elapsed sec]        nqueen 5: 0.000295543
-[Elapsed sec]        nqueen 6: 0.000438541
-[Elapsed sec]        nqueen 7: 0.000502937
-[Elapsed sec]        nqueen 8: 0.000825732
-[Elapsed sec]        nqueen 9: 0.000795871
-[Elapsed sec]       nqueen 10: 0.00166667
-[Elapsed sec]       nqueen 11: 0.00450842
-[Elapsed sec]       nqueen 12: 0.0215648
-[Elapsed sec]       nqueen 13: 0.125406
-[Elapsed sec]       nqueen 14: 0.648469
-[Elapsed sec]       nqueen 15: 3.81035
-[Elapsed sec]       nqueen 16: 23.3963
-[Elapsed sec]     pentominoes: 0.0527831
-[Elapsed sec]        sudoku 0: 0.000350327
-[Elapsed sec]        sudoku 1: 0.000818533
+[Elapsed sec]         example: 0.000140887
+[Elapsed sec]      langford 3: 0.000150162
+[Elapsed sec]      langford 4: 0.000173631
+[Elapsed sec]      langford 7: 0.000395465
+[Elapsed sec]      langford 8: 0.000458078
+[Elapsed sec]     langford 11: 0.00739939
+[Elapsed sec]     langford 12: 0.0410764
+[Elapsed sec]     langford 15: 14.2152
+[Elapsed sec]     langford 16: 116.925
+[Elapsed sec]         latin 0: 0.0390431
+[Elapsed sec]         latin 1: 0.0361714
+[Elapsed sec]         latin 2: 0.0437871
+[Elapsed sec]         latin 3: 0.045506
+[Elapsed sec]         latin 4: 164.269
+[Elapsed sec]        nqueen 1: 0.000101375
+[Elapsed sec]        nqueen 2: 0.000137367
+[Elapsed sec]        nqueen 3: 0.000161022
+[Elapsed sec]        nqueen 4: 0.000208621
+[Elapsed sec]        nqueen 5: 0.000319579
+[Elapsed sec]        nqueen 6: 0.000323385
+[Elapsed sec]        nqueen 7: 0.000420768
+[Elapsed sec]        nqueen 8: 0.00087033
+[Elapsed sec]        nqueen 9: 0.000991057
+[Elapsed sec]       nqueen 10: 0.00182156
+[Elapsed sec]       nqueen 11: 0.00411368
+[Elapsed sec]       nqueen 12: 0.0244879
+[Elapsed sec]       nqueen 13: 0.109106
+[Elapsed sec]       nqueen 14: 0.537094
+[Elapsed sec]       nqueen 15: 3.66207
+[Elapsed sec]       nqueen 16: 23.3514
+[Elapsed sec]     pentominoes: 0.0532781
+[Elapsed sec]        sudoku 0: 0.000302256
+[Elapsed sec]        sudoku 1: 0.000442257
