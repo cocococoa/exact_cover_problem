@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <limits>
 #include <map>
 #include <sstream>
 #include <string>
@@ -10,7 +11,7 @@
  * @brief ヌルポインタの代わりの整数
  * @note HNode の数が |NullIdx| 以上の場合、デバッグ用のプリント関数がバグる
  */
-constexpr auto NullIdx = -0xFFFFFFF;
+constexpr auto NullIdx = std::numeric_limits<int>::min();
 
 /**
  * @brief 値の列をイイ感じにプリントする
@@ -73,10 +74,16 @@ class ExactCoverProblemSolver {
  private:
   void SolveImpl(int initial_i, int initial_xl, bool start_from_x5,
                  bool save_solution);
+  // Minimum Remaining Value
+  int MRV() const;
+
+  // Knuth's 4 operations
   void Cover(int i);
   void Hide(int p);
   void UnCover(int i);
   void UnHide(int p);
+
+  // Utility functions
   Header& HNode(int i) { return hnode_list_[i]; }
   const Header& HNode(int i) const { return hnode_list_[i]; }
   int LLink(int i) const { return HNode(i).llink; }
@@ -87,13 +94,14 @@ class ExactCoverProblemSolver {
   int Top(int p) const { return VNode(p).len_or_top; }
   int ULink(int p) const { return VNode(p).ulink; }
   int DLink(int p) const { return VNode(p).dlink; }
-  int MRV() const;
 
  private:
   // Input
   const int num_items;
   const std::vector<std::vector<int>> option_list;
   std::map<int, int> vnode2idx_;
+
+  // Dancer
   std::vector<Header> hnode_list_;
   std::vector<Node> vnode_list_;
 
