@@ -34,9 +34,6 @@ class ExactCoverProblemSolver {
    * @brief アルゴリズムXのヘッダー
    */
   struct Header {
-#ifndef NDEBUG
-    int idx = 0;  //!< for debug
-#endif
     int llink = NullIdx;
     int rlink = NullIdx;
 
@@ -47,9 +44,6 @@ class ExactCoverProblemSolver {
    * @brief アルゴリズムXのノード
    */
   struct Node {
-#ifndef NDEBUG
-    int idx = 0;  //!< for debug
-#endif
     int fix_structure_size = 0;
     int len_or_top = NullIdx;
     int ulink = NullIdx;

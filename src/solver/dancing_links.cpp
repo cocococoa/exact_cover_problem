@@ -7,19 +7,11 @@
 
 std::string ExactCoverProblemSolver::Header::str() const {
   std::stringstream ss;
-#ifndef NDEBUG
-  ss << "i: " << idx << ", ";
-#endif
   ss << "LLINK(i): " << llink << ", RLINK(i): " << rlink;
   return ss.str();
 }
 std::string ExactCoverProblemSolver::Node::str() const {
   std::stringstream ss;
-#ifndef NDEBUG
-  ss << "x: ";
-  ss << std::setw(2) << idx;
-  ss << ", ";
-#endif
   ss << "LEN OR TOP(x): ";
   if (len_or_top == NullIdx)
     ss << "--";
