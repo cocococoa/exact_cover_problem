@@ -13,6 +13,11 @@
  */
 constexpr auto NullIdx = std::numeric_limits<int>::min();
 
+template <typename T>
+inline std::ostream& operator<<(std::ostream& out, const std::pair<T, T>& lhs) {
+  out << "(" << lhs.first << ", " << lhs.second << ")";
+  return out;
+}
 /**
  * @brief 値の列をイイ感じにプリントする
  */
