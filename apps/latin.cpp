@@ -76,9 +76,8 @@ std::vector<Transverse> calcTransverse(const Latin& latin) {
   return ret;
 }
 
-void searchLatin(const std::string& path) {
+void searchLatin(const std::string& path, int index) {
   const auto latin = loadLatin(path);
-  std::cout << "-------------------------------" << std::endl;
   latin.Print();
   auto transverse_list = calcTransverse(latin);
   std::cout << "Num transverses: " << transverse_list.size() << std::endl;
@@ -96,13 +95,21 @@ void searchLatin(const std::string& path) {
   }
 
   auto solver = ExactCoverProblemSolver(num_items, option_list);
-  runSolver(solver, false);
+  runSolver("latin " + std::to_string(index), solver, false);
 }
 
 int main() {
-  searchLatin("data/latin/0.txt");
-  searchLatin("data/latin/1.txt");
-  searchLatin("data/latin/2.txt");
-  searchLatin("data/latin/3.txt");
-  searchLatin("data/latin/4.txt");  // 12分くらいかかる
+  std::cout << "-----------------------------------------------------------\n"
+            << "# Latin square\n"
+            << std::endl;
+  std::cout << "-------------------------------" << std::endl;
+  searchLatin("data/latin/0.txt", 0);
+  std::cout << "-------------------------------" << std::endl;
+  searchLatin("data/latin/1.txt", 1);
+  std::cout << "-------------------------------" << std::endl;
+  searchLatin("data/latin/2.txt", 2);
+  std::cout << "-------------------------------" << std::endl;
+  searchLatin("data/latin/3.txt", 3);
+  std::cout << "-------------------------------" << std::endl;
+  searchLatin("data/latin/4.txt", 4);
 }

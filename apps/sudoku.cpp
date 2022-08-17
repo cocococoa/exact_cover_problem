@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <map>
 #include <set>
 #include <string>
 #include <utility>
@@ -121,7 +122,7 @@ class OptionManager {
   mutable std::map<int, int> compile_to_raw_ = {};
 };
 
-void sudoku(const std::string& path) {
+void sudoku(const std::string& path, int index) {
   const auto sudoku = loadSudoku(path);
   std::cout << "Problem: \n" << std::endl;
   sudoku.Print();
@@ -156,7 +157,7 @@ void sudoku(const std::string& path) {
 
   const auto [num_items, option_list] = manager.Compile();
   auto solver = ExactCoverProblemSolver(num_items, option_list);
-  runSolver(solver, true);
+  runSolver("sudoku " + std::to_string(index), solver, true);
 
   const auto option_idx_list = solver.GetSolution(0);
   auto solved_sudoku = sudoku;
@@ -173,8 +174,11 @@ void sudoku(const std::string& path) {
 }
 
 int main() {
+  std::cout << "-----------------------------------------------------------\n"
+            << "# Sudoku\n"
+            << std::endl;
   std::cout << "-------------------------------" << std::endl;
-  sudoku("data/sudoku/0.txt");
+  sudoku("data/sudoku/0.txt", 0);
   std::cout << "-------------------------------" << std::endl;
-  sudoku("data/sudoku/1.txt");
+  sudoku("data/sudoku/1.txt", 1);
 }

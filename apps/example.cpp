@@ -11,12 +11,15 @@ void tryTAOCPExample() {
   auto solver = ExactCoverProblemSolver(num_items, option_list);
   solver.PrintCurrentLink();
 
-  const auto num_solutions = runSolver(solver, true);
+  const auto num_solutions = runSolver("example", solver, true);
   for (auto i = 0; i < num_solutions; ++i)
     std::cout << solver.GetPrettySolution(i) << std::endl;
 }
 
 int main() {
+  std::cout << "-----------------------------------------------------------\n"
+            << "# Example\n"
+            << std::endl;
   tryTAOCPExample();
   return 0;
 }

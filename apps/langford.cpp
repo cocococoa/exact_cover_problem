@@ -1,3 +1,5 @@
+#include <iostream>
+#include <string>
 #include <vector>
 
 #include "common.h"
@@ -18,7 +20,8 @@ void langfordPair(int size, bool show_general_result = false,
 
   auto solver = ExactCoverProblemSolver(num_items, option_list);
   const auto num_solutions =
-      runSolver(solver, show_general_result or show_specific_result);
+      runSolver("langford " + std::to_string(size), solver,
+                show_general_result or show_specific_result);
 
   if (show_general_result) {
     // General
@@ -44,6 +47,9 @@ void langfordPair(int size, bool show_general_result = false,
 }
 
 int main() {
+  std::cout << "-----------------------------------------------------------\n"
+            << "# Langford pair\n"
+            << std::endl;
   std::cout << "-------------------------------" << std::endl;
   langfordPair(3, true, true);
   std::cout << "-------------------------------" << std::endl;
@@ -57,8 +63,8 @@ int main() {
   std::cout << "-------------------------------" << std::endl;
   langfordPair(12);
   std::cout << "-------------------------------" << std::endl;
-  langfordPair(15);  // 約3分かかる
+  langfordPair(15);
   std::cout << "-------------------------------" << std::endl;
-  langfordPair(16);  // 約30分かかる
+  langfordPair(16);
   return 0;
 }

@@ -208,7 +208,7 @@ void pentminoes() {
   }
 
   auto solver = ExactCoverProblemSolver(num_items, option_list);
-  runSolver(solver, true);
+  runSolver("pentominoes", solver, true);
 
   // Print solution
   const auto print = [&](int sol) {
@@ -221,7 +221,6 @@ void pentminoes() {
         board.Set(x, y, map.at(i));
       }
     }
-    std::cout << "-------------------------------" << std::endl;
     std::cout << "Solution: " << sol << std::endl;
     // board.Print();
     board.PrettyPrint();
@@ -230,6 +229,9 @@ void pentminoes() {
   print(10);
 }
 int main() {
+  std::cout << "-----------------------------------------------------------\n"
+            << "# Pentominoes\n"
+            << std::endl;
   pentminoes();
   return 0;
 }

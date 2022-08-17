@@ -1,3 +1,7 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
 #include "common.h"
 
 void nQueen(int size) {
@@ -26,10 +30,13 @@ void nQueen(int size) {
   }
 
   auto solver = ExactCoverProblemSolver(num_items, option_list);
-  runSolver(solver, false);
+  runSolver("nqueen " + std::to_string(size), solver, false);
 }
 
 int main() {
+  std::cout << "-----------------------------------------------------------\n"
+            << "# N Queen\n"
+            << std::endl;
   // N   : Solutions
   // 1   : 1
   // 2   : 0
@@ -49,7 +56,7 @@ int main() {
   // 16  : 14,772,512
   // 17  : 95,815,104
   // 18  : 666,090,624
-  for (auto size = 1; size <= 15; ++size) {
+  for (auto size = 1; size <= 16; ++size) {
     std::cout << "-------------------------------" << std::endl;
     std::cout << "Board size: " << size << std::endl;
     nQueen(size);
