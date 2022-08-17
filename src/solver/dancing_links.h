@@ -171,10 +171,10 @@ class ExactCoverWithColorsSolver {
   }
   void Solve(bool save_solution = false);
   void SolveMultiThread(bool save_solution = false);
-  void SolveImpl(int initial_i, int initial_xl, bool start_from_x5,
-                 bool save_solution);
 
  private:
+  void SolveImpl(int initial_i, int initial_xl, bool start_from_x5,
+                 bool save_solution);
   // Minimum Remaining Value
   int MRV() const;
 
