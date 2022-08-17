@@ -1,5 +1,7 @@
 # Exact cover problem solver
 
+[![CMake](https://github.com/cocococoa/exact_cover_problem/actions/workflows/cmake.yml/badge.svg)](https://github.com/cocococoa/exact_cover_problem/actions/workflows/cmake.yml) [![CodeQL](https://github.com/cocococoa/exact_cover_problem/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cocococoa/exact_cover_problem/actions/workflows/codeql-analysis.yml)
+
 Solve exact cover problems using dancing links
 
 ## Build
