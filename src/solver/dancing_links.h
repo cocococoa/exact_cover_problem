@@ -57,7 +57,6 @@ class ExactCoverProblemSolver {
 #ifndef NDEBUG
     int idx = 0;  //!< for debug
 #endif
-    std::string name = "X";
     int llink = NullIdx;
     int rlink = NullIdx;
 

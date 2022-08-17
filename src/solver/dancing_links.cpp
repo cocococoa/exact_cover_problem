@@ -10,8 +10,7 @@ std::string ExactCoverProblemSolver::HNode::str() const {
 #ifndef NDEBUG
   ss << "i: " << idx << ", ";
 #endif
-  ss << "NAME(i): " << name << ", LLINK(i): " << llink
-     << ", RLINK(i): " << rlink;
+  ss << "LLINK(i): " << llink << ", RLINK(i): " << rlink;
   return ss.str();
 }
 std::string ExactCoverProblemSolver::VNode::str() const {
@@ -66,7 +65,6 @@ ExactCoverProblemSolver::ExactCoverProblemSolver(
   for (auto i = 0; i < num_items; ++i) {
     hnode_list_[i].rlink = i + 1;
     hnode_list_[i + 1].llink = i;
-    hnode_list_[i + 1].name = 'a' + i;
   }
   hnode_list_[0].llink = num_items;
   hnode_list_[num_items].rlink = 0;
