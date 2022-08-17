@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "common.h"
+#include "common/common.h"
 
 constexpr auto LatinSize = 10;
 

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include "common.h"
+#include "common/common.h"
 
 void tryXCCExample() {
   const auto num_primary_items = 3;
@@ -18,14 +18,14 @@ void tryXCCExample() {
                                            num_secondary_items, option_list);
   solver.PrintCurrentLink();
 
-  const auto num_solutions = runXCCSolver("XCC example", solver, true);
+  const auto num_solutions = runXCCSolver("example", solver, true);
   for (auto i = 0; i < num_solutions; ++i)
     std::cout << solver.GetPrettySolution(i) << std::endl;
 }
 
 int main() {
   std::cout << "-----------------------------------------------------------\n"
-            << "# XCC Example\n"
+            << "# Example\n"
             << std::endl;
   tryXCCExample();
   return 0;

@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include "common.h"
+#include "common/common.h"
 
 void langfordPair(int size, bool show_general_result = false,
                   bool show_specific_result = false) {

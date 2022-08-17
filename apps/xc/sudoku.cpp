@@ -6,7 +6,7 @@
 #include <utility>
 #include <vector>
 
-#include "common.h"
+#include "common/common.h"
 
 constexpr auto SudokuSize = 9;
 constexpr auto SubSize = 3;

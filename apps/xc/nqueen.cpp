@@ -2,38 +2,40 @@
 #include <string>
 #include <vector>
 
-#include "common.h"
+#include "common/common.h"
 
 void nQueen(int size) {
-  const auto num_primary_items = size + size;
-  const auto num_secondary_items = (2 * size - 1) + (2 * size - 1);
+  const auto num_items = size + size + (2 * size - 1) + (2 * size - 1);
   const auto offset0 = 0;
   const auto offset1 = size;
   const auto offset2 = size + size;
   const auto offset3 = size + size + (2 * size - 1);
-  auto option_list = std::vector<std::vector<std::pair<int, int>>>();
+  auto option_list = std::vector<std::vector<int>>();
 
   for (auto x = 0; x < size; ++x) {
     for (auto y = 0; y < size; ++y) {
       // (x, y) にクイーンを置いたら
       // どの 縦、横、右斜め、左斜め を占有するか？
-      auto option = std::vector<std::pair<int, int>>();
-      option.push_back({offset0 + x, 0});
-      option.push_back({offset1 + y, 0});
-      option.push_back({offset2 + x + y, 0});
-      option.push_back({offset3 + x - y + size - 1, 0});
+      auto option = std::vector<int>();
+      option.push_back(offset0 + x);
+      option.push_back(offset1 + y);
+      option.push_back(offset2 + x + y);
+      option.push_back(offset3 + x - y + size - 1);
       option_list.push_back(option);
     }
   }
+  // Secondary item 用のスラックオプション
+  for (auto i = offset2; i < num_items; ++i) {
+    option_list.push_back({i});
+  }
 
-  auto solver = ExactCoverWithColorsSolver(num_primary_items,
-                                           num_secondary_items, option_list);
-  runXCCSolver("XCC nqueen " + std::to_string(size), solver, false);
+  auto solver = ExactCoverProblemSolver(num_items, option_list);
+  runXCSolver("nqueen " + std::to_string(size), solver, false);
 }
 
 int main() {
   std::cout << "-----------------------------------------------------------\n"
-            << "# N Queen by XCC\n"
+            << "# N Queen\n"
             << std::endl;
   // N   : Solutions
   // 1   : 1

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include "common.h"
+#include "common/common.h"
 
 void tryXCExample() {
   const auto num_items = 7;
@@ -11,14 +11,14 @@ void tryXCExample() {
   auto solver = ExactCoverProblemSolver(num_items, option_list);
   solver.PrintCurrentLink();
 
-  const auto num_solutions = runXCSolver("XC example", solver, true);
+  const auto num_solutions = runXCSolver("example", solver, true);
   for (auto i = 0; i < num_solutions; ++i)
     std::cout << solver.GetPrettySolution(i) << std::endl;
 }
 
 int main() {
   std::cout << "-----------------------------------------------------------\n"
-            << "# XC Example\n"
+            << "# Example\n"
             << std::endl;
   tryXCExample();
   return 0;

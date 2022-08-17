@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "common.h"
+#include "common/common.h"
 
 int pow10(int e) {
   auto ret = 1;

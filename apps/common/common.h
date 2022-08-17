@@ -6,7 +6,7 @@
 #include "solver/dancing_links.h"
 
 inline int runXCSolver(const std::string& name, ExactCoverProblemSolver& solver,
-                     bool save_solution) {
+                       bool save_solution) {
   const auto start = std::chrono::high_resolution_clock::now();
   solver.SolveMultiThread(save_solution);
   const auto end = std::chrono::high_resolution_clock::now();
@@ -17,12 +17,13 @@ inline int runXCSolver(const std::string& name, ExactCoverProblemSolver& solver,
   const auto elapsed_sec =
       std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
   std::cout << "[Elapsed sec] ";
-  std::cout << std::setw(15) << name;
+  std::cout << std::setw(15) << "XC " + name;
   std::cout << ": " << elapsed_sec.count() << std::endl;
   return num_solutions;
 }
 inline int runXCCSolver(const std::string& name,
-                        ExactCoverWithColorsSolver& solver, bool save_solution) {
+                        ExactCoverWithColorsSolver& solver,
+                        bool save_solution) {
   const auto start = std::chrono::high_resolution_clock::now();
   solver.SolveMultiThread(save_solution);
   const auto end = std::chrono::high_resolution_clock::now();
@@ -33,7 +34,7 @@ inline int runXCCSolver(const std::string& name,
   const auto elapsed_sec =
       std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
   std::cout << "[Elapsed sec] ";
-  std::cout << std::setw(15) << name;
+  std::cout << std::setw(15) << "XCC " + name;
   std::cout << ": " << elapsed_sec.count() << std::endl;
   return num_solutions;
 }
