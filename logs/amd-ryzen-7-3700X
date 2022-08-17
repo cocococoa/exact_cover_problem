@@ -4,14 +4,14 @@
 hnode size: 8
 vnode size: 31
 Print hnode
-NAME(i): X, LLINK(i): 7, RLINK(i): 1
-NAME(i): a, LLINK(i): 0, RLINK(i): 2
-NAME(i): b, LLINK(i): 1, RLINK(i): 3
-NAME(i): c, LLINK(i): 2, RLINK(i): 4
-NAME(i): d, LLINK(i): 3, RLINK(i): 5
-NAME(i): e, LLINK(i): 4, RLINK(i): 6
-NAME(i): f, LLINK(i): 5, RLINK(i): 7
-NAME(i): g, LLINK(i): 6, RLINK(i): 0
+LLINK(i): 7, RLINK(i): 1
+LLINK(i): 0, RLINK(i): 2
+LLINK(i): 1, RLINK(i): 3
+LLINK(i): 2, RLINK(i): 4
+LLINK(i): 3, RLINK(i): 5
+LLINK(i): 4, RLINK(i): 6
+LLINK(i): 5, RLINK(i): 7
+LLINK(i): 6, RLINK(i): 0
 Print vnode
 LEN OR TOP(x):  0, ULINK(x): --, DLINK(x): --
 LEN OR TOP(x):  2, ULINK(x): 20, DLINK(x): 12
@@ -44,27 +44,19 @@ LEN OR TOP(x):  4, ULINK(x): 21, DLINK(x):  4
 LEN OR TOP(x):  5, ULINK(x): 10, DLINK(x):  5
 LEN OR TOP(x):  7, ULINK(x): 25, DLINK(x):  7
 LEN OR TOP(x): -6, ULINK(x): 27, DLINK(x): --
-Find exact cover via dancing links
 Num copies: 2
-Done
 Num solutions: 1
-Elapsed: 0.000160294 [seconds]
+[Elapsed sec]         example: 0.000133911
 {{2, 4}, {0, 3, 5}, {1, 6}}
-
-real	0m0.001s
-user	0m0.001s
-sys	0m0.000s
 -----------------------------------------------------------
 # Langford pair
 
 -------------------------------
 hnode size: 10
 vnode size: 47
-Find exact cover via dancing links
 Num copies: 3
-Done
 Num solutions: 2
-Elapsed: 0.000194754 [seconds]
+[Elapsed sec]      langford 3: 0.000387795
 {{2, 4, 6}, {0, 3, 7}, {1, 5, 8}}
 {{1, 3, 6}, {2, 5, 7}, {0, 4, 8}}
 231213
@@ -72,11 +64,9 @@ Elapsed: 0.000194754 [seconds]
 -------------------------------
 hnode size: 13
 vnode size: 86
-Find exact cover via dancing links
 Num copies: 4
-Done
 Num solutions: 2
-Elapsed: 0.000744859 [seconds]
+[Elapsed sec]      langford 4: 0.000203792
 {{4, 6, 8}, {0, 3, 9}, {1, 5, 10}, {2, 7, 11}}
 {{1, 3, 8}, {4, 7, 9}, {2, 6, 10}, {0, 5, 11}}
 23421314
@@ -84,11 +74,9 @@ Elapsed: 0.000744859 [seconds]
 -------------------------------
 hnode size: 22
 vnode size: 275
-Find exact cover via dancing links
 Num copies: 7
-Done
 Num solutions: 52
-Elapsed: 0.000409793 [seconds]
+[Elapsed sec]      langford 7: 0.000426579
 17126425374635
 17125623475364
 16172452634753
@@ -144,47 +132,33 @@ Elapsed: 0.000409793 [seconds]
 -------------------------------
 hnode size: 25
 vnode size: 362
-Find exact cover via dancing links
 Num copies: 8
-Done
 Num solutions: 300
-Elapsed: 0.000596266 [seconds]
+[Elapsed sec]      langford 8: 0.00052342
 -------------------------------
 hnode size: 34
 vnode size: 695
-Find exact cover via dancing links
 Num copies: 11
-Done
 Num solutions: 35584
-Elapsed: 0.00805099 [seconds]
+[Elapsed sec]     langford 11: 0.0075979
 -------------------------------
 hnode size: 37
 vnode size: 830
-Find exact cover via dancing links
 Num copies: 12
-Done
 Num solutions: 216288
-Elapsed: 0.0441712 [seconds]
+[Elapsed sec]     langford 12: 0.0510484
 -------------------------------
 hnode size: 46
 vnode size: 1307
-Find exact cover via dancing links
 Num copies: 15
-Done
 Num solutions: 79619280
-Elapsed: 15.9347 [seconds]
+[Elapsed sec]     langford 15: 15.1447
 -------------------------------
 hnode size: 49
 vnode size: 1490
-Find exact cover via dancing links
 Num copies: 16
-Done
 Num solutions: 653443600
-Elapsed: 128.731 [seconds]
-
-real	2m24.722s
-user	33m30.878s
-sys	0m0.110s
+[Elapsed sec]     langford 16: 125.539
 -----------------------------------------------------------
 # Latin square
 
@@ -202,11 +176,9 @@ sys	0m0.110s
 Num transverses: 808
 hnode size: 101
 vnode size: 8990
-Find exact cover via dancing links
 Num copies: 79
-Done
 Num solutions: 1
-Elapsed: 0.0373044 [seconds]
+[Elapsed sec]         latin 0: 0.0420927
 -------------------------------
 3145926870
 2819763504
@@ -221,11 +193,9 @@ Elapsed: 0.0373044 [seconds]
 Num transverses: 800
 hnode size: 101
 vnode size: 8902
-Find exact cover via dancing links
 Num copies: 75
-Done
 Num solutions: 2
-Elapsed: 0.0344064 [seconds]
+[Elapsed sec]         latin 1: 0.0357969
 -------------------------------
 2718459036
 0287135649
@@ -240,11 +210,9 @@ Elapsed: 0.0344064 [seconds]
 Num transverses: 824
 hnode size: 101
 vnode size: 9166
-Find exact cover via dancing links
 Num copies: 92
-Done
 Num solutions: 0
-Elapsed: 0.042991 [seconds]
+[Elapsed sec]         latin 2: 0.0472674
 -------------------------------
 0572164938
 6051298473
@@ -259,11 +227,9 @@ Elapsed: 0.042991 [seconds]
 Num transverses: 852
 hnode size: 101
 vnode size: 9474
-Find exact cover via dancing links
 Num copies: 95
-Done
 Num solutions: 6
-Elapsed: 0.044667 [seconds]
+[Elapsed sec]         latin 3: 0.0543385
 -------------------------------
 7823456019
 8234067195
@@ -278,15 +244,9 @@ Elapsed: 0.044667 [seconds]
 Num transverses: 5504
 hnode size: 101
 vnode size: 60646
-Find exact cover via dancing links
 Num copies: 480
-Done
 Num solutions: 12265168
-Elapsed: 171.842 [seconds]
-
-real	2m55.162s
-user	45m17.853s
-sys	0m0.809s
+[Elapsed sec]         latin 4: 171.795
 -----------------------------------------------------------
 # N Queen
 
@@ -294,152 +254,122 @@ sys	0m0.809s
 Board size: 1
 hnode size: 5
 vnode size: 15
-Find exact cover via dancing links
 Num copies: 1
-Done
 Num solutions: 1
-Elapsed: 0.000180743 [seconds]
+[Elapsed sec]        nqueen 1: 0.000119484
 -------------------------------
 Board size: 2
 hnode size: 11
 vnode size: 44
-Find exact cover via dancing links
 Num copies: 2
-Done
 Num solutions: 0
-Elapsed: 0.000129853 [seconds]
+[Elapsed sec]        nqueen 2: 0.000129266
 -------------------------------
 Board size: 3
 hnode size: 17
 vnode size: 83
-Find exact cover via dancing links
 Num copies: 3
-Done
 Num solutions: 0
-Elapsed: 0.000159464 [seconds]
+[Elapsed sec]        nqueen 3: 0.000161868
 -------------------------------
 Board size: 4
 hnode size: 23
 vnode size: 132
-Find exact cover via dancing links
 Num copies: 4
-Done
 Num solutions: 2
-Elapsed: 0.000201632 [seconds]
+[Elapsed sec]        nqueen 4: 0.000478176
 -------------------------------
 Board size: 5
 hnode size: 29
 vnode size: 191
-Find exact cover via dancing links
 Num copies: 5
-Done
 Num solutions: 10
-Elapsed: 0.000253134 [seconds]
+[Elapsed sec]        nqueen 5: 0.000295543
 -------------------------------
 Board size: 6
 hnode size: 35
 vnode size: 260
-Find exact cover via dancing links
 Num copies: 6
-Done
 Num solutions: 4
-Elapsed: 0.00051532 [seconds]
+[Elapsed sec]        nqueen 6: 0.000438541
 -------------------------------
 Board size: 7
 hnode size: 41
 vnode size: 339
-Find exact cover via dancing links
 Num copies: 7
-Done
 Num solutions: 40
-Elapsed: 0.000380933 [seconds]
+[Elapsed sec]        nqueen 7: 0.000502937
 -------------------------------
 Board size: 8
 hnode size: 47
 vnode size: 428
-Find exact cover via dancing links
 Num copies: 8
-Done
 Num solutions: 92
-Elapsed: 0.000553216 [seconds]
+[Elapsed sec]        nqueen 8: 0.000825732
 -------------------------------
 Board size: 9
 hnode size: 53
 vnode size: 527
-Find exact cover via dancing links
 Num copies: 9
-Done
 Num solutions: 352
-Elapsed: 0.000783703 [seconds]
+[Elapsed sec]        nqueen 9: 0.000795871
 -------------------------------
 Board size: 10
 hnode size: 59
 vnode size: 636
-Find exact cover via dancing links
 Num copies: 10
-Done
 Num solutions: 724
-Elapsed: 0.00154796 [seconds]
+[Elapsed sec]       nqueen 10: 0.00166667
 -------------------------------
 Board size: 11
 hnode size: 65
 vnode size: 755
-Find exact cover via dancing links
 Num copies: 11
-Done
 Num solutions: 2680
-Elapsed: 0.00457039 [seconds]
+[Elapsed sec]       nqueen 11: 0.00450842
 -------------------------------
 Board size: 12
 hnode size: 71
 vnode size: 884
-Find exact cover via dancing links
 Num copies: 12
-Done
 Num solutions: 14200
-Elapsed: 0.0213687 [seconds]
+[Elapsed sec]       nqueen 12: 0.0215648
 -------------------------------
 Board size: 13
 hnode size: 77
 vnode size: 1023
-Find exact cover via dancing links
 Num copies: 13
-Done
 Num solutions: 73712
-Elapsed: 0.108568 [seconds]
+[Elapsed sec]       nqueen 13: 0.125406
 -------------------------------
 Board size: 14
 hnode size: 83
 vnode size: 1172
-Find exact cover via dancing links
 Num copies: 14
-Done
 Num solutions: 365596
-Elapsed: 0.622762 [seconds]
+[Elapsed sec]       nqueen 14: 0.648469
 -------------------------------
 Board size: 15
 hnode size: 89
 vnode size: 1331
-Find exact cover via dancing links
 Num copies: 15
-Done
 Num solutions: 2279184
-Elapsed: 4.06429 [seconds]
-
-real	0m4.829s
-user	1m4.461s
-sys	0m0.000s
+[Elapsed sec]       nqueen 15: 3.81035
+-------------------------------
+Board size: 16
+hnode size: 95
+vnode size: 1500
+Num copies: 16
+Num solutions: 14772512
+[Elapsed sec]       nqueen 16: 23.3963
 -----------------------------------------------------------
 # Pentominoes
 
 hnode size: 78
 vnode size: 14981
-Find exact cover via dancing links
 Num copies: 36
-Done
 Num solutions: 65
-Elapsed: 0.054064 [seconds]
--------------------------------
+[Elapsed sec]     pentominoes: 0.0527831
 Solution: 0
           
 ┌┬┬──┬──┐ 
@@ -451,7 +381,6 @@ Solution: 0
 ├┐┌┤└─┐├┤ 
 │└┘│┌─┴┘│ 
 └──┴┴───┘ 
--------------------------------
 Solution: 10
           
 ┌──┬───┬┐ 
@@ -463,10 +392,6 @@ Solution: 10
 │┌┘└┐└─┐│ 
 │└┐┌┴──┴┤ 
 └─┴┴────┘ 
-
-real	0m0.069s
-user	0m0.187s
-sys	0m0.013s
 -----------------------------------------------------------
 # Sudoku
 
@@ -487,11 +412,9 @@ Problem:
 
 hnode size: 193
 vnode size: 1099
-Find exact cover via dancing links
 Num copies: 2
-Done
 Num solutions: 1
-Elapsed: 0.000343117 [seconds]
+[Elapsed sec]        sudoku 0: 0.000350327
 Solution: 
 
 597 | 218 | 364
@@ -523,11 +446,9 @@ Problem:
 
 hnode size: 237
 vnode size: 1448
-Find exact cover via dancing links
 Num copies: 4
-Done
 Num solutions: 1
-Elapsed: 0.000648138 [seconds]
+[Elapsed sec]        sudoku 1: 0.000818533
 Solution: 
 
 319 | 657 | 842
@@ -542,7 +463,36 @@ Solution:
 864 | 925 | 137
 921 | 734 | 568
 
-
-real	0m0.003s
-user	0m0.003s
-sys	0m0.000s
+[Elapsed sec]         example: 0.000133911
+[Elapsed sec]      langford 3: 0.000387795
+[Elapsed sec]      langford 4: 0.000203792
+[Elapsed sec]      langford 7: 0.000426579
+[Elapsed sec]      langford 8: 0.00052342
+[Elapsed sec]     langford 11: 0.0075979
+[Elapsed sec]     langford 12: 0.0510484
+[Elapsed sec]     langford 15: 15.1447
+[Elapsed sec]     langford 16: 125.539
+[Elapsed sec]         latin 0: 0.0420927
+[Elapsed sec]         latin 1: 0.0357969
+[Elapsed sec]         latin 2: 0.0472674
+[Elapsed sec]         latin 3: 0.0543385
+[Elapsed sec]         latin 4: 171.795
+[Elapsed sec]        nqueen 1: 0.000119484
+[Elapsed sec]        nqueen 2: 0.000129266
+[Elapsed sec]        nqueen 3: 0.000161868
+[Elapsed sec]        nqueen 4: 0.000478176
+[Elapsed sec]        nqueen 5: 0.000295543
+[Elapsed sec]        nqueen 6: 0.000438541
+[Elapsed sec]        nqueen 7: 0.000502937
+[Elapsed sec]        nqueen 8: 0.000825732
+[Elapsed sec]        nqueen 9: 0.000795871
+[Elapsed sec]       nqueen 10: 0.00166667
+[Elapsed sec]       nqueen 11: 0.00450842
+[Elapsed sec]       nqueen 12: 0.0215648
+[Elapsed sec]       nqueen 13: 0.125406
+[Elapsed sec]       nqueen 14: 0.648469
+[Elapsed sec]       nqueen 15: 3.81035
+[Elapsed sec]       nqueen 16: 23.3963
+[Elapsed sec]     pentominoes: 0.0527831
+[Elapsed sec]        sudoku 0: 0.000350327
+[Elapsed sec]        sudoku 1: 0.000818533
