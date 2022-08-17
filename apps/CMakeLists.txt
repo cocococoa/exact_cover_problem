@@ -1,4 +1,4 @@
-foreach(exe example langford latin nqueen pentominoes sudoku)
+foreach(exe langford latin nqueen pentominoes sudoku xc_example xcc_example)
     add_executable(${exe} ${exe}.cpp)
     target_link_libraries(${exe} PRIVATE solver)
     target_include_directories(${exe} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

@@ -14,7 +14,6 @@ $ cmake --build build/
 ## Apps
 
 ```sh
-$ ./build/apps/example
 $ ./build/apps/langford
 $ ./build/apps/latin
 $ ./build/apps/nqueen
@@ -51,6 +50,8 @@ Solution: 10
 │└┐┌┴──┴┤ 
 └─┴┴────┘
 $ ./build/apps/sudoku
+$ ./build/apps/xc_example
+$ ./build/apps/xcc_example
 ```
 
 ## Performance
