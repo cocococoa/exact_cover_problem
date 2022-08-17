@@ -244,6 +244,21 @@ void ExactCoverProblemSolver::SolveImpl(int initial_i, int initial_xl,
     xl = DLink(xl);
   }
 }
+int ExactCoverProblemSolver::MRV() const {
+  // Minimum remaining values
+  auto i = RLink(0);
+  auto ret = i;
+  auto min_len = (int)option_list.size() + 100;
+  while (i != 0) {
+    const auto l = Len(i);
+    if (l < min_len) {
+      min_len = l;
+      ret = i;
+    }
+    i = RLink(i);
+  }
+  return ret;
+}
 void ExactCoverProblemSolver::Cover(int i) {
   auto p = DLink(i);
   while (p != i) {
@@ -299,19 +314,4 @@ void ExactCoverProblemSolver::UnHide(int p) {
       q -= 1;
     }
   }
-}
-int ExactCoverProblemSolver::MRV() const {
-  // Minimum remaining values
-  auto i = RLink(0);
-  auto ret = i;
-  auto min_len = (int)option_list.size() + 100;
-  while (i != 0) {
-    const auto l = Len(i);
-    if (l < min_len) {
-      min_len = l;
-      ret = i;
-    }
-    i = RLink(i);
-  }
-  return ret;
 }
