@@ -5,6 +5,7 @@
 #include <numeric>
 #include <thread>
 
+#pragma region XC
 std::string ExactCoverProblemSolver::Header::str() const {
   std::stringstream ss;
   ss << "LLINK(i): " << llink << ", RLINK(i): " << rlink;
@@ -297,3 +298,4 @@ void ExactCoverProblemSolver::UnHide(int p) {
     }
   }
 }
+#pragma endregion

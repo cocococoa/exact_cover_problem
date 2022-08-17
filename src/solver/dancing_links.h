@@ -26,6 +26,7 @@ std::string tostr(Iterator begin, Iterator end, const std::string& sep = ", ") {
   return ss.str();
 }
 
+#pragma region XC
 /**
  * @brief 完全被覆問題のソルバ
  */
@@ -109,3 +110,4 @@ class ExactCoverProblemSolver {
   std::uint64_t num_solutions_ = 0;
   std::vector<std::vector<int>> solution_list_ = {};
 };
+#pragma endregion
