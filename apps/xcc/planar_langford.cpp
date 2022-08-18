@@ -94,6 +94,9 @@ void langfordPair(int size, bool show_result = false) {
 }
 
 int main() {
+  // Reference:
+  // https://oeis.org/A125762
+
   std::cout << "-----------------------------------------------------------\n"
             << "# Planar langford pair\n"
             << std::endl;
