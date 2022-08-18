@@ -10,6 +10,6 @@ FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
 
 # Now simply link against gtest or gtest_main as needed. Eg
-add_executable(test_xc test_xc.cpp)
-target_link_libraries(test_xc solver gtest_main)
-gtest_discover_tests(test_xc)
+add_executable(xc_test xc_test.cpp)
+target_link_libraries(xc_test solver gtest_main)
+gtest_discover_tests(xc_test)
