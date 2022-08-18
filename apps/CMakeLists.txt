@@ -4,7 +4,7 @@ foreach(exe example langford latin nqueen pentominoes sudoku)
     target_include_directories(xc_${exe} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 endforeach()
 
-foreach(exe example nqueen prime_square)
+foreach(exe example nqueen planar_langford prime_square)
     add_executable(xcc_${exe} xcc/${exe}.cpp)
     target_link_libraries(xcc_${exe} PRIVATE solver)
     target_include_directories(xcc_${exe} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

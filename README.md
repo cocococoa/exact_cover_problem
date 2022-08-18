@@ -29,6 +29,7 @@ $ ./build/apps/xc_sudoku
 ```sh
 $ ./build/apps/xcc_example
 $ ./build/apps/xcc_nqueen
+$ ./build/apps/xcc_planar_langford
 $ ./build/apps/xcc_prime_square
 ```
 
