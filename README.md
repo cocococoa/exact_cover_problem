@@ -11,6 +11,12 @@ $ cmake -S . -B build/ -DCMAKE_BUILD_TYPE=Release
 $ cmake --build build/
 ```
 
+## Test
+
+```sh
+$ ctest --test-dir build/
+```
+
 ## Apps
 
 ### Exact covering (XC)
