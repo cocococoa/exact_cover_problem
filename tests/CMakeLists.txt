@@ -13,3 +13,7 @@ include(GoogleTest)
 add_executable(xc_test xc_test.cpp)
 target_link_libraries(xc_test solver gtest_main)
 gtest_discover_tests(xc_test)
+
+add_executable(xcc_test xcc_test.cpp)
+target_link_libraries(xcc_test solver gtest_main)
+gtest_discover_tests(xcc_test)
