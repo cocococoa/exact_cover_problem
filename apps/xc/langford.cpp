@@ -22,7 +22,7 @@ void langfordPair(int size, bool show_result = false) {
   }
 
   const auto [num_items, option_list, compile_to_raw] =
-      option_handler.Compile();
+      option_handler.XCCompile();
   auto solver = ExactCoverProblemSolver(num_items, option_list);
   const auto num_solutions =
       runXCSolver("langford " + std::to_string(size), solver, show_result);

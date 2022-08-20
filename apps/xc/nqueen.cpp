@@ -33,8 +33,7 @@ void nQueen(int size) {
     option_handler.AddOption(option);
   }
 
-  const auto [num_items, option_list, compile_to_raw] =
-      option_handler.Compile();
+  const auto [num_items, option_list, _] = option_handler.XCCompile();
   auto solver = ExactCoverProblemSolver(num_items, option_list);
   runXCSolver("nqueen " + std::to_string(size), solver, false);
 }

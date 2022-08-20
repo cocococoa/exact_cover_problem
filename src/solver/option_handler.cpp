@@ -80,7 +80,7 @@ int OptionHandler::NumSecondaryItems() const {
   return ret;
 }
 std::tuple<int, std::vector<std::vector<int>>, std::unordered_map<int, int>>
-OptionHandler::Compile() const {
+OptionHandler::XCCompile() const {
   if (NumSecondaryItems() > 0) throw std::runtime_error("Not XC problem.");
 
   auto to_index = std::unordered_map<std::string, int>();

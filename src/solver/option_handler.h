@@ -163,7 +163,7 @@ class OptionHandler {
   int NumSecondaryItems() const;
 
   std::tuple<int, std::vector<std::vector<int>>, std::unordered_map<int, int>>
-  Compile() const;
+  XCCompile() const;
 
  private:
   std::unordered_map<std::string, std::size_t> dict_;

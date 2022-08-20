@@ -95,7 +95,7 @@ void sudoku(const std::string& path, int index) {
   }
 
   const auto [num_items, option_list, compile_to_raw] =
-      option_handler.Compile();
+      option_handler.XCCompile();
   auto solver = ExactCoverProblemSolver(num_items, option_list);
   runXCSolver("sudoku " + std::to_string(index), solver, true);
 
