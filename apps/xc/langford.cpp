@@ -15,9 +15,7 @@ void langfordPair(int size, bool show_result = false) {
         const auto i2 = option_handler.AddItem('x', r);
         const auto i3 = option_handler.AddItem('i', i);
         auto option = Option();
-        option.AddPrimaryItem(i1);
-        option.AddPrimaryItem(i2);
-        option.AddPrimaryItem(i3);
+        option.AddPrimaryItems(i1, i2, i3);
         option_handler.AddOption(option);
       }
     }
