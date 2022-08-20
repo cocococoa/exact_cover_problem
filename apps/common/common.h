@@ -4,6 +4,7 @@
 #include <iomanip>
 
 #include "solver/dancing_links.h"
+#include "solver/option_handler.h"
 
 inline int runXCSolver(const std::string& name, ExactCoverProblemSolver& solver,
                        bool save_solution) {
