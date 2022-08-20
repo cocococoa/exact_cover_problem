@@ -1,5 +1,7 @@
 #include "solver/option_handler.h"
 
+#include <iostream>
+
 void Option::AddPrimaryItem(ItemConstPtr item_ptr) {
   if (not item_ptr->IsPrimary())
     throw std::runtime_error("Item: " + item_ptr->GetId() + " is not primary.");
@@ -46,6 +48,11 @@ ItemConstPtr OptionHandler::AddItem(std::shared_ptr<Item> item_ptr) {
 ItemConstPtr OptionHandler::FindItem(const Item& item) const {
   const auto itr = dict_.find(item.GetId());
   if (itr == dict_.end()) return std::shared_ptr<const Item>();
+  return item_list_[itr->second];
+}
+ItemPtr OptionHandler::FindItemMut(const Item& item) {
+  const auto itr = dict_.find(item.GetId());
+  if (itr == dict_.end()) return std::shared_ptr<Item>();
   return item_list_[itr->second];
 }
 int OptionHandler::NumAliveItems() const {
@@ -98,6 +105,16 @@ OptionHandler::Compile() const {
     compile_to_raw[(int)ret.size()] = oidx;
     ret.push_back(op);
   }
+
+#ifndef NDEBUG
+  std::cout << num_items << std::endl;
+  for (const auto& option : ret) {
+    for (const auto o : option) {
+      std::cout << o << ", ";
+    }
+    std::cout << std::endl;
+  }
+#endif
 
   return {num_items, ret, compile_to_raw};
 }

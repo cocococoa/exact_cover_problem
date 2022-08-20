@@ -14,6 +14,14 @@ std::string myToString(T t) {
   return ss.str();
 }
 template <typename T>
+T myFromString(const std::string& s) {
+  auto ss = std::stringstream();
+  ss << s;
+  auto ret = T();
+  ss >> ret;
+  return ret;
+}
+template <typename T>
 std::string toStrImpl(T t) {
   return myToString(t);
 }
@@ -21,14 +29,31 @@ template <typename Head, typename... Tail>
 std::string toStrImpl(Head head, Tail... tail) {
   return myToString(head) + "_" + toStrImpl(tail...);
 }
+template <typename T>
+void toStrListImpl(std::vector<std::string>& container, T t) {
+  container.emplace_back(myToString(t));
+}
+template <typename Head, typename... Tail>
+void toStrListImpl(std::vector<std::string>& container, Head head,
+                   Tail... tail) {
+  container.emplace_back(myToString(head));
+  toStrListImpl(container, tail...);
+}
 }  // namespace
 
 template <typename Head, typename... Tail>
 std::string toStr(Head&& head, Tail&&... tail) {
   return toStrImpl(head, tail...);
 }
+template <typename Head, typename... Tail>
+std::vector<std::string> toStrList(Head&& head, Tail&&... tail) {
+  auto ret = std::vector<std::string>();
+  toStrListImpl(ret, head, tail...);
+  return ret;
+}
 
 class Item;
+using ItemPtr = std::shared_ptr<Item>;
 using ItemConstPtr = std::shared_ptr<const Item>;
 enum class ItemType { Primary, Secondary };
 using Color = int;
@@ -43,16 +68,22 @@ class Item {
 
   template <typename Head, typename... Tail>
   Item(Head&& head, Tail&&... tail)
-      : id_(toStr(head, tail...)), type_(ItemType::Primary), alive_(true) {}
-  Item(const std::string& id)
-      : id_(id), type_(ItemType::Primary), alive_(true) {}
+      : id_(toStr(head, tail...)),
+        list_(toStrList(head, tail...)),
+        type_(ItemType::Primary),
+        alive_(true) {}
   template <typename Head, typename... Tail>
   Item(ItemType type, Head&& head, Tail&&... tail)
-      : id_(toStr(head, tail...)), type_(type), alive_(true) {}
-  Item(ItemType type, const std::string& id)
-      : id_(id), type_(type), alive_(true) {}
+      : id_(toStr(head, tail...)),
+        list_(toStrList(head, tail...)),
+        type_(type),
+        alive_(true) {}
 
   const std::string& GetId() const { return id_; }
+  template <typename T>
+  T Get(int index) const {
+    return myFromString<T>(list_.at(index));
+  }
 
   void SetType(ItemType type) { type_ = type; }
   void SetAlive() { alive_ = true; }
@@ -64,6 +95,7 @@ class Item {
 
  private:
   const std::string id_;
+  const std::vector<std::string> list_;
   ItemType type_;
   bool alive_;
 };
@@ -103,8 +135,14 @@ class OptionHandler {
     const auto item = Item(head, tail...);
     return this->FindItem(item);
   }
+  template <typename Head, typename... Tail>
+  ItemPtr FindItemMut(Head head, Tail... tail) {
+    const auto item = Item(head, tail...);
+    return this->FindItemMut(item);
+  }
   ItemConstPtr AddItem(std::shared_ptr<Item> item_ptr);
   ItemConstPtr FindItem(const Item& item) const;
+  ItemPtr FindItemMut(const Item& item);
 
   void AddOption(const Option& option) { option_list_.emplace_back(option); }
   void AddOption(Option&& option) {
