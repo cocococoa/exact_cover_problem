@@ -137,6 +137,11 @@ class OptionHandler {
     return this->AddItem(item_ptr);
   }
   template <typename Head, typename... Tail>
+  ItemConstPtr AddSecondaryItem(Head head, Tail... tail) {
+    auto item_ptr = std::make_shared<Item>(ItemType::Secondary, head, tail...);
+    return this->AddItem(item_ptr);
+  }
+  template <typename Head, typename... Tail>
   ItemConstPtr FindItem(Head head, Tail... tail) const {
     const auto item = Item(head, tail...);
     return this->FindItem(item);
@@ -164,6 +169,9 @@ class OptionHandler {
 
   std::tuple<int, std::vector<std::vector<int>>, std::unordered_map<int, int>>
   XCCompile() const;
+  std::tuple<int, int, std::vector<std::vector<std::pair<int, int>>>,
+             std::unordered_map<int, int>>
+  XCCCompile() const;
 
  private:
   std::unordered_map<std::string, std::size_t> dict_;

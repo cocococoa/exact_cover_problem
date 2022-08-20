@@ -91,7 +91,7 @@ OptionHandler::XCCompile() const {
     to_index.emplace(ptr->GetId(), index);
   }
 
-  auto num_items = NumPrimaryItems();
+  const auto num_items = NumPrimaryItems();
   auto ret = std::vector<std::vector<int>>();
   auto compile_to_raw = std::unordered_map<int, int>();
   for (auto oidx = 0; oidx < (int)option_list_.size(); ++oidx) {
@@ -117,4 +117,43 @@ OptionHandler::XCCompile() const {
 #endif
 
   return {num_items, ret, compile_to_raw};
+}
+std::tuple<int, int, std::vector<std::vector<std::pair<int, int>>>,
+           std::unordered_map<int, int>>
+OptionHandler::XCCCompile() const {
+  auto to_index = std::unordered_map<std::string, int>();
+  for (const auto& ptr : item_list_) {
+    if (ptr->IsDead() or (not ptr->IsPrimary())) continue;
+
+    const auto index = (int)to_index.size();
+    to_index.emplace(ptr->GetId(), index);
+  }
+  for (const auto& ptr : item_list_) {
+    if (ptr->IsDead() or (not ptr->IsSecondary())) continue;
+
+    const auto index = (int)to_index.size();
+    to_index.emplace(ptr->GetId(), index);
+  }
+
+  const auto num_primary_items = NumPrimaryItems();
+  const auto num_secondary_items = NumSecondaryItems();
+  auto ret = std::vector<std::vector<std::pair<int, int>>>();
+  auto compile_to_raw = std::unordered_map<int, int>();
+  for (auto oidx = 0; oidx < (int)option_list_.size(); ++oidx) {
+    const auto& option = option_list_[oidx];
+    if (option.IsDead()) continue;
+
+    auto op = std::vector<std::pair<int, int>>();
+    for (auto itr = option.PBegin(); itr != option.PEnd(); ++itr) {
+      op.emplace_back(to_index[(*itr)->GetId()], 0);
+    }
+    for (auto itr = option.SBegin(); itr != option.SEnd(); ++itr) {
+      const auto& [item_ptr, color] = *itr;
+      op.emplace_back(to_index[item_ptr->GetId()], color);
+    }
+    compile_to_raw[(int)ret.size()] = oidx;
+    ret.push_back(op);
+  }
+
+  return {num_primary_items, num_secondary_items, ret, compile_to_raw};
 }
