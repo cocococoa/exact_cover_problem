@@ -65,6 +65,7 @@ void sudoku(const std::string& path, int index) {
   std::cout << std::endl;
 
   auto option_handler = OptionHandler();
+
   for (auto x = 0; x < SudokuSize; ++x) {
     for (auto y = 0; y < SudokuSize; ++y) {
       for (auto v = 1; v <= SudokuSize; ++v) {

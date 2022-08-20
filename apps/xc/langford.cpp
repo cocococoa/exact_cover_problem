@@ -6,6 +6,7 @@
 
 void langfordPair(int size, bool show_result = false) {
   auto option_handler = OptionHandler();
+
   for (auto i = 1; i <= size; ++i) {
     for (auto j = 0; j < 2 * size; ++j) {
       const auto l = j;

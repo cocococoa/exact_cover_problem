@@ -43,6 +43,7 @@ void findPrimeSquare(int size, bool save_solution) {
   const auto prime_list = findPrimes(pow10(size - 1), pow10(size) - 1);
 
   auto option_handler = OptionHandler();
+
   for (auto pidx = 0; pidx < (int)prime_list.size(); ++pidx) {
     const auto prime = prime_list[pidx];
     // 横置き

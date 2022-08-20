@@ -83,6 +83,7 @@ void searchLatin(const std::string& path, int index) {
   std::cout << "Num transverses: " << transverse_list.size() << std::endl;
 
   auto option_handler = OptionHandler();
+
   for (const auto& t : transverse_list) {
     auto option = Option();
     for (auto x = 0; x < LatinSize; ++x) {
