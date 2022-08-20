@@ -82,18 +82,20 @@ void searchLatin(const std::string& path, int index) {
   auto transverse_list = calcTransverse(latin);
   std::cout << "Num transverses: " << transverse_list.size() << std::endl;
 
-  const auto num_items = LatinSize * LatinSize;
-  auto option_list = std::vector<std::vector<int>>();
+  auto option_handler = OptionHandler();
   for (const auto& t : transverse_list) {
-    auto option = std::vector<int>(LatinSize);
+    auto option = Option();
     for (auto x = 0; x < LatinSize; ++x) {
       for (auto y = 0; y < LatinSize; ++y)
-        if (t.t[x] == latin.Get(x, y)) option[x] = x * LatinSize + y;
+        if (t.t[x] == latin.Get(x, y)) {
+          const auto item = option_handler.AddItem(x, y);
+          option.AddPrimaryItem(item);
+        }
     }
-
-    option_list.emplace_back(option);
+    option_handler.AddOption(option);
   }
 
+  const auto [num_items, option_list, _] = option_handler.Compile();
   auto solver = ExactCoverProblemSolver(num_items, option_list);
   runXCSolver("latin " + std::to_string(index), solver, false);
 }
