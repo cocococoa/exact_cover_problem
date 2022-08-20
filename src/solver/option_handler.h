@@ -26,27 +26,27 @@ std::string toStrImpl(T t) {
   return myToString(t);
 }
 template <typename Head, typename... Tail>
-std::string toStrImpl(Head head, Tail... tail) {
+std::string toStrImpl(const Head& head, const Tail&... tail) {
   return myToString(head) + "_" + toStrImpl(tail...);
 }
 template <typename T>
-void toStrListImpl(std::vector<std::string>& container, T t) {
+void toStrListImpl(std::vector<std::string>& container, const T& t) {
   container.emplace_back(myToString(t));
 }
 template <typename Head, typename... Tail>
-void toStrListImpl(std::vector<std::string>& container, Head head,
-                   Tail... tail) {
+void toStrListImpl(std::vector<std::string>& container, const Head& head,
+                   const Tail&... tail) {
   container.emplace_back(myToString(head));
   toStrListImpl(container, tail...);
 }
 }  // namespace
 
 template <typename Head, typename... Tail>
-std::string toStr(Head&& head, Tail&&... tail) {
+std::string toStr(const Head& head, const Tail&... tail) {
   return toStrImpl(head, tail...);
 }
 template <typename Head, typename... Tail>
-std::vector<std::string> toStrList(Head&& head, Tail&&... tail) {
+std::vector<std::string> toStrList(const Head& head, const Tail&... tail) {
   auto ret = std::vector<std::string>();
   toStrListImpl(ret, head, tail...);
   return ret;
@@ -67,13 +67,13 @@ class Item {
   Item(Item&&) = default;
 
   template <typename Head, typename... Tail>
-  Item(Head&& head, Tail&&... tail)
+  Item(const Head& head, const Tail&... tail)
       : id_(toStr(head, tail...)),
         list_(toStrList(head, tail...)),
         type_(ItemType::Primary),
         alive_(true) {}
   template <typename Head, typename... Tail>
-  Item(ItemType type, Head&& head, Tail&&... tail)
+  Item(ItemType type, const Head& head, const Tail&... tail)
       : id_(toStr(head, tail...)),
         list_(toStrList(head, tail...)),
         type_(type),
@@ -103,6 +103,12 @@ class Item {
 class Option {
  public:
   void AddPrimaryItem(ItemConstPtr item_ptr);
+  template <typename Head, typename... Args>
+  void AddPrimaryItems(const Head& head, const Args&... args) {
+    this->AddPrimaryItem(head);
+    this->AddPrimaryItems(args...);
+  }
+  void AddPrimaryItems() {}
   void AddSecondaryItem(ItemConstPtr item_ptr, Color color);
   int NumPrimaryItems() const { return (int)primary_item_list_.size(); }
   int NumSecondaryItems() const { return (int)secondary_item_list_.size(); }
