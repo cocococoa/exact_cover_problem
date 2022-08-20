@@ -5,27 +5,26 @@
 #include "common/common.h"
 
 void nQueen(int size) {
-  const auto num_primary_items = size + size;
-  const auto num_secondary_items = (2 * size - 1) + (2 * size - 1);
-  const auto offset0 = 0;
-  const auto offset1 = size;
-  const auto offset2 = size + size;
-  const auto offset3 = size + size + (2 * size - 1);
-  auto option_list = std::vector<std::vector<std::pair<int, int>>>();
+  auto option_handler = OptionHandler();
 
   for (auto x = 0; x < size; ++x) {
     for (auto y = 0; y < size; ++y) {
       // (x, y) にクイーンを置いたら
       // どの 縦、横、右斜め、左斜め を占有するか？
-      auto option = std::vector<std::pair<int, int>>();
-      option.push_back({offset0 + x, 0});
-      option.push_back({offset1 + y, 0});
-      option.push_back({offset2 + x + y, 0});
-      option.push_back({offset3 + x - y + size - 1, 0});
-      option_list.push_back(option);
+      const auto i1 = option_handler.AddItem('r', x);
+      const auto i2 = option_handler.AddItem('c', y);
+      const auto i3 = option_handler.AddSecondaryItem('a', x + y);
+      const auto i4 = option_handler.AddSecondaryItem('b', x - y);
+      auto option = Option();
+      option.AddPrimaryItems(i1, i2);
+      option.AddSecondaryItem(i3, 0);
+      option.AddSecondaryItem(i4, 0);
+      option_handler.AddOption(option);
     }
   }
 
+  const auto [num_primary_items, num_secondary_items, option_list, _] =
+      option_handler.XCCCompile();
   auto solver = ExactCoverWithColorsSolver(num_primary_items,
                                            num_secondary_items, option_list);
   runXCCSolver("nqueen " + std::to_string(size), solver, false);

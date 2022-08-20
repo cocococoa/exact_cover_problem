@@ -5,30 +5,36 @@
 #include "common/common.h"
 
 void nQueen(int size) {
-  const auto num_items = size + size + (2 * size - 1) + (2 * size - 1);
-  const auto offset0 = 0;
-  const auto offset1 = size;
-  const auto offset2 = size + size;
-  const auto offset3 = size + size + (2 * size - 1);
-  auto option_list = std::vector<std::vector<int>>();
+  auto option_handler = OptionHandler();
 
   for (auto x = 0; x < size; ++x) {
     for (auto y = 0; y < size; ++y) {
       // (x, y) にクイーンを置いたら
       // どの 縦、横、右斜め、左斜め を占有するか？
-      auto option = std::vector<int>();
-      option.push_back(offset0 + x);
-      option.push_back(offset1 + y);
-      option.push_back(offset2 + x + y);
-      option.push_back(offset3 + x - y + size - 1);
-      option_list.push_back(option);
+      const auto i1 = option_handler.AddItem('r', x);
+      const auto i2 = option_handler.AddItem('c', y);
+      const auto i3 = option_handler.AddItem('a', x + y);
+      const auto i4 = option_handler.AddItem('b', x - y);
+      auto option = Option();
+      option.AddPrimaryItems(i1, i2, i3, i4);
+      option_handler.AddOption(option);
     }
   }
   // Secondary item 用のスラックオプション
-  for (auto i = offset2; i < num_items; ++i) {
-    option_list.push_back({i});
+  for (auto i = 0; i <= 2 * (size - 1); ++i) {
+    const auto item = option_handler.FindItem('a', i);
+    auto option = Option();
+    option.AddPrimaryItem(item);
+    option_handler.AddOption(option);
+  }
+  for (auto i = -size + 1; i <= size - 1; ++i) {
+    const auto item = option_handler.FindItem('b', i);
+    auto option = Option();
+    option.AddPrimaryItem(item);
+    option_handler.AddOption(option);
   }
 
+  const auto [num_items, option_list, _] = option_handler.XCCompile();
   auto solver = ExactCoverProblemSolver(num_items, option_list);
   runXCSolver("nqueen " + std::to_string(size), solver, false);
 }

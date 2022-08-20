@@ -7,39 +7,37 @@
 #include "common/common.h"
 
 void langfordPair(int size, bool show_result = false) {
-  const auto half_size = (size + 1) / 2;
-  const auto num_primary_items = 2 * size + size;
-  const auto num_secondary_items = 2 * 2 * size * half_size;
-  const auto offset0 = 0;
-  const auto offset1 = 2 * size;
-  const auto offset2 = 2 * size + size;
-  const auto offset3 = 2 * size + size + 2 * size * half_size;
+  auto option_handler = OptionHandler();
 
-  auto option_list = std::vector<std::vector<std::pair<int, int>>>{};
   for (auto i = 1; i <= size; ++i) {
     for (auto j = 0; j < 2 * size; ++j) {
       const auto l = j;
       const auto r = j + i + 1;
       if (r >= 2 * size) continue;
 
-      const auto option = std::vector<std::pair<int, int>>{
-          {offset0 + l, 0}, {offset0 + r, 0}, {offset1 + i - 1, 0}};
+      const auto i1 = option_handler.AddItem('x', l);
+      const auto i2 = option_handler.AddItem('x', r);
+      const auto i3 = option_handler.AddItem('i', i);
+      auto option = Option();
+      option.AddPrimaryItems(i1, i2, i3);
       const auto half = (i + 1) / 2;
 
       // Upper option
       {
         auto uop = option;
         for (auto y = 0; y < half; ++y) {
-          uop.push_back({offset2 + half_size * l + y, 0});
+          const auto item = option_handler.AddSecondaryItem('u', l, y);
+          uop.AddSecondaryItem(item, 0);
         }
         for (auto x = l + 1; x <= r - 1; ++x) {
-          uop.push_back({offset2 + half_size * x + half - 1, 0});
+          const auto item = option_handler.AddSecondaryItem('u', x, half - 1);
+          uop.AddSecondaryItem(item, 0);
         }
         for (auto y = 0; y < half; ++y) {
-          uop.push_back({offset2 + half_size * r + y, 0});
+          const auto item = option_handler.AddSecondaryItem('u', r, y);
+          uop.AddSecondaryItem(item, 0);
         }
-        std::sort(uop.begin(), uop.end());
-        option_list.push_back(uop);
+        option_handler.AddOption(uop);
       }
 
       if (i == size) continue;
@@ -48,19 +46,24 @@ void langfordPair(int size, bool show_result = false) {
       {
         auto dop = option;
         for (auto y = 0; y < half; ++y) {
-          dop.push_back({offset3 + half_size * l + y, 0});
+          const auto item = option_handler.AddSecondaryItem('d', l, y);
+          dop.AddSecondaryItem(item, 0);
         }
         for (auto x = l + 1; x <= r - 1; ++x) {
-          dop.push_back({offset3 + half_size * x + half - 1, 0});
+          const auto item = option_handler.AddSecondaryItem('d', x, half - 1);
+          dop.AddSecondaryItem(item, 0);
         }
         for (auto y = 0; y < half; ++y) {
-          dop.push_back({offset3 + half_size * r + y, 0});
+          const auto item = option_handler.AddSecondaryItem('d', r, y);
+          dop.AddSecondaryItem(item, 0);
         }
-        std::sort(dop.begin(), dop.end());
-        option_list.push_back(dop);
+        option_handler.AddOption(dop);
       }
     }
   }
+
+  const auto [num_primary_items, num_secondary_items, option_list,
+              compile_to_raw] = option_handler.XCCCompile();
 
   auto solver = ExactCoverWithColorsSolver(num_primary_items,
                                            num_secondary_items, option_list);
@@ -72,10 +75,10 @@ void langfordPair(int size, bool show_result = false) {
     auto array = std::vector<int>(2 * size, 0);
     const auto sol = solver.GetSolution(i);
     for (const auto oidx : sol) {
-      const auto& option = option_list[oidx];
-      const auto l = option[0].first;
-      const auto r = option[1].first;
-      const auto number = option[2].first - 2 * size + 1;
+      const auto& option = option_handler.GetOption(compile_to_raw.at(oidx));
+      const auto l = option.GetPrimaryItem(0)->Get<int>(1);
+      const auto r = option.GetPrimaryItem(1)->Get<int>(1);
+      const auto number = option.GetPrimaryItem(2)->Get<int>(1);
       array[l] = number;
       array[r] = number;
     }
