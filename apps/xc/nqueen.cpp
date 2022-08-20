@@ -6,6 +6,7 @@
 
 void nQueen(int size) {
   auto option_handler = OptionHandler();
+
   for (auto x = 0; x < size; ++x) {
     for (auto y = 0; y < size; ++y) {
       // (x, y) にクイーンを置いたら
