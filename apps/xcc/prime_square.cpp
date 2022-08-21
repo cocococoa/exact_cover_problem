@@ -46,10 +46,11 @@ void findPrimeSquare(int size, bool save_solution) {
 
   for (auto pidx = 0; pidx < (int)prime_list.size(); ++pidx) {
     const auto prime = prime_list[pidx];
+
     // 横置き
     for (auto i = 0; i < size; ++i) {
       auto option = Option();
-      const auto pos_item = option_handler.AddItem(i);
+      const auto pos_item = option_handler.AddItem('x', i);
       option.AddPrimaryItem(pos_item);
       const auto num_item = option_handler.AddSecondaryItem(prime);
       option.AddSecondaryItem(num_item, 0);
@@ -61,10 +62,11 @@ void findPrimeSquare(int size, bool save_solution) {
 
       option_handler.AddOption(option);
     }
+
     // 縦置き
     for (auto j = 0; j < size; ++j) {
       auto option = Option();
-      const auto pos_item = option_handler.AddItem(j);
+      const auto pos_item = option_handler.AddItem('y', j);
       option.AddPrimaryItem(pos_item);
       const auto num_item = option_handler.AddSecondaryItem(prime);
       option.AddSecondaryItem(num_item, 0);
@@ -73,6 +75,8 @@ void findPrimeSquare(int size, bool save_solution) {
         auto cell_item = option_handler.AddSecondaryItem(i, j);
         option.AddSecondaryItem(cell_item, ps[i] + 1);
       }
+
+      option_handler.AddOption(option);
     }
   }
 
