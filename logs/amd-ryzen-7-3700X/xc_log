@@ -46,7 +46,7 @@ LEN OR TOP(x):  7, ULINK(x): 25, DLINK(x):  7
 LEN OR TOP(x): -6, ULINK(x): 27, DLINK(x): --
 Num copies: 2
 Num solutions: 1
-[Elapsed sec]           XC example: 0.000282229
+[Elapsed sec]                     XC example: 0.000168184
 {{2, 4}, {0, 3, 5}, {1, 6}}
 -----------------------------------------------------------
 # Langford pair
@@ -56,7 +56,7 @@ hnode size: 10
 vnode size: 47
 Num copies: 3
 Num solutions: 2
-[Elapsed sec]        XC langford 3: 0.000164839
+[Elapsed sec]                  XC langford 3: 0.000207999
 x_2, x_4, i_1
 x_0, x_3, i_2
 x_1, x_5, i_3
@@ -68,7 +68,7 @@ hnode size: 13
 vnode size: 86
 Num copies: 4
 Num solutions: 2
-[Elapsed sec]        XC langford 4: 0.000163315
+[Elapsed sec]                  XC langford 4: 0.000225142
 x_4, x_6, i_1
 x_0, x_3, i_2
 x_1, x_5, i_3
@@ -82,37 +82,37 @@ hnode size: 22
 vnode size: 275
 Num copies: 7
 Num solutions: 52
-[Elapsed sec]        XC langford 7: 0.000326692
+[Elapsed sec]                  XC langford 7: 0.000813654
 -------------------------------
 hnode size: 25
 vnode size: 362
 Num copies: 8
 Num solutions: 300
-[Elapsed sec]        XC langford 8: 0.000492884
+[Elapsed sec]                  XC langford 8: 0.000466314
 -------------------------------
 hnode size: 34
 vnode size: 695
 Num copies: 11
 Num solutions: 35584
-[Elapsed sec]       XC langford 11: 0.0069831
+[Elapsed sec]                 XC langford 11: 0.00744852
 -------------------------------
 hnode size: 37
 vnode size: 830
 Num copies: 12
 Num solutions: 216288
-[Elapsed sec]       XC langford 12: 0.048659
+[Elapsed sec]                 XC langford 12: 0.0489487
 -------------------------------
 hnode size: 46
 vnode size: 1307
 Num copies: 15
 Num solutions: 79619280
-[Elapsed sec]       XC langford 15: 14.4538
+[Elapsed sec]                 XC langford 15: 14.6839
 -------------------------------
 hnode size: 49
 vnode size: 1490
 Num copies: 16
 Num solutions: 653443600
-[Elapsed sec]       XC langford 16: 117.203
+[Elapsed sec]                 XC langford 16: 117.983
 -----------------------------------------------------------
 # Latin square
 
@@ -132,7 +132,7 @@ hnode size: 101
 vnode size: 8990
 Num copies: 79
 Num solutions: 1
-[Elapsed sec]           XC latin 0: 0.132174
+[Elapsed sec]                     XC latin 0: 0.0525477
 -------------------------------
 3145926870
 2819763504
@@ -149,7 +149,7 @@ hnode size: 101
 vnode size: 8902
 Num copies: 67
 Num solutions: 2
-[Elapsed sec]           XC latin 1: 0.0296204
+[Elapsed sec]                     XC latin 1: 0.0316562
 -------------------------------
 2718459036
 0287135649
@@ -166,7 +166,7 @@ hnode size: 101
 vnode size: 9166
 Num copies: 93
 Num solutions: 0
-[Elapsed sec]           XC latin 2: 0.0745857
+[Elapsed sec]                     XC latin 2: 0.0533919
 -------------------------------
 0572164938
 6051298473
@@ -183,7 +183,7 @@ hnode size: 101
 vnode size: 9474
 Num copies: 95
 Num solutions: 6
-[Elapsed sec]           XC latin 3: 0.0513309
+[Elapsed sec]                     XC latin 3: 0.049555
 -------------------------------
 7823456019
 8234067195
@@ -200,7 +200,7 @@ hnode size: 101
 vnode size: 60646
 Num copies: 480
 Num solutions: 12265168
-[Elapsed sec]           XC latin 4: 166.976
+[Elapsed sec]                     XC latin 4: 167.478
 -----------------------------------------------------------
 # N Queen
 
@@ -210,112 +210,112 @@ hnode size: 5
 vnode size: 15
 Num copies: 1
 Num solutions: 1
-[Elapsed sec]          XC nqueen 1: 0.000175218
+[Elapsed sec]                    XC nqueen 1: 0.000151233
 -------------------------------
 Board size: 2
 hnode size: 11
 vnode size: 44
 Num copies: 2
 Num solutions: 0
-[Elapsed sec]          XC nqueen 2: 0.000102442
+[Elapsed sec]                    XC nqueen 2: 0.000383579
 -------------------------------
 Board size: 3
 hnode size: 17
 vnode size: 83
 Num copies: 3
 Num solutions: 0
-[Elapsed sec]          XC nqueen 3: 0.000115506
+[Elapsed sec]                    XC nqueen 3: 0.000171762
 -------------------------------
 Board size: 4
 hnode size: 23
 vnode size: 132
 Num copies: 4
 Num solutions: 2
-[Elapsed sec]          XC nqueen 4: 0.000175629
+[Elapsed sec]                    XC nqueen 4: 0.000254207
 -------------------------------
 Board size: 5
 hnode size: 29
 vnode size: 191
 Num copies: 5
 Num solutions: 10
-[Elapsed sec]          XC nqueen 5: 0.000201869
+[Elapsed sec]                    XC nqueen 5: 0.000267261
 -------------------------------
 Board size: 6
 hnode size: 35
 vnode size: 260
 Num copies: 6
 Num solutions: 4
-[Elapsed sec]          XC nqueen 6: 0.000443551
+[Elapsed sec]                    XC nqueen 6: 0.000315381
 -------------------------------
 Board size: 7
 hnode size: 41
 vnode size: 339
 Num copies: 7
 Num solutions: 40
-[Elapsed sec]          XC nqueen 7: 0.000372006
+[Elapsed sec]                    XC nqueen 7: 0.000462907
 -------------------------------
 Board size: 8
 hnode size: 47
 vnode size: 428
 Num copies: 8
 Num solutions: 92
-[Elapsed sec]          XC nqueen 8: 0.00049641
+[Elapsed sec]                    XC nqueen 8: 0.00105371
 -------------------------------
 Board size: 9
 hnode size: 53
 vnode size: 527
 Num copies: 9
 Num solutions: 352
-[Elapsed sec]          XC nqueen 9: 0.000719909
+[Elapsed sec]                    XC nqueen 9: 0.000998741
 -------------------------------
 Board size: 10
 hnode size: 59
 vnode size: 636
 Num copies: 10
 Num solutions: 724
-[Elapsed sec]         XC nqueen 10: 0.001535
+[Elapsed sec]                   XC nqueen 10: 0.00183149
 -------------------------------
 Board size: 11
 hnode size: 65
 vnode size: 755
 Num copies: 11
 Num solutions: 2680
-[Elapsed sec]         XC nqueen 11: 0.00474921
+[Elapsed sec]                   XC nqueen 11: 0.00524373
 -------------------------------
 Board size: 12
 hnode size: 71
 vnode size: 884
 Num copies: 12
 Num solutions: 14200
-[Elapsed sec]         XC nqueen 12: 0.0229779
+[Elapsed sec]                   XC nqueen 12: 0.0236701
 -------------------------------
 Board size: 13
 hnode size: 77
 vnode size: 1023
 Num copies: 13
 Num solutions: 73712
-[Elapsed sec]         XC nqueen 13: 0.121762
+[Elapsed sec]                   XC nqueen 13: 0.12831
 -------------------------------
 Board size: 14
 hnode size: 83
 vnode size: 1172
 Num copies: 14
 Num solutions: 365596
-[Elapsed sec]         XC nqueen 14: 0.698224
+[Elapsed sec]                   XC nqueen 14: 0.781625
 -------------------------------
 Board size: 15
 hnode size: 89
 vnode size: 1331
 Num copies: 15
 Num solutions: 2279184
-[Elapsed sec]         XC nqueen 15: 4.97935
+[Elapsed sec]                   XC nqueen 15: 4.49308
 -------------------------------
 Board size: 16
 hnode size: 95
 vnode size: 1500
 Num copies: 16
 Num solutions: 14772512
-[Elapsed sec]         XC nqueen 16: 30.1794
+[Elapsed sec]                   XC nqueen 16: 30.3217
 -----------------------------------------------------------
 # Pentominoes
 
@@ -323,7 +323,7 @@ hnode size: 78
 vnode size: 14981
 Num copies: 36
 Num solutions: 65
-[Elapsed sec]       XC pentominoes: 0.055481
+[Elapsed sec]                 XC pentominoes: 0.0560913
 Solution: 0
           
 ┌┬┬──┬──┐ 
@@ -368,7 +368,7 @@ hnode size: 193
 vnode size: 1099
 Num copies: 2
 Num solutions: 1
-[Elapsed sec]          XC sudoku 0: 0.000299822
+[Elapsed sec]                    XC sudoku 0: 0.000408035
 Solution: 
 
 597 | 218 | 364
@@ -402,7 +402,7 @@ hnode size: 237
 vnode size: 1448
 Num copies: 5
 Num solutions: 1
-[Elapsed sec]          XC sudoku 1: 0.000538299
+[Elapsed sec]                    XC sudoku 1: 0.000742712
 Solution: 
 
 319 | 657 | 842
@@ -420,36 +420,36 @@ Solution:
 -----------------------------------------------------------
 # Summary
 
-[Elapsed sec]           XC example: 0.000282229
-[Elapsed sec]        XC langford 3: 0.000164839
-[Elapsed sec]        XC langford 4: 0.000163315
-[Elapsed sec]        XC langford 7: 0.000326692
-[Elapsed sec]        XC langford 8: 0.000492884
-[Elapsed sec]       XC langford 11: 0.0069831
-[Elapsed sec]       XC langford 12: 0.048659
-[Elapsed sec]       XC langford 15: 14.4538
-[Elapsed sec]       XC langford 16: 117.203
-[Elapsed sec]           XC latin 0: 0.132174
-[Elapsed sec]           XC latin 1: 0.0296204
-[Elapsed sec]           XC latin 2: 0.0745857
-[Elapsed sec]           XC latin 3: 0.0513309
-[Elapsed sec]           XC latin 4: 166.976
-[Elapsed sec]          XC nqueen 1: 0.000175218
-[Elapsed sec]          XC nqueen 2: 0.000102442
-[Elapsed sec]          XC nqueen 3: 0.000115506
-[Elapsed sec]          XC nqueen 4: 0.000175629
-[Elapsed sec]          XC nqueen 5: 0.000201869
-[Elapsed sec]          XC nqueen 6: 0.000443551
-[Elapsed sec]          XC nqueen 7: 0.000372006
-[Elapsed sec]          XC nqueen 8: 0.00049641
-[Elapsed sec]          XC nqueen 9: 0.000719909
-[Elapsed sec]         XC nqueen 10: 0.001535
-[Elapsed sec]         XC nqueen 11: 0.00474921
-[Elapsed sec]         XC nqueen 12: 0.0229779
-[Elapsed sec]         XC nqueen 13: 0.121762
-[Elapsed sec]         XC nqueen 14: 0.698224
-[Elapsed sec]         XC nqueen 15: 4.97935
-[Elapsed sec]         XC nqueen 16: 30.1794
-[Elapsed sec]       XC pentominoes: 0.055481
-[Elapsed sec]          XC sudoku 0: 0.000299822
-[Elapsed sec]          XC sudoku 1: 0.000538299
+[Elapsed sec]                     XC example: 0.000168184
+[Elapsed sec]                  XC langford 3: 0.000207999
+[Elapsed sec]                  XC langford 4: 0.000225142
+[Elapsed sec]                  XC langford 7: 0.000813654
+[Elapsed sec]                  XC langford 8: 0.000466314
+[Elapsed sec]                 XC langford 11: 0.00744852
+[Elapsed sec]                 XC langford 12: 0.0489487
+[Elapsed sec]                 XC langford 15: 14.6839
+[Elapsed sec]                 XC langford 16: 117.983
+[Elapsed sec]                     XC latin 0: 0.0525477
+[Elapsed sec]                     XC latin 1: 0.0316562
+[Elapsed sec]                     XC latin 2: 0.0533919
+[Elapsed sec]                     XC latin 3: 0.049555
+[Elapsed sec]                     XC latin 4: 167.478
+[Elapsed sec]                    XC nqueen 1: 0.000151233
+[Elapsed sec]                    XC nqueen 2: 0.000383579
+[Elapsed sec]                    XC nqueen 3: 0.000171762
+[Elapsed sec]                    XC nqueen 4: 0.000254207
+[Elapsed sec]                    XC nqueen 5: 0.000267261
+[Elapsed sec]                    XC nqueen 6: 0.000315381
+[Elapsed sec]                    XC nqueen 7: 0.000462907
+[Elapsed sec]                    XC nqueen 8: 0.00105371
+[Elapsed sec]                    XC nqueen 9: 0.000998741
+[Elapsed sec]                   XC nqueen 10: 0.00183149
+[Elapsed sec]                   XC nqueen 11: 0.00524373
+[Elapsed sec]                   XC nqueen 12: 0.0236701
+[Elapsed sec]                   XC nqueen 13: 0.12831
+[Elapsed sec]                   XC nqueen 14: 0.781625
+[Elapsed sec]                   XC nqueen 15: 4.49308
+[Elapsed sec]                   XC nqueen 16: 30.3217
+[Elapsed sec]                 XC pentominoes: 0.0560913
+[Elapsed sec]                    XC sudoku 0: 0.000408035
+[Elapsed sec]                    XC sudoku 1: 0.000742712
