@@ -11,6 +11,7 @@ std::string ExactCoverProblemSolver::Header::str() const {
   ss << "LLINK(i): " << llink << ", RLINK(i): " << rlink;
   return ss.str();
 }
+
 std::string ExactCoverProblemSolver::Node::str() const {
   std::stringstream ss;
   ss << "LEN OR TOP(x): ";
@@ -33,6 +34,7 @@ std::string ExactCoverProblemSolver::Node::str() const {
 
   return ss.str();
 }
+
 ExactCoverProblemSolver::ExactCoverProblemSolver(
     int i_num_items, const std::vector<std::vector<int>>& i_option_list)
     : num_items(i_num_items), option_list(i_option_list) {
@@ -88,6 +90,7 @@ ExactCoverProblemSolver::ExactCoverProblemSolver(
     vnode_list_[right_idx].len_or_top = -item_idx;
   }
 }
+
 std::vector<int> ExactCoverProblemSolver::GetSolution(int i) const {
   auto ret = std::vector<int>();
   const auto& sol = solution_list_[i];
@@ -98,6 +101,7 @@ std::vector<int> ExactCoverProblemSolver::GetSolution(int i) const {
   std::sort(ret.begin(), ret.end());
   return ret;
 }
+
 std::string ExactCoverProblemSolver::GetPrettySolution(int i) const {
   const auto sep = ", ";
   auto ret = std::string("{");
@@ -110,9 +114,11 @@ std::string ExactCoverProblemSolver::GetPrettySolution(int i) const {
   ret += "}";
   return ret;
 }
+
 void ExactCoverProblemSolver::Solve(bool save_solution) {
   SolveImpl(0, 0, false, save_solution);
 }
+
 void ExactCoverProblemSolver::SolveMultiThread(bool save_solution) {
   // Select i
   // TODO(masaki.ono): initial_i の決め方を工夫する
@@ -149,6 +155,7 @@ void ExactCoverProblemSolver::SolveMultiThread(bool save_solution) {
     }
   }
 }
+
 void ExactCoverProblemSolver::SolveImpl(int initial_i, int initial_xl,
                                         bool start_from_x5,
                                         bool save_solution) {
@@ -227,6 +234,7 @@ void ExactCoverProblemSolver::SolveImpl(int initial_i, int initial_xl,
     xl = DLink(xl);
   }
 }
+
 int ExactCoverProblemSolver::MRV() const {
   // Minimum remaining values
   auto i = RLink(0);
@@ -242,6 +250,7 @@ int ExactCoverProblemSolver::MRV() const {
   }
   return ret;
 }
+
 void ExactCoverProblemSolver::Cover(int i) {
   auto p = DLink(i);
   while (p != i) {
@@ -253,6 +262,7 @@ void ExactCoverProblemSolver::Cover(int i) {
   HNode(l).rlink = r;
   HNode(r).llink = l;
 }
+
 void ExactCoverProblemSolver::Hide(int p) {
   auto q = p + 1;
   while (q != p) {
@@ -270,6 +280,7 @@ void ExactCoverProblemSolver::Hide(int p) {
     }
   }
 }
+
 void ExactCoverProblemSolver::UnCover(int i) {
   const auto l = LLink(i);
   const auto r = RLink(i);
@@ -281,6 +292,7 @@ void ExactCoverProblemSolver::UnCover(int i) {
     p = ULink(p);
   }
 }
+
 void ExactCoverProblemSolver::UnHide(int p) {
   auto q = p - 1;
   while (q != p) {
@@ -306,6 +318,7 @@ std::string ExactCoverWithColorsSolver::Header::str() const {
   ss << "LLINK(i): " << llink << ", RLINK(i): " << rlink;
   return ss.str();
 }
+
 std::string ExactCoverWithColorsSolver::Node::str() const {
   std::stringstream ss;
   ss << "LEN OR TOP(x): ";
@@ -331,6 +344,7 @@ std::string ExactCoverWithColorsSolver::Node::str() const {
 
   return ss.str();
 }
+
 ExactCoverWithColorsSolver::ExactCoverWithColorsSolver(
     int i_num_primary_items, int i_num_secondary_items,
     const std::vector<std::vector<std::pair<int, int>>>& i_option_list)
@@ -397,6 +411,7 @@ ExactCoverWithColorsSolver::ExactCoverWithColorsSolver(
     vnode_list_[right_idx].len_or_top = -item_idx;
   }
 }
+
 std::vector<int> ExactCoverWithColorsSolver::GetSolution(int i) const {
   auto ret = std::vector<int>();
   const auto& sol = solution_list_[i];
@@ -407,6 +422,7 @@ std::vector<int> ExactCoverWithColorsSolver::GetSolution(int i) const {
   std::sort(ret.begin(), ret.end());
   return ret;
 }
+
 std::string ExactCoverWithColorsSolver::GetPrettySolution(int i) const {
   const auto sep = ", ";
   auto ret = std::string("{");
@@ -419,9 +435,11 @@ std::string ExactCoverWithColorsSolver::GetPrettySolution(int i) const {
   ret += "}";
   return ret;
 }
+
 void ExactCoverWithColorsSolver::Solve(bool save_solution) {
   SolveImpl(0, 0, false, save_solution);
 }
+
 void ExactCoverWithColorsSolver::SolveMultiThread(bool save_solution) {
   // Select i
   // TODO(masaki.ono): initial_i の決め方を工夫する
@@ -458,6 +476,7 @@ void ExactCoverWithColorsSolver::SolveMultiThread(bool save_solution) {
     }
   }
 }
+
 void ExactCoverWithColorsSolver::SolveImpl(int initial_i, int initial_xl,
                                            bool start_from_x5,
                                            bool save_solution) {
@@ -536,6 +555,7 @@ void ExactCoverWithColorsSolver::SolveImpl(int initial_i, int initial_xl,
     xl = DLink(xl);
   }
 }
+
 int ExactCoverWithColorsSolver::MRV() const {
   // Minimum remaining values
   auto i = RLink(0);
@@ -551,6 +571,7 @@ int ExactCoverWithColorsSolver::MRV() const {
   }
   return ret;
 }
+
 void ExactCoverWithColorsSolver::CoverC(int i) {
   auto p = DLink(i);
   while (p != i) {
@@ -562,6 +583,7 @@ void ExactCoverWithColorsSolver::CoverC(int i) {
   HNode(l).rlink = r;
   HNode(r).llink = l;
 }
+
 void ExactCoverWithColorsSolver::HideC(int p) {
   auto q = p + 1;
   while (q != p) {
@@ -582,6 +604,7 @@ void ExactCoverWithColorsSolver::HideC(int p) {
     }
   }
 }
+
 void ExactCoverWithColorsSolver::UnCoverC(int i) {
   const auto l = LLink(i);
   const auto r = RLink(i);
@@ -593,6 +616,7 @@ void ExactCoverWithColorsSolver::UnCoverC(int i) {
     p = ULink(p);
   }
 }
+
 void ExactCoverWithColorsSolver::UnHideC(int p) {
   auto q = p - 1;
   while (q != p) {
@@ -613,10 +637,12 @@ void ExactCoverWithColorsSolver::UnHideC(int p) {
     }
   }
 }
+
 void ExactCoverWithColorsSolver::Commit(int p, int j) {
   if (Color(p) == 0) CoverC(j);
   if (Color(p) > 0) Purify(p);
 }
+
 void ExactCoverWithColorsSolver::Purify(int p) {
   auto c = Color(p);
   auto i = Top(p);
@@ -630,10 +656,12 @@ void ExactCoverWithColorsSolver::Purify(int p) {
     q = DLink(q);
   }
 }
+
 void ExactCoverWithColorsSolver::UnCommit(int p, int j) {
   if (Color(p) == 0) UnCoverC(j);
   if (Color(p) > 0) UnPurify(p);
 }
+
 void ExactCoverWithColorsSolver::UnPurify(int p) {
   auto c = Color(p);
   auto i = Top(p);

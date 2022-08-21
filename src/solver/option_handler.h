@@ -13,6 +13,7 @@ std::string myToString(T t) {
   ss << t;
   return ss.str();
 }
+
 template <typename T>
 T myFromString(const std::string& s) {
   auto ss = std::stringstream();
@@ -21,18 +22,22 @@ T myFromString(const std::string& s) {
   ss >> ret;
   return ret;
 }
+
 template <typename T>
 std::string toStrImpl(T t) {
   return myToString(t);
 }
+
 template <typename Head, typename... Tail>
 std::string toStrImpl(const Head& head, const Tail&... tail) {
   return myToString(head) + "_" + toStrImpl(tail...);
 }
+
 template <typename T>
 void toStrListImpl(std::vector<std::string>& container, const T& t) {
   container.emplace_back(myToString(t));
 }
+
 template <typename Head, typename... Tail>
 void toStrListImpl(std::vector<std::string>& container, const Head& head,
                    const Tail&... tail) {
@@ -45,6 +50,7 @@ template <typename Head, typename... Tail>
 std::string toStr(const Head& head, const Tail&... tail) {
   return toStrImpl(head, tail...);
 }
+
 template <typename Head, typename... Tail>
 std::vector<std::string> toStrList(const Head& head, const Tail&... tail) {
   auto ret = std::vector<std::string>();
@@ -52,6 +58,7 @@ std::vector<std::string> toStrList(const Head& head, const Tail&... tail) {
   return ret;
 }
 
+// Foward declarations
 class Item;
 using ItemPtr = std::shared_ptr<Item>;
 using ItemConstPtr = std::shared_ptr<const Item>;

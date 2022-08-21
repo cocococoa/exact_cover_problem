@@ -7,12 +7,14 @@ void Option::AddPrimaryItem(ItemConstPtr item_ptr) {
     throw std::runtime_error("Item: " + item_ptr->GetId() + " is not primary.");
   primary_item_list_.emplace_back(item_ptr);
 }
+
 void Option::AddSecondaryItem(ItemConstPtr item_ptr, Color color) {
   if (not item_ptr->IsSecondary())
     throw std::runtime_error("Item: " + item_ptr->GetId() +
                              " is not secondary.");
   secondary_item_list_.emplace_back(item_ptr, color);
 }
+
 bool Option::IsAlive() const {
   for (const auto& ptr : primary_item_list_)
     if (ptr->IsDead()) return false;
@@ -20,12 +22,15 @@ bool Option::IsAlive() const {
     if (ptr->IsDead()) return false;
   return true;
 }
+
 ItemConstPtr Option::GetPrimaryItem(int index) const {
   return primary_item_list_[index];
 }
+
 std::pair<ItemConstPtr, Color> Option::GetSecondaryItem(int index) const {
   return secondary_item_list_[index];
 }
+
 std::string Option::Str() const {
   auto ret = std::string("");
   for (const auto& ptr : primary_item_list_) {
@@ -37,6 +42,7 @@ std::string Option::Str() const {
   ret.erase(ret.end() - 2, ret.end());
   return ret;
 }
+
 ItemConstPtr OptionHandler::AddItem(std::shared_ptr<Item> item_ptr) {
   const auto rhs_ptr = this->FindItem(*item_ptr);
   if (rhs_ptr) return rhs_ptr;
@@ -45,40 +51,47 @@ ItemConstPtr OptionHandler::AddItem(std::shared_ptr<Item> item_ptr) {
   dict_[item_ptr->GetId()] = item_list_.size() - std::size_t{1};
   return item_ptr;
 }
+
 ItemConstPtr OptionHandler::FindItem(const Item& item) const {
   const auto itr = dict_.find(item.GetId());
   if (itr == dict_.end()) return std::shared_ptr<const Item>();
   return item_list_[itr->second];
 }
+
 ItemPtr OptionHandler::FindItemMut(const Item& item) {
   const auto itr = dict_.find(item.GetId());
   if (itr == dict_.end()) return std::shared_ptr<Item>();
   return item_list_[itr->second];
 }
+
 int OptionHandler::NumAliveItems() const {
   auto ret = 0;
   for (const auto& ptr : item_list_)
     if (ptr->IsAlive()) ret++;
   return ret;
 }
+
 int OptionHandler::NumDeadItems() const {
   auto ret = 0;
   for (const auto& ptr : item_list_)
     if (ptr->IsDead()) ret++;
   return ret;
 }
+
 int OptionHandler::NumPrimaryItems() const {
   auto ret = 0;
   for (const auto& ptr : item_list_)
     if (ptr->IsAlive() and ptr->IsPrimary()) ret++;
   return ret;
 }
+
 int OptionHandler::NumSecondaryItems() const {
   auto ret = 0;
   for (const auto& ptr : item_list_)
     if (ptr->IsAlive() and ptr->IsSecondary()) ret++;
   return ret;
 }
+
 std::tuple<int, std::vector<std::vector<int>>, std::unordered_map<int, int>>
 OptionHandler::XCCompile() const {
   if (NumSecondaryItems() > 0) throw std::runtime_error("Not XC problem.");
@@ -118,6 +131,7 @@ OptionHandler::XCCompile() const {
 
   return {num_items, ret, compile_to_raw};
 }
+
 std::tuple<int, int, std::vector<std::vector<std::pair<int, int>>>,
            std::unordered_map<int, int>>
 OptionHandler::XCCCompile() const {

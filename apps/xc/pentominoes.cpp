@@ -65,6 +65,7 @@ struct Board {
     }
   }
 };
+
 int countDiff(const Board& lhs, const Board& rhs) {
   auto diff = 0;
   for (auto x = 0; x < lhs.xlen; ++x)
@@ -72,6 +73,7 @@ int countDiff(const Board& lhs, const Board& rhs) {
       if (lhs.Get(x, y) != rhs.Get(x, y)) diff++;
   return diff;
 }
+
 bool operator==(const Board& lhs, const Board& rhs) {
   if (lhs.xlen != rhs.xlen) return false;
   if (lhs.ylen != rhs.ylen) return false;
@@ -121,6 +123,7 @@ struct Pentomino {
     return ret;
   }
 };
+
 std::map<int, char> construct() {
   auto ret = std::map<int, char>();
   ret[0] = 'X';

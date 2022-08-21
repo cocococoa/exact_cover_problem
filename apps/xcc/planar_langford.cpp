@@ -114,7 +114,7 @@ int main() {
   std::cout << "-------------------------------" << std::endl;
   langfordPair(11, true);
   std::cout << "-------------------------------" << std::endl;
-  langfordPair(12, true);
+  langfordPair(12);
   std::cout << "-------------------------------" << std::endl;
   langfordPair(15);
   std::cout << "-------------------------------" << std::endl;

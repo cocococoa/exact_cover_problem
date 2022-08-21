@@ -18,10 +18,11 @@ inline int runXCSolver(const std::string& name, ExactCoverProblemSolver& solver,
   const auto elapsed_sec =
       std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
   std::cout << "[Elapsed sec] ";
-  std::cout << std::setw(20) << "XC " + name;
+  std::cout << std::setw(30) << "XC " + name;
   std::cout << ": " << elapsed_sec.count() << std::endl;
   return num_solutions;
 }
+
 inline int runXCCSolver(const std::string& name,
                         ExactCoverWithColorsSolver& solver,
                         bool save_solution) {
@@ -35,7 +36,7 @@ inline int runXCCSolver(const std::string& name,
   const auto elapsed_sec =
       std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
   std::cout << "[Elapsed sec] ";
-  std::cout << std::setw(20) << "XCC " + name;
+  std::cout << std::setw(30) << "XCC " + name;
   std::cout << ": " << elapsed_sec.count() << std::endl;
   return num_solutions;
 }

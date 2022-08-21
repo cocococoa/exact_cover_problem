@@ -89,7 +89,7 @@ void findPrimeSquare(int size, bool save_solution) {
   const auto print_solution = [size, &option_handler,
                                compile_to_raw = &compile_to_raw](
                                   const std::vector<int>& solution) {
-    auto square = std::vector<int>(size * size, 0);
+    auto square = std::vector<int>((std::size_t)size * (std::size_t)size, 0);
     for (const auto oidx : solution) {
       const auto& option = option_handler.GetOption(compile_to_raw->at(oidx));
       for (auto index = 1; index <= size; ++index) {
