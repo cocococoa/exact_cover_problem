@@ -58,7 +58,7 @@ Board loadSudoku(const std::string& path) {
   return ret;
 }
 
-void sudoku(const std::string& path, int index) {
+void sudoku(const std::string& path, int index, bool save_solution) {
   const auto sudoku = loadSudoku(path);
   std::cout << "Problem: \n" << std::endl;
   sudoku.Print();
@@ -98,20 +98,22 @@ void sudoku(const std::string& path, int index) {
   const auto [num_items, option_list, compile_to_raw] =
       option_handler.XCCompile();
   auto solver = ExactCoverProblemSolver(num_items, option_list);
-  runXCSolver("sudoku " + std::to_string(index), solver, true);
+  runXCSolver("sudoku " + std::to_string(index), solver, save_solution);
 
-  const auto option_idx_list = solver.GetSolution(0);
-  auto solved_sudoku = sudoku;
-  for (const auto oidx : option_idx_list) {
-    const auto& option = option_handler.GetOption(compile_to_raw.at(oidx));
-    const auto x = option.GetPrimaryItem(0)->Get<int>(1);
-    const auto y = option.GetPrimaryItem(0)->Get<int>(2);
-    const auto v = option.GetPrimaryItem(1)->Get<int>(2);
-    solved_sudoku.Set(x, y, v);
+  if (save_solution) {
+    const auto option_idx_list = solver.GetSolution(0);
+    auto solved_sudoku = sudoku;
+    for (const auto oidx : option_idx_list) {
+      const auto& option = option_handler.GetOption(compile_to_raw.at(oidx));
+      const auto x = option.GetPrimaryItem(0)->Get<int>(1);
+      const auto y = option.GetPrimaryItem(0)->Get<int>(2);
+      const auto v = option.GetPrimaryItem(1)->Get<int>(2);
+      solved_sudoku.Set(x, y, v);
+    }
+    std::cout << "Solution: \n" << std::endl;
+    solved_sudoku.Print();
+    std::cout << std::endl;
   }
-  std::cout << "Solution: \n" << std::endl;
-  solved_sudoku.Print();
-  std::cout << std::endl;
 }
 
 int main() {
@@ -119,7 +121,10 @@ int main() {
             << "# Sudoku\n"
             << std::endl;
   std::cout << "-------------------------------" << std::endl;
-  sudoku("data/sudoku/0.txt", 0);
+  sudoku("data/sudoku/0.txt", 0, true);
   std::cout << "-------------------------------" << std::endl;
-  sudoku("data/sudoku/1.txt", 1);
+  sudoku("data/sudoku/1.txt", 1, true);
+  std::cout << "-------------------------------" << std::endl;
+  // Reference: https://blog.cybozu.io/entry/1692
+  sudoku("data/sudoku/2.txt", 2, false);
 }
